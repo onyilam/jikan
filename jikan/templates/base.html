@@ -1,0 +1,42 @@
+{% load static %}
+<html>
+    <head>
+        <title>Jikan: Consulting On Demand</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <div class="page-header">
+            <h1><a href="/">Jikan</a></h1>
+        </div>
+
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-9">
+                {% block content %}
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-3">
+                {% block content2 %}
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footer">
+            <p>Contact <a href="mailto:onyilam@gmail.com">
+            onyilam@gmail.com</a>.</p>
+        </div>
+
+    </body>
+
+
+</html>
