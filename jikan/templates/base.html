@@ -1,16 +1,26 @@
 {% load static %}
 <html>
     <head>
-        <title>Jikan: Consulting On Demand</title>
+        <title>Jikan</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
     </head>
     <body>
-        <div class="page-header">
-            <h1><a href="/">Jikan</a></h1>
+         <div class="wrapper">
+    {% include 'includes/header.html' %}
+    {% comment %}
+      <div class="announcement">
+        <div class="container">
+          <strong>Scheduled Maintenance:</strong>
+          In order to upgrade our servers, the application will be offline for approximately 20 minutes on Oct 17, 2015 07:00 UTC.
         </div>
+      </div>
+    {% endcomment %}
+    {% block fullwidthheader %}{% endblock %}
+
+
 
         <div class="content container">
             <div class="row">
