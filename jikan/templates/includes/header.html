@@ -14,6 +14,7 @@
       </div>
       <div class="collapse navbar-collapse" id="header-menu">
         <ul class="nav navbar-nav">
+            <li><a href="{% url 'pages:about' %}">About</a></li>
         </ul>
         {% if user.is_authenticated %}
           <ul class="nav navbar-nav navbar-right">
@@ -42,7 +43,7 @@
             </li>
           </ul>
         {% else %}
-          <a href="{% url 'account_login' %}" title="Login in" class="btn btn-default navbar-btn navbar-right">Sign in</a>
+          <a href="{% url 'account_login' %}" title="Login in" class="btn btn-default navbar-btn navbar-right">Log in</a>
           <a href="{% url 'account_signup' %}" title="Sign up" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 5px;">Sign up</a>
         {% endif %}
       </div>
