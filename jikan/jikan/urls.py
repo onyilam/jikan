@@ -29,7 +29,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
     url(r'pages/', include(('pages.urls','pages'), namespace='pages')),
+    url(r'search/', include(('search.urls', 'search'), namespace='search')),
 ]
 
 if settings.DEBUG: # new
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
