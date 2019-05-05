@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google', # new
     'pages',
     'users',
+    'search',
     'posts.apps.PostsConfig',
 
 ]

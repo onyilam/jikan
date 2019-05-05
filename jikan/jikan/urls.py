@@ -28,7 +28,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
-    url(r'pages/', include(('pages.urls','pages'), namespace='pages')),
+    url(r'pages/', include(('pages.urls', 'pages'), namespace='pages')),
     url(r'search/', include(('search.urls', 'search'), namespace='search')),
 ]
 
