@@ -45,6 +45,7 @@
         {% else %}
           <a href="{% url 'account_login' %}" title="Login in" class="btn btn-default navbar-btn navbar-right">Log in</a>
           <a href="{% url 'account_signup' %}" title="Sign up" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 5px;">Sign up</a>
+            <a href="{% provider_login_url 'google' %}" title="Sign Up With Gmail" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 5px;">Log In with Gmail</a>
         {% endif %}
       </div>
     </div>

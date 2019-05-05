@@ -2,7 +2,8 @@
 {% load socialaccount %}
 {% load static %}
 
-<body>
+{% block fullwidthheader %}
+    {% endblock %}
     {% block content %}
 
     {% for post in object_list %}
@@ -12,20 +13,18 @@
     {% endblock %}
 
 
-<h2>Sign Up</h2>
-    {% block content2 %}
-        {% if user.is_authenticated %}
 
+{% block fullwidthfooter %}
+  <section class="features">
+    <div class="container">
 
-            <p>Welcome {{ user.username }} !!!</p>
-                <p><a href="{% url 'account_logout' %}">Log out</a>
-    {% else %}
-            <p><a href="{% url 'account_signup' %}">Sign Up</a></p>
-            <p><a href="{% url 'account_login' %}">Log In </a></p>
-            <p><a href="{% provider_login_url 'google' %}">Log In with Gmail</a></p>
-        {% endif %}
-     {% endblock %}
+      <article>
+        <span class="glyphicon glyphicon-duplicate"></span>
+        <h2>Support for tertiary studies</h2>
 
+        <p class="lead">Having a huge amount of Systematic Literature Reviews in the platform, it will provide a powerful support for tertiary studies, that is, systematic literature review of secondary studies.</p>
+      </article>
+    </div>
+  </section>
+{% endblock fullwidthfooter %}
 
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-</body>
