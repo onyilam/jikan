@@ -16,38 +16,7 @@
         <ul class="nav navbar-nav">
             <li><a href="{% url 'pages:about' %}">About</a></li>
         </ul>
-        {% if user.is_authenticated %}
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <a href="{% url 'reviews' user.username %}">
-                <span data-toggle="tooltip" data-placement="bottom" data-container="body" title="My profile">{{ user.profile.get_screen_name }}</span>
-              </a>
-            </li>
-            <li>
-              <span class="navbar-text username-divider"></span>
-            </li>
-            {% comment %}
-            <li>
-              <a href="{% url 'library:index' %}">
-                Library
-              </a>
-            </li>
-            {% endcomment %}
 
-            <li>
-              <a href="{% url 'account_logout' %}">
-                <span data-toggle="tooltip" data-placement="bottom" data-container="body" title="Sign out">
-                  <span class="glyphicon glyphicon-log-out"></span>
-                </span>
-              </a>
-            </li>
-          </ul>
-        {% else %}
-          <a href="{% url 'account_login' %}" title="Login in" class="btn btn-default navbar-btn navbar-right">Log in</a>
-          <a href="{% url 'account_signup' %}" title="Sign up" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 5px;">Sign up</a>
-            <a href="{% provider_login_url 'google' %}" title="Sign Up With Gmail" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 5px;">Log In with Gmail</a>
-        {% endif %}
-      </div>
     </div>
   </nav>
 </header>
