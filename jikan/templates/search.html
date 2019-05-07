@@ -1,7 +1,9 @@
+{% extends 'base.html' %}
+
 <h1>Search Page</h1>
 
 <br/>
-<form action="{% url 'search:searchpaper' %}" method="GET" value="{{request.GET.q}}">
+<form action="{% url 'search:search_paper' %}" method="GET" value="{{request.GET.q}}">
 Search <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search posts"/>
 <input type="submit" name="submit" value="Search"/>
 </form>
@@ -17,8 +19,6 @@ Search <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search
 {{result.title}}
 <br/>
 
-{{result.content}}
-<br/>
 
 {% endfor %}
 {% else %}
