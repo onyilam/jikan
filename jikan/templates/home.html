@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% load socialaccount %}
-{% load static %}
 {% load widget_tweaks %}
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-  <title>Simple is Better Than Complex</title>
 </head>
 
 
@@ -15,37 +13,33 @@
     <div class="container">
     <h2>Search for the Next Paper.</h2>
     <p class="lead">
-
-    <div class = "searchbar">
         <form action="{% url 'search:search_paper' %}" method="GET" value="{{request.GET.q}}">
         <input type="text" style="font-size: 12pt; height: 40px; width:400px; " name="q" value="{{request.GET.q}}" placeholder="Title of the Paper"/>
         <br>
         <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" name="submit" value="Search">Submit</button>
         </form>
-    </div>
-
     </p>
+
     {% if submitbutton == 'Search' and request.GET.q != '' %}
     {% if results %}
     <h1>Results for <b>{{ request.GET.q }}</b></h1>
-<br/><br/>
+        <br/><br/>
 
-{% for result in results %}
+        {% for result in results %}
 
-{{result.title}}
-<br/>
+        {{result.title}}
+        <br/>
 
 
-{% endfor %}
-{% else %}
-No search results for this query
-{% endif %}
-{% endif %}
+    {% endfor %}
+    {% else %}
+    No search results for this query
+        {% endif %}
+    {% endif %}
     </div>
     </section>
-{% endblock %}
-
+{% endblock fullwidthheader %}
 
 {% block fullwidthfooter %}
   <section class="features">

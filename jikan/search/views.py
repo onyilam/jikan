@@ -10,20 +10,20 @@ def searchpaper(request):
         submitbutton= request.GET.get('submit')
 
         if query is not None:
-            lookups= Q(title__icontains=query) | Q(content__icontains=query)
+            lookups = Q(title__icontains=query) | Q(abstract__icontains=query)
 
-            results= Paper.objects.filter(lookups).distinct()
+            results = Paper.objects.filter(lookups).distinct()
 
-            context={'results': results,
-                     'submitbutton': submitbutton}
+            context = {'results': results,
+                      'submitbutton': submitbutton}
 
-            return render(request, 'search/search.html', context)
+            return render(request, 'home.html', context)
 
         else:
-            return render(request, 'search/search.html')
+            return render(request, 'home.html')
 
     else:
-        return render(request, 'search/search.html')
+        return render(request, 'home.html')
 
 
 
