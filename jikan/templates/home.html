@@ -14,7 +14,7 @@
     <h2>Search for the Next Paper.</h2>
     <p class="lead">
         <form action="{% url 'search:search_paper' %}" method="GET" value="{{request.GET.q}}">
-        <input type="text" style="font-size: 12pt; height: 40px; width:400px; " name="q" value="{{request.GET.q}}" placeholder="Title of the Paper"/>
+        <input type="text" style="font-size: 12pt; height: 40px; width:400px; " name="q" value="{{request.GET.q}}" placeholder="Paper Title"/>
         <br>
         <br>
         <button type="submit" class="btn btn-primary" name="submit" value="Search">Submit</button>
