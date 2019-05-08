@@ -1,13 +1,20 @@
+from django.db.models import CharField, Model, IntegerField, ForeignKey, ManyToManyField, PROTECT
 from django.db import models
+
 
 class Paper(models.Model):
 #   store the academic paper information
-    aminer_id = models.CharField(max_length=100, null=True)
-    title = models.CharField(max_length=1000)
-    venue = models.CharField(max_length=200, null=True)
-    year = models.IntegerField(null=True)
-    abstract = models.CharField(max_length = 10000, null=True)
-    authors = models.CharField(max_length = 1000, null=True)
-    reference = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    aminer_id = CharField(max_length=100, null=True)
+    title = CharField(max_length=1000)
+    journal = ForeignKey('Journal', related_name='papers', null=True, on_delete=PROTECT)
+    year = IntegerField(null=True)
+    abstract = CharField(max_length=10000, null=True)
+    authors = ManyToManyField('Author', related_name='papers', null=True)
+    reference = ForeignKey('self', on_delete=models.CASCADE, null=True)
 
+class Journal(models.Model):
+    name = CharField(max_length=500)
 
+class Author(models.Model):
+    last_name = CharField(max_length=100)
+    first_name = CharField(max_length=100)
