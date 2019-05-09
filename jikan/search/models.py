@@ -10,6 +10,7 @@ class Paper(models.Model):
     year = IntegerField(null=True)
     abstract = CharField(max_length=10000, null=True)
     authors = ManyToManyField('Author', related_name='papers', null=True)
+    n_citation = IntegerField(null=True)
     reference = ForeignKey('self', on_delete=models.CASCADE, null=True)
 
 class Journal(models.Model):
@@ -18,3 +19,4 @@ class Journal(models.Model):
 class Author(models.Model):
     last_name = CharField(max_length=100)
     first_name = CharField(max_length=100)
+

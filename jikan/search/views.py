@@ -18,10 +18,8 @@ def searchpaper(request):
                       'submitbutton': submitbutton}
 
             return render(request, 'home.html', context)
-
         else:
             return render(request, 'home.html')
-
     else:
         return render(request, 'home.html')
 
