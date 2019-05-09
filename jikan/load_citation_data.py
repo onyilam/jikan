@@ -3,7 +3,7 @@ import pandas as pd
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "jikan.settings")
 import django
 django.setup()
-
+from ast import literal_eval
 from search.models import Paper, Journal, Author
 
 
@@ -16,8 +16,10 @@ def save_paper_from_row(paper_row):
     paper.journal = journal
     paper.year = paper_row['year']
 
-    for author in paper_row['authors']:
-        author, _ = Author.objects.get_or_create(author)
+    for author in literal_eval(paper_row['authors']):
+        fname = author.split(" ")[0]
+        lname = author.split(" ")[-1]
+        author, _ = Author.objects.get_or_create(first_name=fname, last_name=lname)
         paper.authors.add(author)
 
     paper.n_citation = paper_row['n_citation']
