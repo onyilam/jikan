@@ -15,6 +15,9 @@ def save_paper_from_row(paper_row):
     journal, _ = Journal.objects.get_or_create(name=paper_row['venue'])
     paper.journal = journal
     paper.year = paper_row['year']
+    paper.n_citation = paper_row['n_citation']
+    paper.references = paper_row['references']
+    paper.save()
 
     for author in literal_eval(paper_row['authors']):
         fname = author.split(" ")[0]
@@ -22,8 +25,6 @@ def save_paper_from_row(paper_row):
         author, _ = Author.objects.get_or_create(first_name=fname, last_name=lname)
         paper.authors.add(author)
 
-    paper.n_citation = paper_row['n_citation']
-    paper.references = paper_row['references']
     paper.save()
 
 
