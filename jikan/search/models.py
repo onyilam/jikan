@@ -16,7 +16,13 @@ class Paper(models.Model):
 class Journal(models.Model):
     name = CharField(max_length=500)
 
+    def __str__(self):
+        return self.name
+
 class Author(models.Model):
     last_name = CharField(max_length=100)
     first_name = CharField(max_length=100)
+
+    def __str__(self):
+        return self.last_name
 
