@@ -8,7 +8,7 @@ from search.models import Paper, Journal, Author
 
 
 def save_paper_from_row(paper_row):
-    paper = Paper()
+    paper, _ = Paper.objects.get_or_create(aminer_id=paper_row['id'])
     paper.aminer_id = paper_row['id']
     paper.title = paper_row['title']
     paper.abstract = paper_row['abstract']
