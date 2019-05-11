@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth.account', # new
     'allauth.socialaccount', # new
     'allauth.socialaccount.providers.google', # new
+    'widget_tweaks',
     'pages',
     'users',
     'search',

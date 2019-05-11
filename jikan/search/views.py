@@ -1,19 +1,17 @@
 from django.shortcuts import render
 from django.db.models import Q
 from .models import Paper
+import json
+
 
 def searchpaper(request):
-    #search paper in the Paper model, if it doesn't exist, pull from Google Scholar and add to the Paper model
     if request.method == 'GET':
         query = request.GET.get('q')
-
         submitbutton= request.GET.get('submit')
 
         if query is not None:
             lookups = Q(title__icontains=query) | Q(abstract__icontains=query)
-
             results = Paper.objects.filter(lookups).distinct()
-
             context = {'results': results,
                       'submitbutton': submitbutton}
 
@@ -23,12 +21,12 @@ def searchpaper(request):
     else:
         return render(request, 'home.html')
 
+def get_recommendation(request):
 
+    rec_list = [1,3,4]
+    context = {
+        'rec_list': rec_list
+    }
 
-def add_paper(request):
-    #user paste the exact title of the paper in the search bar. if it doesn't exist, fetch the info from Google scholar
-    # and add to the Papers model
-    query = request.GET.get('q')
-    paper_search, _ = Paper.objects.update_or_create(title= query.decode('utf-8').lower())
-
+    return render(request, 'home.html', context)
 
