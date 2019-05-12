@@ -2,15 +2,31 @@
 {% load socialaccount %}
 {% load widget_tweaks %}
 
+
 {% block javascript %}
     <script>
 $(document).ready(function(){
   $("#sim_papers").click(function(){
-    alert("Placeholders");
+        $.ajax({
+            type: "GET",
+            url: "{% url 'search:get_recommendation' %}",
+            success: function(response) {
+              console.log(response.rec_list)
+            },
+
+            error: function(response, error) {
+                alert(error);
+            }
+        });
+    });
   });
-});
+
+
+
+
 </script>
 {% endblock %}
+
 
 <head>
     <meta charset="utf-8">
