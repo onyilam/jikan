@@ -11,7 +11,7 @@ $(document).ready(function(){
             type: "GET",
             url: "{% url 'search:get_recommendation' %}",
             success: function(response) {
-              console.log(response.rec_list)
+                $("#sim_papers").text(response.rec_list)
             },
 
             error: function(response, error) {
