@@ -1,3 +1,5 @@
+
+from django.views.generic import ListView
 from django.shortcuts import render
 from django.db.models import Q
 from .models import Paper
@@ -26,4 +28,9 @@ def get_recommendation(request):
     data = {'rec_list': values_list}
     print(JsonResponse(data))
     return JsonResponse(data)
+
+class HomePageView(ListView):
+    model = Paper
+    template_name = 'home.html'
+
 

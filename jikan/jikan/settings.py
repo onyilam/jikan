@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'pages',
     'users',
     'search',
-    'posts.apps.PostsConfig',
 
 ]
 
