@@ -6,10 +6,10 @@
 {% block javascript %}
     <script>
         $(document).ready(function(){
-          $("button").click(function(){
+          $(".sim_button").click(function(){
                 $.ajax({
                     type: "GET",
-                    data: {'pk': 200},
+                    data: {'pk': $(this).data('pid') },
                     url: "{% url 'search:get_recommendation' %}",
                     success: function(response) {
                         $("#sim_papers").text(response.rec_list)
@@ -53,13 +53,15 @@
 
     <h3>Results for <b>{{ request.GET.q }}</b></h3>
         <br/>
+
+
        {% for result in results %}
            <li >
-            {{result.title}},
+            {{ result.title}},
             {{ result.authors }},
             <strong> {{ result.journal }}</strong>
             <i>{{ result.year }} </i>
-            <button>Similar Papers </button>
+            <button class="sim_button" data-pid="{{ result.pk }}">Similar Papers </button>
 
            <div id="sim_papers">
 
@@ -70,7 +72,8 @@
 
         <br/>
 
-        {% endfor %}
+       {% endfor %}
+
     {% else %}
     No search results for this query
         {% endif %}
