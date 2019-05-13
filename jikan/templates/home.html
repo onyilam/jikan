@@ -12,7 +12,7 @@
                     data: {'pk': $(this).data('pid') },
                     url: "{% url 'search:get_recommendation' %}",
                     success: function(response) {
-                        $("#sim_papers").text(response.rec_list)
+                        $(".sim_papers").text(response.rec_list)
                     },
                     error: function(response, error) {
                         alert(error);
@@ -47,6 +47,7 @@
             </form>
         </p>
 
+
     {% if submitbutton == 'Search' and request.GET.q != '' %}
     {% if results %}
 
@@ -55,31 +56,34 @@
         <br/>
 
 
+        <div style="width: 100%; overflow: hidden;">
+        <div style="width: 500px; float: left;">
        {% for result in results %}
            <li >
             {{ result.title}},
             {{ result.authors }},
             <strong> {{ result.journal }}</strong>
             <i>{{ result.year }} </i>
+
             <button class="sim_button" data-pid="{{ result.pk }}">Similar Papers </button>
-
-           <div id="sim_papers">
-
-           </div>
            </li>
-
-
-
-        <br/>
+           <br/>
 
        {% endfor %}
+        </div>
+           <div class="sim_papers" style="margin-left: 420px;padding: 0px 100px 0px 130px;" >
+           </div>
 
+
+
+         </div>
     {% else %}
-    No search results for this query
+
+
+        <h4> No search results for this query </h4>
         {% endif %}
     {% endif %}
     </div>
-
     </section>
 
 {% endblock fullwidthheader %}
