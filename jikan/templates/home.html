@@ -5,26 +5,22 @@
 
 {% block javascript %}
     <script>
-$(document).ready(function(){
-  $("#sim_papers").click(function(){
-        $.ajax({
-            type: "GET",
-            url: "{% url 'search:get_recommendation' %}",
-            success: function(response) {
-                $("#sim_papers").text(response.rec_list)
-            },
-
-            error: function(response, error) {
-                alert(error);
-            }
-        });
-    });
-  });
-
-
-
-
-</script>
+        $(document).ready(function(){
+          $("button").click(function(){
+                $.ajax({
+                    type: "GET",
+                    data: {'pk': 200},
+                    url: "{% url 'search:get_recommendation' %}",
+                    success: function(response) {
+                        $("#sim_papers").text(response.rec_list)
+                    },
+                    error: function(response, error) {
+                        alert(error);
+                    }
+                });
+            });
+          });
+    </script>
 {% endblock %}
 
 
@@ -63,27 +59,12 @@ $(document).ready(function(){
             {{ result.authors }},
             <strong> {{ result.journal }}</strong>
             <i>{{ result.year }} </i>
-            </li>
+            <button>Similar Papers </button>
 
-            <button id="sim_papers">Similar Papers </button>
+           <div id="sim_papers">
 
-
-
-
-
-
-            <div class="recommendation"
-            id="button-{{ result.pk }}">
-
-            {% if rec_list %}
-                <h4>Similar Papers:</h4>
-            {% endif %}
-
-            </div>
-
-
-
-
+           </div>
+           </li>
 
 
 

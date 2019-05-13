@@ -20,8 +20,8 @@ def searchpaper(request):
         return render(request, 'home.html')
 
 def get_recommendation(request):
-
-    rec_values = Paper.objects.first()
+    pid = request.GET['pk']
+    rec_values = Paper.objects.get(pk=pid)
     values_list = list(rec_values.title)
     data = {'rec_list': values_list}
     print(JsonResponse(data))
