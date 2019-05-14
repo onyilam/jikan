@@ -11,7 +11,7 @@ class Paper(models.Model):
     abstract = CharField(max_length=10000, null=True)
     authors = ManyToManyField('Author', related_name='papers', null=True)
     n_citation = IntegerField(null=True)
-    reference = ForeignKey('self', on_delete=models.CASCADE, null=True)
+    recommend = ForeignKey('self', on_delete=PROTECT, null=True)
 
 class Journal(models.Model):
     name = CharField(max_length=500)
@@ -25,4 +25,3 @@ class Author(models.Model):
 
     def __str__(self):
         return self.last_name
-
