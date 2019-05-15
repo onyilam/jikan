@@ -7,8 +7,27 @@ from ast import literal_eval
 from search.models import Paper, Journal, Author
 
 
-def save_paper_from_row(paper_row):
+def save_paper_from_row_if_existed(paper_row):
     paper, _ = Paper.objects.get_or_create(aminer_id=paper_row['id'])
+    paper.aminer_id = paper_row['id']
+    paper.title = paper_row['title']
+    paper.abstract = paper_row['abstract']
+    journal, _ = Journal.objects.get_or_create(name=paper_row['venue'])
+    paper.journal = journal
+    paper.year = paper_row['year']
+    paper.n_citation = paper_row['n_citation']
+    paper.save()
+
+    for author in literal_eval(paper_row['authors']):
+        fname = author.split(" ")[0]
+        lname = author.split(" ")[-1]
+        author, _ = Author.objects.get_or_create(first_name=fname, last_name=lname)
+        paper.authors.add(author)
+
+    paper.save()
+
+def save_paper_from_row_newfile(paper_row):
+    paper = Paper()
     paper.aminer_id = paper_row['id']
     paper.title = paper_row['title']
     paper.abstract = paper_row['abstract']
@@ -38,7 +57,7 @@ if __name__ == "__main__":
 
         # apply save_review_from_row to each review in the data frame
         papers_df.apply(
-            save_paper_from_row,
+            save_paper_from_row_if_existed,
             axis=1
         )
 
