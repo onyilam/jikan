@@ -9,3 +9,5 @@ The recommendation engine uses citation data to decide the next paper the reader
 ### Data
 
 References: https://aminer.org/citation
+
+[[https://github.com/onyilam/jikan/blob/master/num_paper.png|alt=num_paper]]
