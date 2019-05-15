@@ -10,4 +10,4 @@ The recommendation engine uses citation data to decide the next paper the reader
 
 References: https://aminer.org/citation
 
-[[https://github.com/onyilam/jikan/blob/master/jikan/num_paper.png|alt=num_paper]]
+![num_paper](https://github.com/onyilam/jikan/blob/master/jikan/num_paper.png)
