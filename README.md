@@ -1,10 +1,12 @@
 # Jikan
 
-A NLP Django webapp that suggests academic papers to read based on citation data.
+A Django webapp that suggests academic papers to read based on similarity of papers. It uses jquery to display search results so the pages do not need to be rendered every time. 
 
 ## Paper Recommendation
 
-The recommendation engine uses citation data to decide the next paper the reader should read. A paper can cite other papers and can be cited by others. We use a collaborative filtering approach, which means that we look at the similarity between papers by the citation pattern (specifically, how they are cited by other papers) and find other papers that are most similar to these other papers.
+The algorithm uses the abstract of the paper to decide the next paper the reader should read. The algorithm first filters the set of papers to papers that belong to the same discipline. We consider 8 arbitrary disciplines and classify papers into them based on the name of the journals that they appear on.
+
+After that, we conduct the standard preprocessing on the abstract (removing punctuation etc), and calculate the tf-idf and subsequently the cosine similarity of the abstract with the other papers in the same set.
 
 ### Data
 
