@@ -41,7 +41,7 @@ def paperpreference(request, pid, userpreference):
         valueobj = ''
 
         try:
-            obj = Preference.objects.get(user=request.user, post=eachpaper)
+            obj = Preference.objects.get(user=request.user, paper=eachpaper)
             valueobj = obj.value  # value of userpreference
             valueobj = int(valueobj)
             userpreference = int(userpreference)

@@ -70,7 +70,12 @@
                <a href="#" onClick="document.getElementById('dislikebutton').submit()">Dislike </a> {{result.dislikes}}
 
 
-            <form id="likebutton" method="POST" action="/posts/{{result.id}}/preference/1/">
+            <form id="likebutton" method="POST" action="{{result.id}}/preference/1/">
+                {% csrf_token %}
+            <input type="hidden">
+            </form>
+           <form id="dislikebutton" method="POST" action="{{result.id}}/preference/2/">
+               {% csrf_token %}
             <input type="hidden">
             </form>
 
