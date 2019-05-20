@@ -29,6 +29,13 @@ def get_recommendation(request):
     print(JsonResponse(data))
     return JsonResponse(data)
 
+def postpreference(request, pid, userpreference):
+    context = {'eachaper': eachpost,
+               'paperid': pid}
+
+    return render(request, 'home.html', context)
+
+
 class HomePageView(ListView):
     model = Paper
     template_name = 'home.html'

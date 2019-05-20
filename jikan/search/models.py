@@ -1,5 +1,6 @@
-from django.db.models import CharField, Model, IntegerField, ForeignKey, ManyToManyField, PROTECT
+from django.db.models import CharField, Model, IntegerField, ForeignKey, ManyToManyField, PROTECT, CASCADE
 from django.db import models
+from users.models import CustomUser
 
 
 class Paper(models.Model):
@@ -25,3 +26,17 @@ class Author(models.Model):
 
     def __str__(self):
         return self.last_name
+
+
+class Preference(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=CASCADE)
+    paper = models.ForeignKey(Paper, on_delete=CASCADE)
+    value = models.IntegerField()
+    date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.user) + ':' + str(self.paper) + ':' + str(self.value)
+
+    class Meta:
+        unique_together = ("user", "paper", "value")
+
