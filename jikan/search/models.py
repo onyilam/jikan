@@ -13,6 +13,8 @@ class Paper(models.Model):
     authors = ManyToManyField('Author', related_name='papers', null=True)
     n_citation = IntegerField(null=True)
     recommend = ManyToManyField('self', null=True)
+    likes = IntegerField(default=0)
+    dislikes = IntegerField(default=0)
 
 class Journal(models.Model):
     name = CharField(max_length=500)
