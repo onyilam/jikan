@@ -12,7 +12,7 @@
                     data: {'pk': $(this).data('pid') },
                     url: "{% url 'search:get_recommendation' %}",
                     success: function(response) {
-                        $(".sim_papers").text(response.rec_list)
+                        $(".sim_papers").text(response.rec_list + ", "+ response.rec_journal).css({ 'font-weight': 'bold' })
                     },
                     error: function(response, error) {
                         alert(error);
@@ -28,7 +28,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-
 
 </head>
 
@@ -66,6 +65,15 @@
             <i>{{ result.year }} </i>
 
             <button class="sim_button" data-pid="{{ result.pk }}">Similar Papers </button>
+
+           <a href="#" onClick="document.getElementById('likebutton').submit()">Like </a> {{result.likes}}   |
+               <a href="#" onClick="document.getElementById('dislikebutton').submit()">Dislike </a> {{result.dislikes}}
+
+
+            <form id="likebutton" method="POST" action="/posts/{{result.id}}/preference/1/">
+            <input type="hidden">
+            </form>
+
            </li>
            <br/>
 
