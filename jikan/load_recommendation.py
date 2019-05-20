@@ -9,9 +9,11 @@ from search.models import Paper, Journal, Author
 
 def load_recommendation(paper_row):
     paper, _ = Paper.objects.get_or_create(aminer_id=paper_row['id'])
-    similar_paper, _ = Paper.objects.get_or_create(aminer_id=paper_row['recommend'])
-    paper.recommend.add(similar_paper)
-    paper.save()
+    rankings = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+    for rank in rankings:
+        similar_paper, _ = Paper.objects.get_or_create(aminer_id=paper_row[rank])
+        paper.recommend.add(similar_paper)
+        paper.save()
 
 # the main function for the script, called by the shell
 if __name__ == "__main__":
