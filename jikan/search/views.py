@@ -1,6 +1,7 @@
 
 from django.views.generic import ListView
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Paper, Preference
 from django.http import JsonResponse
@@ -31,17 +32,14 @@ def get_recommendation(request):
     data = {'rec_list': values_list, 'rec_journal': model_to_dict(rec_journal)['name']}
     return JsonResponse(data)
 
+@login_required
 def paperpreference(request, pid, userpreference):
     if request.method == "POST":
-
         eachpaper = get_object_or_404(Paper, id=pid)
-
         obj = ''
-
         valueobj = ''
-
         try:
-            obj = Preference.objects.get(user=request.user, paper=eachpaper)
+            obj, _ = Preference.objects.get_or_create(user=request.user, paper=eachpaper)
             valueobj = obj.value  # value of userpreference
             valueobj = int(valueobj)
             userpreference = int(userpreference)
