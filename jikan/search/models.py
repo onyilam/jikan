@@ -31,9 +31,9 @@ class Author(models.Model):
 
 
 class Preference(models.Model):
-    user = ForeignKey(CustomUser, on_delete=CASCADE)
-    paper = ForeignKey(Paper, on_delete=CASCADE)
-    value = IntegerField()
+    user = ForeignKey(CustomUser, on_delete=CASCADE, null=True)
+    paper = ForeignKey(Paper, on_delete=CASCADE, null=True)
+    value = IntegerField(null=True)
     date = models.DateTimeField(auto_now=True)
 
     def __str__(self):

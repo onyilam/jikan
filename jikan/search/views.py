@@ -41,7 +41,7 @@ def paperpreference(request, pid, userpreference):
         try:
             obj, _ = Preference.objects.get_or_create(user=request.user, paper=eachpaper)
             valueobj = obj.value  # value of userpreference
-            valueobj = int(valueobj)
+            #valueobj = int(valueobj)
             userpreference = int(userpreference)
 
             if valueobj != userpreference:
