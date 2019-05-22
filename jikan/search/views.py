@@ -53,10 +53,8 @@ def paperpreference(request, pid, userpreference):
 
                 if userpreference == 1 and valueobj != 1:
                     eachpaper.likes += 1
-                    eachpaper.dislikes -= 1
                 elif userpreference == 2 and valueobj != 2:
                     eachpaper.dislikes += 1
-                    eachpaper.likes -= 1
 
                 upref.save()
 
