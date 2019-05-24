@@ -40,6 +40,25 @@
             });
           });
     </script>
+        <script>
+        $(document).ready(function(){
+          $(".dislike_button").click(function(){
+                var pk = $(this).data('pid')
+                $.ajax({
+                    type: "GET",
+                    data: {'pk': $(this).data('pid'),
+                           'liked': $("span").hasClass('fa fa-thumbs-down') },
+                    url: "{% url 'search:paperpreference' %}",
+                    success: function(response) {
+                        $("#dislike_count_"+ pk).html(response.dislikes )
+                    },
+                    error: function(response, error) {
+                        alert(error);
+                    }
+                });
+            });
+          });
+    </script>
 
 {% endblock %}
 
@@ -90,7 +109,7 @@
                    <strong id="like_count_{{ result.pk }}">{{result.likes}} </strong> </a>
 
              |
-                <a href="#" onClick="document.getElementById('dislikebutton').submit()"> <span class="like_span fa fa-thumbs-down"> </span>
+                <a href="#" class="dislike_button" data-pid="{{ result.pk }}"> <span class="like_span fa fa-thumbs-down"></span>
               <strong id="dislike_count"> {{result.dislikes}}</strong> </a>
 
             <br>
