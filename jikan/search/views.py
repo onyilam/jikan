@@ -15,7 +15,7 @@ def searchpaper(request):
         submitbutton= request.GET.get('submit')
         if query is not None:
             lookups = Q(title__icontains=query)
-            results = Paper.objects.filter(lookups).distinct()
+            results = Paper.objects.filter(lookups).distinct().order_by('-likes', '-n_citation')
             context = {'results': results,
                       'submitbutton': submitbutton}
             return render(request, 'home.html', context)
