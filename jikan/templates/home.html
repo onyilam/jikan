@@ -12,7 +12,7 @@
                     data: {'pk': $(this).data('pid') },
                     url: "{% url 'search:get_recommendation' %}",
                     success: function(response) {
-                        $(".sim_papers").text(response.rec_list + ", "+ response.rec_journal).css({ 'font-weight': 'bold' })
+                        $(".expand").text(response.rec_list + ", "+ response.rec_journal).css({ 'font-weight': 'bold' })
                     },
                     error: function(response, error) {
                         alert(error);
@@ -24,38 +24,22 @@
     <script>
         $(document).ready(function(){
           $(".like_button").click(function(){
+                var pk = $(this).data('pid')
                 $.ajax({
                     type: "GET",
                     data: {'pk': $(this).data('pid'),
                            'liked': $("span").hasClass('fa fa-thumbs-up') },
                     url: "{% url 'search:paperpreference' %}",
                     success: function(response) {
-                        $("#like_count").html(response.likes )
+                        $("#like_count_"+ pk).html(response.likes )
                     },
                     error: function(response, error) {
-                        alert(response.likes);
+                        alert(error);
                     }
                 });
             });
           });
     </script>
-
-
-{#$('#likes').click(function(){#}
-{#    $('.like_span').toggleClass('glyphicon-thumbs-down glyphicon-thumbs-up');#}
-{#    var postid;#}
-{#    postid= $(this).attr("data-post_id");#}
-{#    $.get('/blog/like_post/', {post_id: postid, liked:$('.like_span').hasClass('glyphicon-thumbs-up')}, function(data){#}
-{#               $('#like_count').html(data);#}
-{#               $('#likes').hide();#}
-{#    });#}
-{#});#}
-{##}
-{##}
-{#<span class="like_span glyphicon glyphicon-thumbs-up"></span>#}
-{#<span class="like_span glyphicon glyphicon-thumbs-down"></span>#}
-
-    {#</script>#}
 
 {% endblock %}
 
@@ -92,7 +76,7 @@
 
 
         <div style="width: 100%; overflow: hidden;">
-        <div style="width: 500px; float: left;">
+
        {% for result in results %}
            <li >
             {{ result.title}},
@@ -102,13 +86,15 @@
 
             <button class="sim_button" data-pid="{{ result.pk }}">Similar Papers </button>
 
-               <a href="#" class="like_button" data-pid="{{ result.pk }}"> <span class="like_span fa fa-thumbs-up"></span> </a>
+               <a href="#" class="like_button" data-pid="{{ result.pk }}"> <span class="like_span fa fa-thumbs-up"></span>
+                   <strong id="like_count_{{ result.pk }}">{{result.likes}} </strong> </a>
 
-            <strong id="like_count">{{result.likes}} </strong>  |
-                <a href="#" onClick="document.getElementById('dislikebutton').submit()"> <span class="like_span fa fa-thumbs-down"> </span> </a>
-              <strong id="dislike_count"> {{result.dislikes}}</strong>
+             |
+                <a href="#" onClick="document.getElementById('dislikebutton').submit()"> <span class="like_span fa fa-thumbs-down"> </span>
+              <strong id="dislike_count"> {{result.dislikes}}</strong> </a>
 
-
+            <br>
+               <div class="expand" id="sim_{{ result.pk }}"></div>
 
 {##}
 {#            <form id="likebutton" method="POST" action="{{result.id}}/preference/1/">#}
@@ -124,9 +110,6 @@
            <br/>
 
        {% endfor %}
-        </div>
-           <div class="sim_papers" style="margin-left: 420px;padding: 0px 100px 0px 130px;" >
-           </div>
 
 
 
