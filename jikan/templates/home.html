@@ -7,12 +7,14 @@
     <script>
         $(document).ready(function(){
           $(".sim_button").click(function(){
+                var pk = $(this).data('pid')
                 $.ajax({
                     type: "GET",
-                    data: {'pk': $(this).data('pid') },
+                    data: {'pk': $(this).data('pid')},
                     url: "{% url 'search:get_recommendation' %}",
                     success: function(response) {
-                        $(".expand").text(response.rec_list + ", "+ response.rec_journal).css({ 'font-weight': 'bold' })
+                        $("#sim_" + pk).html(response.rec_list + ", "+ response.rec_journal).css({ 'font-weight': 'bold' })
+                        console.log($("#sim_" + pk))
                     },
                     error: function(response, error) {
                         alert(error);
@@ -27,7 +29,7 @@
                 var pk = $(this).data('pid')
                 $.ajax({
                     type: "GET",
-                    data: {'pk': $(this).data('pid'),
+                    data: {'pk': pk,
                            'liked': $("span").hasClass('fa fa-thumbs-up') },
                     url: "{% url 'search:like_paper' %}",
                     success: function(response) {
