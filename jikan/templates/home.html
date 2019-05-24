@@ -21,25 +21,26 @@
             });
           });
     </script>
-{# <script>#}
-{#        $(document).ready(function(){#}
-{#          $(".likebutton").click(function(){#}
-{#                var pid#}
-{#                pid = $(this).data('pid')#}
-{#                $.ajax({#}
-{#                    type: "POST",#}
-{#                    data: {'pk': $(this).data('pid'),  liked:$('.like_span').hasClass('fa fa-thumbs-up') },#}
-{#                    url: "{% url 'search:paperpreference' %}",#}
-{#                    success: function(response) {#}
-{#                        $(".likebutton").text(response.likes )#}
-{#                    },#}
-{#                    error: function(response, error) {#}
-{#                        alert(error);#}
-{#                    }#}
-{#                });#}
-{#            });#}
-{#          });#}
-{##}
+    <script>
+        $(document).ready(function(){
+          $(".like_button").click(function(){
+                $.ajax({
+                    type: "GET",
+                    data: {'pk': $(this).data('pid'),
+                           'liked': $("span").hasClass('fa fa-thumbs-up') },
+                    url: "{% url 'search:paperpreference' %}",
+                    success: function(response) {
+                        $("#like_count").html(response.likes )
+                    },
+                    error: function(response, error) {
+                        alert(response.likes);
+                    }
+                });
+            });
+          });
+    </script>
+
+
 {#$('#likes').click(function(){#}
 {#    $('.like_span').toggleClass('glyphicon-thumbs-down glyphicon-thumbs-up');#}
 {#    var postid;#}
@@ -101,21 +102,23 @@
 
             <button class="sim_button" data-pid="{{ result.pk }}">Similar Papers </button>
 
-               <a href="#" onClick="document.getElementById('likebutton').submit()"> <span class="like_span fa fa-thumbs-up"> </a> </span>
+               <a href="#" class="like_button" data-pid="{{ result.pk }}"> <span class="like_span fa fa-thumbs-up"></span> </a>
 
-            {{result.likes}}   |
-                <a href="#" onClick="document.getElementById('dislikebutton').submit()"> <span class="like_span fa fa-thumbs-down"> </a> </span>
-               {{result.dislikes}}
+            <strong id="like_count">{{result.likes}} </strong>  |
+                <a href="#" onClick="document.getElementById('dislikebutton').submit()"> <span class="like_span fa fa-thumbs-down"> </span> </a>
+              <strong id="dislike_count"> {{result.dislikes}}</strong>
 
 
-            <form id="likebutton" method="POST" action="{{result.id}}/preference/1/">
-                {% csrf_token %}
-            <input type="hidden">
-            </form>
-           <form id="dislikebutton" method="POST" action="{{result.id}}/preference/2/">
-               {% csrf_token %}
-            <input type="hidden">
-            </form>
+
+{##}
+{#            <form id="likebutton" method="POST" action="{{result.id}}/preference/1/">#}
+{#                {% csrf_token %}#}
+{#            <input type="hidden">#}
+{#            </form>#}
+{#           <form id="dislikebutton" method="POST" action="{{result.id}}/preference/2/">#}
+{#               {% csrf_token %}#}
+{#            <input type="hidden">#}
+{#            </form>#}
 
            </li>
            <br/>
