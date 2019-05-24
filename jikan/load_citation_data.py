@@ -13,9 +13,9 @@ def save_paper_from_row(paper_row):
         if p:
             print('Paper Already Existed')
     except Paper.DoesNotExist:
-        paper, _ = Paper.objects.get_or_create(aminer_id=paper_row['id'])
-        print("Import New Paper", paper_row['id'])
+        paper = Paper()
         paper.aminer_id = paper_row['id']
+        print("Import New Paper", paper_row['id'])
         paper.title = paper_row['title']
         paper.abstract = paper_row['abstract']
         journal, _ = Journal.objects.get_or_create(name=paper_row['venue'])
@@ -42,7 +42,7 @@ if __name__ == "__main__":
         papers_df = pd.read_csv(sys.argv[1])
 
         # apply save_review_from_row to each review in the data frame
-        papers_df = papers_df[250000:]
+        papers_df = papers_df[800000:]
         print(len(papers_df))
         papers_df.apply(
             save_paper_from_row,
