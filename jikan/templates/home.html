@@ -29,7 +29,7 @@
                     type: "GET",
                     data: {'pk': $(this).data('pid'),
                            'liked': $("span").hasClass('fa fa-thumbs-up') },
-                    url: "{% url 'search:paperpreference' %}",
+                    url: "{% url 'search:like_paper' %}",
                     success: function(response) {
                         $("#like_count_"+ pk).html(response.likes )
                     },
@@ -40,15 +40,15 @@
             });
           });
     </script>
-        <script>
+    <script>
         $(document).ready(function(){
           $(".dislike_button").click(function(){
                 var pk = $(this).data('pid')
                 $.ajax({
                     type: "GET",
-                    data: {'pk': $(this).data('pid'),
-                           'liked': $("span").hasClass('fa fa-thumbs-down') },
-                    url: "{% url 'search:paperpreference' %}",
+                    data: {'pk': pk,
+                           'disliked': $("span").hasClass('fa fa-thumbs-down') },
+                    url: "{% url 'search:dislike_paper' %}",
                     success: function(response) {
                         $("#dislike_count_"+ pk).html(response.dislikes )
                     },
@@ -107,10 +107,9 @@
 
                <a href="#" class="like_button" data-pid="{{ result.pk }}"> <span class="like_span fa fa-thumbs-up"></span>
                    <strong id="like_count_{{ result.pk }}">{{result.likes}} </strong> </a>
-
              |
                 <a href="#" class="dislike_button" data-pid="{{ result.pk }}"> <span class="like_span fa fa-thumbs-down"></span>
-              <strong id="dislike_count"> {{result.dislikes}}</strong> </a>
+                    <strong id="dislike_count_{{ result.pk }}"> {{result.dislikes}}</strong> </a>
 
             <br>
                <div class="expand" id="sim_{{ result.pk }}"></div>

@@ -33,95 +33,26 @@ def get_recommendation(request):
     return JsonResponse(data)
 
 @login_required
-def paperpreference(request):
+def like_paper(request):
    # if request.method == "GET":
     pid = request.GET['pk']
     paper = Paper.objects.get(pk=pid)
-        # obj = ''
-        # valueobj = ''
-        #
-        # liked = False
-        # if request.session.get('has_liked_' + pid, liked):
-        #     print("unlike")
-        #     if paper.likes > 0:
-        #         likes = paper.likes - 1
-        #         try:
-        #             del request.session['has_liked_' + post_id]
-        #         except KeyError:
-        #             print("keyerror")
-        # else:
-        #     print("like")
-        #     request.session['has_liked_' + post_id] = True
     likes = paper.likes + 1
     paper.likes = likes
     paper.save()
     data = {'likes': paper.likes}
-
     return JsonResponse(data)
 
-        #return render(request, 'home.html', context)
-
-
-        #return HttpResponse(likes, liked)
-
-        #
-        # try:
-        #     obj, _ = Preference.objects.get_or_create(user=request.user, paper=paper)
-        #     valueobj = obj.value  # value of userpreference
-        #     #valueobj = int(valueobj)
-        #
-        #     if valueobj != userpreference:
-        #         obj.delete()
-        #         upref = Preference()
-        #         upref.user = request.user
-        #         upref.post = paper
-        #         upref.value = userpreference
-        #
-        #         if userpreference == 1 and valueobj != 1:
-        #             paper.likes += 1
-        #         elif userpreference == 2 and valueobj != 2:
-        #             paper.dislikes += 1
-        #
-        #         upref.save()
-        #
-        #         paper.save()
-
-    #
-    #
-    #             return render(request, 'home.html', context)
-    #
-    #
-    #     except Preference.DoesNotExist:
-    #         upref = Preference()
-    #
-    #         upref.user = request.user
-    #
-    #         upref.post = eachpaper
-    #
-    #         upref.value = userpreference
-    #
-    #         userpreference = int(userpreference)
-    #
-    #         if userpreference == 1:
-    #             eachpaper.likes += 1
-    #         elif userpreference == 2:
-    #             eachpaper.dislikes += 1
-    #
-    #         upref.save()
-    #
-    #         eachpaper.save()
-    #
-    #         context = {'eachpost': eachpaper,
-    #                    'postid': pid}
-    #
-    #         return render(request, 'home.html', context)
-    #
-    # else:
-    #     eachpaper = get_object_or_404(Paper, id=pid)
-    #     context = {'eachpaper': eachpaper,
-    #                'pid': pid}
-    #
-    # return render(request, 'home.html', context)
+@login_required
+def dislike_paper(request):
+    # if request.method == "GET":
+    pid = request.GET['pk']
+    paper = Paper.objects.get(pk=pid)
+    dislikes = paper.dislikes + 1
+    paper.dislikes = dislikes
+    paper.save()
+    data = {'dislikes': paper.dislikes}
+    return JsonResponse(data)
 
 
 class HomePageView(ListView):
