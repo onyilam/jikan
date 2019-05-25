@@ -16,18 +16,18 @@ def searchpaper(request):
 
         if query is not None:
             lookups = Q(title__icontains=query)
-            results = Paper.objects.filter(lookups).distinct().order_by('-likes', '-n_citation')
-            paginator = Paginator(results, 20)
+            results_queryset = Paper.objects.filter(lookups).distinct().order_by('-likes', '-n_citation')
+            paginator = Paginator(results_queryset , 20)
             try:
-                numbers = paginator.page(page)
+                results = paginator.page(page)
             except PageNotAnInteger:
-                numbers = paginator.page(1)
+                results = paginator.page(1)
             except EmptyPage:
-                numbers = paginator.page(paginator.num_pages)
+                results = paginator.page(paginator.num_pages)
 
             context = {'results': results,
                        'submitbutton': submitbutton,
-                       'numbers': numbers}
+                       }
             return render(request, 'home.html', context)
         else:
             return render(request, 'home.html')

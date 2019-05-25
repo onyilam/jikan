@@ -61,7 +61,17 @@
             });
           });
     </script>
-
+      <script>
+        var infinite = new Waypoint.Infinite({
+          element: $('.infinite-container')[0],
+          onBeforePageLoad: function () {
+            $('.loading').show();
+          },
+          onAfterPageLoad: function ($items) {
+            $('.loading').hide();
+          }
+        });
+      </script>
 {% endblock %}
 
 
@@ -87,18 +97,21 @@
             </form>
         </p>
 
+    <div class="infinite-container">
 
     {% if submitbutton == 'Search' and request.GET.q != '' %}
     {% if results %}
+
 
 
     <h3>Results for <b>{{ request.GET.q }}</b></h3>
         <br/>
 
 
-        <div style="width: 100%; overflow: hidden;">
+        <div style="width: 90%; overflow: hidden;">
 
        {% for result in results %}
+            <div class="infinite-item">
            <li >
             {{ result.title}},
             {{ result.authors }},
@@ -116,17 +129,14 @@
             <br>
                <div class="expand" id="sim_{{ result.pk }}"></div>
 
-{##}
-{#            <form id="likebutton" method="POST" action="{{result.id}}/preference/1/">#}
-{#                {% csrf_token %}#}
-{#            <input type="hidden">#}
-{#            </form>#}
-{#           <form id="dislikebutton" method="POST" action="{{result.id}}/preference/2/">#}
-{#               {% csrf_token %}#}
-{#            <input type="hidden">#}
-{#            </form>#}
-
            </li>
+           </div>
+
+             {% if results.has_next %}
+            <a class="infinite-more-link" href="?page={{ results.next_page_number }}">More</a>
+             {% endif %}
+
+
            <br/>
 
        {% endfor %}
@@ -141,6 +151,7 @@
         {% endif %}
     {% endif %}
     </div>
+      </div>
     </section>
 
 {% endblock fullwidthheader %}
