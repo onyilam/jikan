@@ -113,7 +113,9 @@
        {% for result in results %}
            <li >
             {{ result.title}},
-            {{ result.authors }},
+            {% for author in result.authors.all %}
+                {{ author }},
+{           {% endfor %},
             <strong> {{ result.journal }}</strong>
             <i>{{ result.year }} </i>
 
