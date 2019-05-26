@@ -47,22 +47,26 @@ def like_paper(request):
    # if request.method == "GET":
     pid = request.GET['pk']
     paper = Paper.objects.get(pk=pid)
+    # try:
+    #     obj, _ = Preference.objects.get_or_create(user=request.user, paper=paper)
+    #     if obj.value   # value of userpreference
+
     likes = paper.likes + 1
     paper.likes = likes
     paper.save()
     data = {'likes': paper.likes}
     return JsonResponse(data)
 
-@login_required
-def dislike_paper(request):
-    # if request.method == "GET":
-    pid = request.GET['pk']
-    paper = Paper.objects.get(pk=pid)
-    dislikes = paper.dislikes + 1
-    paper.dislikes = dislikes
-    paper.save()
-    data = {'dislikes': paper.dislikes}
-    return JsonResponse(data)
+# @login_required
+# def dislike_paper(request):
+#     # if request.method == "GET":
+#     pid = request.GET['pk']
+#     paper = Paper.objects.get(pk=pid)
+#     dislikes = paper.dislikes + 1
+#     paper.dislikes = dislikes
+#     paper.save()
+#     data = {'dislikes': paper.dislikes}
+#     return JsonResponse(data)
 
 
 class HomePageView(ListView):

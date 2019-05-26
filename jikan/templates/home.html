@@ -42,7 +42,7 @@
             });
           });
     </script>
-    <script>
+{% comment %}    <script>
         $(document).ready(function(){
           $(".dislike_button").click(function(){
                 var pk = $(this).data('pid')
@@ -60,7 +60,7 @@
                 });
             });
           });
-    </script>
+    </script>{% endcomment %}
       <script>
         var infinite = new Waypoint.Infinite({
           element: $('.infinite-container')[0],
@@ -121,9 +121,9 @@
 
                <a href="#" class="like_button" data-pid="{{ result.pk }}"> <span class="like_span fa fa-thumbs-up"></span>
                    <strong id="like_count_{{ result.pk }}">{{result.likes}} </strong> </a>
-             |
+{% comment %}             |
                 <a href="#" class="dislike_button" data-pid="{{ result.pk }}"> <span class="like_span fa fa-thumbs-down"></span>
-                    <strong id="dislike_count_{{ result.pk }}"> {{result.dislikes}}</strong> </a>
+                    <strong id="dislike_count_{{ result.pk }}"> {{result.dislikes}}</strong> </a>{% endcomment %}
 
             <br>
                <div class="expand" id="sim_{{ result.pk }}"></div>
