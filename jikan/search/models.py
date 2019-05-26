@@ -1,4 +1,4 @@
-from django.db.models import CharField, Model, IntegerField, ForeignKey, ManyToManyField, PROTECT, CASCADE
+from django.db.models import CharField, Model, IntegerField, TextField, DateTimeField, BooleanField, ForeignKey, ManyToManyField, PROTECT, CASCADE
 from django.db import models
 from users.models import CustomUser
 
@@ -34,11 +34,27 @@ class Preference(models.Model):
     user = ForeignKey(CustomUser, on_delete=CASCADE, null=True)
     paper = ForeignKey(Paper, on_delete=CASCADE, null=True)
     value = IntegerField(null=True)
-    date = models.DateTimeField(auto_now=True)
+    date = DateTimeField(auto_now=True)
 
     def __str__(self):
         return str(self.user) + ':' + str(self.paper) + ':' + str(self.value)
 
     class Meta:
         unique_together = ("user", "paper", "value")
+
+
+class Comment(models.Model):
+    paper = ForeignKey(Paper, on_delete=models.CASCADE, related_name='comments')
+    author = CharField(max_length=200)
+    text = TextField()
+    created_date = DateTimeField(auto_now=True)
+    approved_comment = BooleanField(default=False)
+
+    def approve(self):
+        self.approved_comment = True
+        self.save()
+
+    def __str__(self):
+        return self.text
+
 
