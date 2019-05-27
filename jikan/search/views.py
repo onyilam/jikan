@@ -43,6 +43,10 @@ def get_recommendation(request):
     data = {'rec_list': values_list, 'rec_journal': model_to_dict(rec_journal)['name']}
     return JsonResponse(data)
 
+def paper_detail(request, pk):
+    paper = get_object_or_404(Paper, pk=pk)
+    return render(request, 'paper_detail.html', {'paper': paper})
+
 @login_required
 def like_paper(request):
    # if request.method == "GET":
