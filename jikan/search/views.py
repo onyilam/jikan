@@ -7,7 +7,7 @@ from django.db.models import Q
 from .models import Paper, Preference
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
-from .forms import CommentForm
+from .forms import CommentForm, PaperForm
 
 def searchpaper(request):
     if request.method == 'GET':
@@ -46,6 +46,18 @@ def get_recommendation(request):
 def paper_detail(request, pk):
     paper = get_object_or_404(Paper, pk=pk)
     return render(request, 'paper_detail.html', {'paper': paper})
+
+@login_required
+def add_paper(request):
+    if request.method == "POST":
+        form = PaperForm(request.POST)
+        if form.is_valid():
+            paper = form.save(commit=False)
+            paper.save()
+            return redirect('paper_detail', pk=paper.pk)
+    else:
+        form = PaperForm()
+    return render(request, 'add_paper.html', {'form': form})
 
 @login_required
 def like_paper(request):
