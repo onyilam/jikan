@@ -4,6 +4,15 @@
 {% block fullwidthheader %}
     <section class="features">
     <div class="container">
+        {% if paper %}
+
+        <h4>Details for <b>{{ paper.title }}</b></h4>
+
+            <p>Abstract:
+                <br>
+                {{ paper.abstract }}</p>
+
+        {% endif %}
 
     </div>
 
