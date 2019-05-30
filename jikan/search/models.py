@@ -1,7 +1,6 @@
 from django.db.models import CharField, Model, IntegerField, TextField, DateTimeField, BooleanField, ForeignKey, ManyToManyField, PROTECT, CASCADE
 from django.db import models
 from users.models import CustomUser
-from django.core.validators import MaxValueValidator
 
 
 class Paper(models.Model):
@@ -34,9 +33,7 @@ class Author(models.Model):
 class Preference(models.Model):
     user = ForeignKey(CustomUser, on_delete=CASCADE, null=True)
     paper = ForeignKey(Paper, on_delete=CASCADE, null=True)
-    value = IntegerField(null=True, validators=[
-            MaxValueValidator(20)
-        ])
+    value = IntegerField(null=True)
     date = DateTimeField(auto_now=True)
 
     def __str__(self):

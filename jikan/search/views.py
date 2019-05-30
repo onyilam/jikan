@@ -1,13 +1,12 @@
 
 from django.views.generic import ListView
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from .models import Paper, Preference
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
-from .forms import CommentForm, PaperForm
 
 def searchpaper(request):
     if request.method == 'GET':
@@ -43,22 +42,6 @@ def get_recommendation(request):
     data = {'rec_list': values_list, 'rec_journal': model_to_dict(rec_journal)['name']}
     return JsonResponse(data)
 
-def paper_detail(request, pk):
-    paper = get_object_or_404(Paper, pk=pk)
-    return render(request, 'paper_detail.html', {'paper': paper})
-
-@login_required
-def add_paper(request):
-    if request.method == "POST":
-        form = PaperForm(request.POST)
-        if form.is_valid():
-            paper = form.save(commit=False)
-            paper.save()
-            return redirect('paper_detail', pk=paper.pk)
-    else:
-        form = PaperForm()
-    return render(request, 'add_paper.html', {'form': form})
-
 @login_required
 def like_paper(request):
    # if request.method == "GET":
@@ -66,29 +49,13 @@ def like_paper(request):
     paper = Paper.objects.get(pk=pid)
     # try:
     #     obj, _ = Preference.objects.get_or_create(user=request.user, paper=paper)
-    #     if obj.value <= 20  # value of userpreference
-
+    #     if obj.value   # value of userpreference
 
     likes = paper.likes + 1
     paper.likes = likes
     paper.save()
     data = {'likes': paper.likes}
     return JsonResponse(data)
-
-@login_required
-def add_comment_to_paper(request):
-    pid = request.GET['pk']
-    paper = get_object_or_404(Paper, pk=pid)
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = paper
-            comment.save()
-            return redirect('paper_detail', pk=paper.pk)
-    else:
-        form = CommentForm()
-    return render(request, 'comment.html', {'form': form})
 
 # @login_required
 # def dislike_paper(request):

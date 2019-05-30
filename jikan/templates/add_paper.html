@@ -4,12 +4,14 @@
 {% block fullwidthheader %}
     <section class="features">
     <div class="container">
-    <h2>New paper</h2>
-    <form method="POST" class="post-form">{% csrf_token %}
+    <h2>Add New paper</h2>
+
+    {% if user.is_authenticated %}
+    <form method="POST" class="post-form" id ="new_paper_form">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
-
+    {% endif %}
     </div>
 
     </section>
