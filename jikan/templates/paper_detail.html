@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% load widget_tweaks %}
+{% block fullwidthheader %}
+    <section class="features">
+    <div class="container">
+        {% if paper %}
+
+        <h4>Details for <b>{{ paper.title }}</b></h4>
+
+            <p>Abstract:
+                <br>
+                {{ paper.abstract }}</p>
+
+        {% endif %}
+
+    </div>
+
+    <div class="container">
+      <h4>Comments</h4>
+
+      {% for comment in paper.comments.all %}
+          {% if user.is_authenticated or comment.approved_comment %}
+          <div class="comment">
+              <div class="date">
+                  {{ comment.created_date }}
+                  {% if not comment.approved_comment %}
+                      <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                      <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+                  {% endif %}
+              </div>
+              <strong>{{ comment.author }}</strong>
+              <p>{{ comment.text|linebreaks }}</p>
+          </div>
+          {% endif %}
+      {% empty %}
+          <p>No comments here yet :( </p>
+      {% endfor %}
+
+
+
+      </div>
+
+    </section>
+
+{% endblock fullwidthheader %}
