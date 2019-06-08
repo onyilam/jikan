@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount', # new
     'allauth.socialaccount.providers.google', # new
     'widget_tweaks',
+    'crispy_forms',
     'pages',
     'users',
     'search',
@@ -154,3 +155,5 @@ STATICFILES_FINDERS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
