@@ -8,6 +8,8 @@ from .models import Paper, Preference
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from .forms import CommentForm, PaperForm
+from django import forms
+from dal import autocomplete
 
 def searchpaper(request):
     if request.method == 'GET':
@@ -85,23 +87,31 @@ def add_comment_to_paper(request):
         form = CommentForm()
     return render(request, 'comment.html', {'form': form})
 
-# @login_required
-# def dislike_paper(request):
-#     # if request.method == "GET":
-#     pid = request.GET['pk']
-#     paper = Paper.objects.get(pk=pid)
-#     dislikes = paper.dislikes + 1
-#     paper.dislikes = dislikes
-#     paper.save()
-#     data = {'dislikes': paper.dislikes}
-#     return JsonResponse(data)
-
 
 class HomePageView(ListView):
     model = Paper
     template_name = 'home.html'
 
-class PaperCreateView(CreateView):
-    model = Paper
-    template_name =  'add_paper.html'
-    fields = ('title', 'abstract', 'year')
+
+class JournalAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        #if not self.request.user.is_authenticated():
+        #    return Paper.objects.none()
+
+        qs = Paper.objects.all()
+
+        if self.q:
+            qs = qs.filter(journal__name__icontains=self.q)
+
+        return qs
+
+
+# class PaperCreateView(CreateView):
+#     journal = forms.ModelChoiceField(
+#         queryset=Paper.objects.all(),
+#         widget=autocomplete.ModelSelect2(url='journal-autocomplete')
+#     )
+#     model = Paper
+#     template_name =  'add_paper.html'
+#     fields = ('title', 'abstract', 'year', 'journal')
