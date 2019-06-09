@@ -1,6 +1,7 @@
 from django.db.models import CharField, Model, IntegerField, TextField, DateTimeField, BooleanField, ForeignKey, ManyToManyField, PROTECT, CASCADE
 from django.db import models
 from users.models import CustomUser
+from django.core.validators import MaxValueValidator
 
 
 class Paper(models.Model):
@@ -16,11 +17,13 @@ class Paper(models.Model):
     likes = IntegerField(default=0)
     dislikes = IntegerField(default=0)
 
+
 class Journal(models.Model):
     name = CharField(max_length=500)
 
     def __str__(self):
         return self.name
+
 
 class Author(models.Model):
     last_name = CharField(max_length=100)
@@ -33,7 +36,9 @@ class Author(models.Model):
 class Preference(models.Model):
     user = ForeignKey(CustomUser, on_delete=CASCADE, null=True)
     paper = ForeignKey(Paper, on_delete=CASCADE, null=True)
-    value = IntegerField(null=True)
+    value = IntegerField(null=True, validators=[
+            MaxValueValidator(20)
+        ])
     date = DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -56,5 +61,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
-
-
