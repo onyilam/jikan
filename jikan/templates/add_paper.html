@@ -10,6 +10,7 @@
     <form method="POST" class="post-form" id ="new_paper_form" novalidate>
         {% csrf_token %}
         {{ form|crispy}}
+        {{ form.media }}
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
     {% endif %}

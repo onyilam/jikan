@@ -112,10 +112,12 @@
 
        {% for result in results %}
            <li >
-            {{ result.title}},
+            <a href="{% url 'paper_detail' pk=result.pk %}">{{ result.title}}</a>,
             {% for author in result.authors.all %}
                 {{ author }},
-{           {% endfor %},
+                {% empty %}
+                empty list!
+{           {% endfor %}
             <strong> {{ result.journal }}</strong>
             <i>{{ result.year }} </i>
 
@@ -162,7 +164,7 @@
     {% else %}
 
 
-        <h4> No search results for this query </h4>
+        <h4> Don't see your paper? Add it <a href="{% url 'add_paper' %}" >here! </a></h4>
         {% endif %}
     {% endif %}
     </div>

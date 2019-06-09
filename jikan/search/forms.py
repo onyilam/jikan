@@ -1,7 +1,7 @@
 from .models import Paper, Comment
-from django.forms import ModelForm
+from django.forms import ModelForm, ModelChoiceField
 from django import forms
-from dal import autocomplete
+from dal.autocomplete import ModelSelect2
 
 class CommentForm(ModelForm):
     class Meta:
@@ -10,11 +10,11 @@ class CommentForm(ModelForm):
 
 
 class PaperForm(ModelForm):
-    journal = forms.ModelChoiceField(
-        queryset=Paper.objects.all(),
-        widget=autocomplete.ModelSelect2(url='journal_autocomplete')
+    journal = ModelChoiceField(
+        queryset = Paper.objects.all(),
+        widget = ModelSelect2(url='journal_autocomplete')
     )
 
     class Meta:
         model = Paper
-        fields = ('title', 'abstract')
+        fields = ('title', 'abstract', 'journal')
