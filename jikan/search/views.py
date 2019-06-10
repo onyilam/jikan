@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from .models import Paper, Preference
+from .models import Paper, Preference, Journal
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from .forms import CommentForm, PaperForm
@@ -99,10 +99,10 @@ class JournalAutocomplete(autocomplete.Select2QuerySetView):
         #if not self.request.user.is_authenticated():
         #    return Paper.objects.none()
 
-        qs = Paper.objects.all()
+        qs = Journal.objects.all()
 
         if self.q:
-            qs = qs.filter(journal__name__icontains=self.q)
+            qs = qs.filter(name__icontains=self.q)
 
         return qs
 
