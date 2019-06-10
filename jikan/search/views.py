@@ -102,7 +102,7 @@ class JournalAutocomplete(autocomplete.Select2QuerySetView):
         qs = Journal.objects.all()
 
         if self.q:
-            qs = qs.filter(name__icontains=self.q)
+            qs = qs.filter(name__icontains=self.q).distinct().order_by('name')
 
         return qs
 
