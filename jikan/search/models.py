@@ -10,7 +10,7 @@ class Paper(models.Model):
     title = CharField(max_length=1000)
     journal = ForeignKey('Journal', related_name='papers', null=True, on_delete=PROTECT)
     year = IntegerField(null=True)
-    abstract = CharField(max_length=10000, null=True)
+    abstract = TextField(max_length=10000, null=True)
     authors = ManyToManyField('Author', related_name='papers', null=True)
     n_citation = IntegerField(null=True)
     recommend = ManyToManyField('self', null=True)
