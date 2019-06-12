@@ -19,7 +19,31 @@
     <div class="container">
       <h4>Comments</h4>
 
-      {% for comment in paper.comments.all %}
+      <div id="disqus_thread"></div>
+        <script>
+
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+        /*
+        var disqus_config = function () {
+        this.page.url = 'http://127.0.0.1:8000/paper/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        */
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://jikan-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+      <!-- {% for comment in paper.comments.all %}
           {% if user.is_authenticated or comment.approved_comment %}
           <div class="comment">
               <div class="date">
@@ -35,9 +59,7 @@
           {% endif %}
       {% empty %}
           <p>No comments here yet :( </p>
-      {% endfor %}
-
-
+      {% endfor %} -->
 
       </div>
 
