@@ -116,8 +116,8 @@
             {% for author in result.authors.all %}
                 {{ author }},
                 {% empty %}
-                empty list!
-{           {% endfor %}
+                No assigned authors.
+          {% endfor %}
             <strong> {{ result.journal }}</strong>
             <i>{{ result.year }} </i>
 
