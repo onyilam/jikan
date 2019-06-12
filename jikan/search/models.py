@@ -3,6 +3,8 @@ from django.db import models
 from users.models import CustomUser
 from django.core.validators import MaxValueValidator
 
+STATUS_OPTIONS =[("1", "Early development"), ("2", "Writing and Editing"),
+("3", "Subitted"), ("4", "R&R"), ("5", "In Print")]
 
 class Paper(models.Model):
 #   store the academic paper information
@@ -13,6 +15,7 @@ class Paper(models.Model):
     abstract = TextField(max_length=10000, null=True)
     authors = ManyToManyField('Author', related_name='papers', null=True)
     n_citation = IntegerField(null=True)
+    status = CharField(max_length=100, null=True, choices=STATUS_OPTIONS)
     recommend = ManyToManyField('self', null=True)
     likes = IntegerField(default=0)
     dislikes = IntegerField(default=0)
