@@ -86,9 +86,9 @@
 {% block fullwidthheader %}
     <section class="features">
     <div class="container">
-    <h2>Search for the Next Paper.</h2>
-        <p class="lead">We understand that with the vast amount of literature, doing a thorough literature review seems impossible.<br>
-            <strong>Jikan</strong>'s algorithm is designed to uncover what papers are most similar, and help you prioritize your reading.</p>
+    <h2>Get Feedback for Your Paper.</h2>
+        <p class="lead">
+            <strong>Jikan</strong> is a platform that foster useful and supportive discussion to help researchers improve their work.</p>
 
         <p class="lead">
             <form action="{% url 'search:search_paper' %}" method="GET" value="{{request.GET.q}}">
@@ -118,7 +118,7 @@
                 {% empty %}
                 No assigned authors.
           {% endfor %}
-            <strong> {{ result.journal }}</strong>
+            <strong> {{ result.journal }} </strong>
             <i>{{ result.year }} </i>
 
             <button class="sim_button" data-pid="{{ result.pk }}">Similar Papers </button>
