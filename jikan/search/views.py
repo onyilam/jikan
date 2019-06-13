@@ -5,11 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from .models import Paper, Preference, Journal, Author
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
 from .forms import CommentForm, PaperForm
 from django import forms
 from dal import autocomplete
+import json
 
 def searchpaper(request):
     if request.method == 'GET':
@@ -121,6 +122,19 @@ class AuthorAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(lookup1|lookup2).order_by('last_name')
 
         return qs
+
+def autocompletePaper(request):
+    if request.is_ajax():
+        q = request.GET.get('term', '').capitalize()
+        search_qs = Paper.objects.filter(title__icontains=q).order_by('title')
+        results = []
+        for r in search_qs:
+            results.append(r.title)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
 
 # class PaperCreateView(CreateView):

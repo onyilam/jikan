@@ -42,25 +42,19 @@
             });
           });
     </script>
-{% comment %}    <script>
+    <script>
         $(document).ready(function(){
-          $(".dislike_button").click(function(){
-                var pk = $(this).data('pid')
-                $.ajax({
-                    type: "GET",
-                    data: {'pk': pk,
-                           'disliked': $("span").hasClass('fa fa-thumbs-down') },
-                    url: "{% url 'search:dislike_paper' %}",
-                    success: function(response) {
-                        $("#dislike_count_"+ pk).html(response.dislikes )
-                    },
-                    error: function(response, error) {
-                        alert(error);
-                    }
-                });
-            });
-          });
-    </script>{% endcomment %}
+            $("#txtSearch").autocomplete({
+                source: "/ajax_calls/search/",
+                minLength: 2,
+                open: function(){
+                    setTimeout(function () {
+                        $('.ui-autocomplete').css('z-index', 99);
+                    }, 0);
+                }
+              });
+        });
+      </script>
       <script>
         var infinite = new Waypoint.Infinite({
           element: $('.infinite-container')[0],
@@ -85,19 +79,27 @@
 
 {% block fullwidthheader %}
     <section class="features">
-    <div class="container">
+    <div class="container" style="text-align:center">
     <h2>Get Feedback for Your Paper.</h2>
-        <p class="lead">
-            <strong>Jikan</strong> is a platform that foster useful and supportive discussion to help researchers improve their work.</p>
 
-        <p class="lead">
-            <form action="{% url 'search:search_paper' %}" method="GET" value="{{request.GET.q}}">
-            <input type="text" style="font-size: 12pt; height: 40px; width:500px; " name="q" value="{{request.GET.q}}" placeholder="Paper Title"/><br><br>
+          <div style="text-align:center">
+            <form id="search" action="{% url 'search:search_paper' %}" method="GET" value="{{request.GET.q}}">
+            {% csrf_token %}
+            <input type="text"  class="form-control"  style="font-size: 12pt;" name="q" value="{{request.GET.q}}" placeholder="Paper Title" id="txtSearch" name="txtSearch"/><br><br>
             <button type="submit" class="btn btn-primary" name="submit" value="Search">Search</button>
             </form>
-        </p>
+            </div>
+            <p class="lead">
+                <strong>Jikan</strong> is a platform that foster useful and supportive discussion to help researchers improve their work.</p>
+                <p> <a href="{% url 'add_paper' %}" >Add your paper </a></h4> </p>
 
 
+<!--
+                <form id=”search” method="POST" action="{% url 'search:search_paper' %}">
+                 {% csrf_token %}
+                 <input type=”text” class="form-control" id="txtSearch" name="txtSearch">
+                 <button type="submit" class="btn btn-default btn-submit">Submit</button>
+                 </form> -->
 
     {% if submitbutton == 'Search' and request.GET.q != '' %}
     {% if results %}
@@ -139,7 +141,6 @@
            <br/>
 
        {% endfor %}
-       <h4> Don't see your paper? Add it <a href="{% url 'add_paper' %}" >here! </a></h4>
 
             {% if results.has_other_pages %}
               <ul class="pagination">
@@ -165,7 +166,6 @@
     {% else %}
 
 
-        <h4> Don't see your paper? Add it <a href="{% url 'add_paper' %}" >here! </a></h4>
         {% endif %}
     {% endif %}
     </div>
