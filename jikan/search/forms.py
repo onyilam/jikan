@@ -21,11 +21,8 @@ class PaperForm(ModelForm):
     c =[("1", "Early development"), ("2", "Writing and Editing"),
     ("3", "Submitted"), ("4", "R&R"), ("5", "In Print")]
     status = forms.ChoiceField(choices=c, label="Status")
-    document = forms.FileField(required=False)
+    document = forms.FileField(required=False, label="File")
 
     class Meta:
         model = Paper
-        fields = ('title', 'abstract', 'status', 'document')
-        labels = {
-        "document": "File"
-        }
+        fields = ('title', 'abstract', 'status', 'document',)

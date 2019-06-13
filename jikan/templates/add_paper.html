@@ -4,10 +4,10 @@
 {% block fullwidthheader %}
     <section class="features">
     <div class="container">
-    <h2>Add New paper</h2>
+    <h2>Add Paper</h2>
 
     {% if user.is_authenticated %}
-    <form method="POST" class="post-form" id ="new_paper_form" novalidate>
+    <form method="POST" class="post-form" id ="new_paper_form" enctype="multipart/form-data" novalidate >
         {% csrf_token %}
         {{ form|crispy}}
         {{ form.media }}
