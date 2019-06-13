@@ -52,7 +52,7 @@ def paper_detail(request, pk):
 @login_required
 def add_paper(request):
     if request.method == "POST":
-        form = PaperForm(request.POST)
+        form = PaperForm(request.POST, request.FILES)
         if form.is_valid():
             paper = form.save(commit=False)
             paper.save()

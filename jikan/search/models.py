@@ -1,4 +1,4 @@
-from django.db.models import CharField, Model, IntegerField, TextField, DateTimeField, BooleanField, ForeignKey, ManyToManyField, PROTECT, CASCADE
+from django.db.models import CharField, Model, IntegerField, TextField, DateTimeField, FileField, BooleanField, ForeignKey, ManyToManyField, PROTECT, CASCADE
 from django.db import models
 from users.models import CustomUser
 from django.core.validators import MaxValueValidator
@@ -19,6 +19,7 @@ class Paper(models.Model):
     recommend = ManyToManyField('self', null=True)
     likes = IntegerField(default=0)
     dislikes = IntegerField(default=0)
+    document = FileField(upload_to='documents/', null=True)
 
 
 class Journal(models.Model):
