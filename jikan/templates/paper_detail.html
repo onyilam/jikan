@@ -1,13 +1,38 @@
 {% extends 'base.html' %}
 {% load socialaccount %}
 {% load widget_tweaks %}
+{% block javascript%}
+<script>
+    $(document).ready(function(){
+      $(".like_button").click(function(){
+            var pk = $(this).data('pid')
+            $.ajax({
+                type: "GET",
+                data: {'pk': pk,
+                       'liked': $("span").hasClass('fa fa-thumbs-up') },
+                url: "{% url 'search:like_paper' %}",
+                success: function(response) {
+                    $("#like_count_"+ pk).html(response.likes )
+                },
+                error: function(response, error) {
+                    alert(error);
+                }
+            });
+        });
+      });
+</script>
+{% endblock %}
+
+
 {% block fullwidthheader %}
     <section class="features">
-    <div class="container">
+    <div class="col-md-7 col-md-offset-2">
         {% if paper %}
 
         <h4>Details for <b>{{ paper.title }}</b></h4>
         <p>Status: {{paper.get_status_display }} </p>
+        <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up"></span>
+            <strong id="like_count_{{ paper.pk }}">{{paper.likes}} </strong> </a>
             <p>Abstract:
                 <br>{{ paper.abstract }}</p>
 
@@ -17,14 +42,27 @@
         <embed src={{paper.document.url}} width="800" height="1000"
           type="application/pdf">
 
+        {% else %}
+
+
+
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <button type='button' class="btn btn-primary">Upload Paper</button>
+          <input type="file" name="myfile">
+        </form>
+
+
+
         {% endif %}
 
     </div>
 
     <div class="container">
-      <h4>Comments</h4>
 
-      <div id="disqus_thread"></div>
+
+      <div class="col-md-7 col-md-offset-2" id="disqus_thread"></div>
+    
         <script>
 
         /**

@@ -8,6 +8,7 @@
         <meta property="og:image:type" content="image/png">
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" >
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <!-- <link rel="stylesheet" href="{{ STATIC_URL }}simple_autocomplete/jquery-ui.css" /> -->
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
@@ -15,7 +16,6 @@
         <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
         <link href="{% static 'css/selectize.bootstrap3.css' %}" rel="stylesheet">
 
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
         {% block stylesheet %}{% endblock %}
 
     </head>
@@ -78,6 +78,25 @@
         {{ message }}
       </div>
     </script>
+    <!-- <script>
+        $(document).ready(function(){
+          $(".like_button").click(function(){
+                var pk = $(this).data('pid')
+                $.ajax({
+                    type: "GET",
+                    data: {'pk': pk,
+                           'liked': $("span").hasClass('fa fa-thumbs-up') },
+                    url: "{% url 'search:like_paper' %}",
+                    success: function(response) {
+                        $("#like_count_"+ pk).html(response.likes )
+                    },
+                    error: function(response, error) {
+                        alert(error);
+                    }
+                });
+            });
+          });
+    </script> -->
   {% endverbatim %}
   {% block mustache %}{% endblock %}
     {% block javascript %}{% endblock %}

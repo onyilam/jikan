@@ -3,8 +3,8 @@
 {% load widget_tweaks %}
 {% block fullwidthheader %}
     <section class="features">
-    <div class="container">
-    <h2>Add Paper</h2>
+    <div class="col-md-6 col-md-offset-3">
+    <h3>Add Paper</h3>
 
     {% if user.is_authenticated %}
     <form method="POST" class="post-form" id ="new_paper_form" enctype="multipart/form-data" novalidate >
