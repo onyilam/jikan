@@ -79,13 +79,13 @@
 
 {% block fullwidthheader %}
     <section class="features">
-    <div class="container" style="text-align:center">
+    <div class="col-md-6 col-md-offset-3"  >
     <h2>Get Feedback for Your Paper.</h2>
 
-          <div style="text-align:center">
+          <div class="form-group" style="text-align:center">
             <form id="search" action="{% url 'search:search_paper' %}" method="GET" value="{{request.GET.q}}">
             {% csrf_token %}
-            <input type="text"  class="form-control"  style="font-size: 12pt;" name="q" value="{{request.GET.q}}" placeholder="Paper Title" id="txtSearch" name="txtSearch"/><br><br>
+            <input type="text"  class="form-control"  style="font-size: 12pt;" name="q" value="{{request.GET.q}}" placeholder="Paper Title" id="txtSearch" name="txtSearch"/><br>
             <button type="submit" class="btn btn-primary" name="submit" value="Search">Search</button>
             </form>
             </div>
@@ -106,7 +106,7 @@
 
 
 
-    <h3>Results for <b>{{ request.GET.q }}</b></h3>
+    <h3>Search Results</b></h3>
         <br/>
 
 
