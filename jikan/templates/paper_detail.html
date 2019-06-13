@@ -9,8 +9,13 @@
         <h4>Details for <b>{{ paper.title }}</b></h4>
         <p>Status: {{paper.get_status_display }} </p>
             <p>Abstract:
-                <br>
-                {{ paper.abstract }}</p>
+                <br>{{ paper.abstract }}</p>
+
+        {% endif %}
+
+        {% if paper.document %}
+        <embed src={{paper.document.url}} width="800" height="1000"
+          type="application/pdf">
 
         {% endif %}
 
