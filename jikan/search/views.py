@@ -73,20 +73,20 @@ def like_paper(request):
     data = {'likes': paper.likes}
     return JsonResponse(data)
 
-@login_required
-def add_comment_to_paper(request):
-    pid = request.GET['pk']
-    paper = get_object_or_404(Paper, pk=pid)
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = paper
-            comment.save()
-            return redirect('paper_detail', pk=paper.pk)
-    else:
-        form = CommentForm()
-    return render(request, 'comment.html', {'form': form})
+# @login_required
+# def add_comment_to_paper(request):
+#     pid = request.GET['pk']
+#     paper = get_object_or_404(Paper, pk=pid)
+#     if request.method == "POST":
+#         form = CommentForm(request.POST)
+#         if form.is_valid():
+#             comment = form.save(commit=False)
+#             comment.post = paper
+#             comment.save()
+#             return redirect('paper_detail', pk=paper.pk)
+#     else:
+#         form = CommentForm()
+#     return render(request, 'comment.html', {'form': form})
 
 
 class HomePageView(ListView):
@@ -108,24 +108,10 @@ class JournalAutocomplete(autocomplete.Select2QuerySetView):
         return qs
 
 
-class AuthorAutocomplete(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
-        #if not self.request.user.is_authenticated():
-        #    return Paper.objects.none()
-
-        qs = Author.objects.all()
-
-        if self.q:
-            lookup1 = Q(first_name__icontains=self.q)
-            lookup2 = Q(last_name__icontains=self.q)
-            qs = qs.filter(lookup1|lookup2).order_by('last_name')
-
-        return qs
 
 def autocompletePaper(request):
     if request.is_ajax():
-        q = request.GET.get('term', '').capitalize()
+        q = request.GET.get('term', '')
         search_qs = Paper.objects.filter(title__icontains=q).order_by('title')
         results = []
         for r in search_qs:
@@ -136,12 +122,21 @@ def autocompletePaper(request):
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
 
+@login_required
+def paper_update(request, pk):
 
-# class PaperCreateView(CreateView):
-#     journal = forms.ModelChoiceField(
-#         queryset=Paper.objects.all(),
-#         widget=autocomplete.ModelSelect2(url='journal-autocomplete')
-#     )
-#     model = Paper
-#     template_name =  'add_paper.html'
-#     fields = ('title', 'abstract', 'year', 'journal')
+    # Either render only the modal content, or a full standalone page
+    if request.is_ajax():
+        template_name = 'add_paper.html'
+    object = get_object_or_404(Artist, pk)
+    if request.method == 'POST':
+        form = PaperForm(instance=object, data=request.POST)
+        if form.is_valid():
+            form.save()
+    # if is_ajax(), we just return the validated form, so the modal will close
+    else:
+        form = PaperForm(instance=object)
+    return render(request, template_name, {
+        'object': object,
+        'form': form,
+        })
