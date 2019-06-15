@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from unipath import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,10 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    'dal',
+    'dal_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +49,8 @@ INSTALLED_APPS = [
     'pages',
     'users',
     'search',
+    'floppyforms',
+    #'simple_autocomplete',
 
 ]
 
@@ -129,7 +133,28 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+#STATIC_URL = '/static/'
+#PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+#STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+PROJECT_DIR = Path(__file__).parent
+STATIC_ROOT = PROJECT_DIR.parent.parent.child('static')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    PROJECT_DIR.child('static'),
+    os.path.join(BASE_DIR, "static"),
+    'static',
+)
+
+TEMPLATE_DIRS = (
+    PROJECT_DIR.child('templates'),
+)
+# STATIC_ROOT = ''
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = ( os.path.join('static'), )
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, "static"),
+# )
+
 
 AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_REDIRECT_URL = 'home'
@@ -143,9 +168,6 @@ AUTHENTICATION_BACKENDS = (
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
