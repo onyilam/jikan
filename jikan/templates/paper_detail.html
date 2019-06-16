@@ -58,6 +58,10 @@ window.onclick = function(event) {
         {% if paper %}
 
         <h4>Details for <b>{{ paper.title }}</b></h4>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <button type='button' class="btn btn-primary" id="editPaperBtn">Edit Paper Details</button>
+        </form>
         <p>Status: {{paper.get_status_display }} </p>
         <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up"></span>
             <strong id="like_count_{{ paper.pk }}">{{paper.likes}} </strong> </a>
@@ -74,23 +78,17 @@ window.onclick = function(event) {
 
 
 
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          <button type='button' class="btn btn-primary" id="editPaperBtn">Upload Paper</button>
-          <input type="file" name="myfile">
-        </form>
+
 
         {% endif %}
 
     </div>
 
     <div id="myModal" class="modal">
-
-      <!-- Modal content -->
-      <div class="modal-content">
+      <div class="modalcontent">
         <div class="modal-header">
           <span class="close">&times;</span>
-          <h2>Modal Header</h2>
+          <h2>Header</h2>
         </div>
         <div class="modal-body">
           <p>Some text in the Modal Body</p>
