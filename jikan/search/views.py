@@ -73,21 +73,38 @@ def like_paper(request):
     data = {'likes': paper.likes}
     return JsonResponse(data)
 
-# @login_required
-# def add_comment_to_paper(request):
-#     pid = request.GET['pk']
-#     paper = get_object_or_404(Paper, pk=pid)
-#     if request.method == "POST":
-#         form = CommentForm(request.POST)
-#         if form.is_valid():
-#             comment = form.save(commit=False)
-#             comment.post = paper
-#             comment.save()
-#             return redirect('paper_detail', pk=paper.pk)
-#     else:
-#         form = CommentForm()
-#     return render(request, 'comment.html', {'form': form})
+def autocompletePaper(request):
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        search_qs = Paper.objects.filter(title__icontains=q).order_by('title')
+        results = []
+        for r in search_qs:
+            results.append(r.title)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
+@login_required
+def edit_paper(request):
+
+    # Either render only the modal content, or a full standalone page
+    #if request.is_ajax():
+    template_name = 'edit_paper_modal.html'
+    pk = request.GET['pk']
+    object = get_object_or_404(Paper, pk = pk)
+    if request.method == 'POST':
+        form = PaperForm(instance=object, data=request.POST)
+        if form.is_valid():
+            form.save()
+    # if is_ajax(), we just return the validated form, so the modal will close
+    else:
+        form = PaperForm(instance=object)
+    return render(request, template_name, {
+        'object': object,
+        'form': form,
+        })
 
 class HomePageView(ListView):
     model = Paper
@@ -106,37 +123,3 @@ class JournalAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(name__icontains=self.q).distinct().order_by('name')
 
         return qs
-
-
-
-def autocompletePaper(request):
-    if request.is_ajax():
-        q = request.GET.get('term', '')
-        search_qs = Paper.objects.filter(title__icontains=q).order_by('title')
-        results = []
-        for r in search_qs:
-            results.append(r.title)
-        data = json.dumps(results)
-    else:
-        data = 'fail'
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
-
-@login_required
-def paper_update(request, pk):
-
-    # Either render only the modal content, or a full standalone page
-    if request.is_ajax():
-        template_name = 'add_paper.html'
-    object = get_object_or_404(Artist, pk)
-    if request.method == 'POST':
-        form = PaperForm(instance=object, data=request.POST)
-        if form.is_valid():
-            form.save()
-    # if is_ajax(), we just return the validated form, so the modal will close
-    else:
-        form = PaperForm(instance=object)
-    return render(request, template_name, {
-        'object': object,
-        'form': form,
-        })

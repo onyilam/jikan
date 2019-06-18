@@ -47,11 +47,14 @@ window.onclick = function(event) {
 <script>
 $(document).ready(function(){
   $("#myBtn").click(function(){
+    var pk = $(this).data('pid')
     $("#myModal").modal("show");
   });
   $("#myModal").on('show.bs.modal', function(event){
     var modal = $(this)
+    var pk = $(this).data('pid')
     $.ajax({
+        data: {'pk': pk},
         url: "{% url 'search:edit_paper' %}",
         context: document.body,
         error: function(response, error) {
@@ -78,12 +81,12 @@ $(document).ready(function(){
           {% csrf_token %}
 
         </form> -->
-        <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" >Edit Paper Details</button>
+        <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid={{paper.pk}} >Edit Paper Details</button>
 
         <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
 
        <!-- Modal -->
-       <div class="modal fade" id="myModal" role="dialog">
+       <div class="modal fade" id="myModal" role="dialog" data-pid={{paper.pk}}>
          <div class="modal-dialog">
 
            <!-- Modal content-->
