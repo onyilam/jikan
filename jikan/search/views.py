@@ -87,20 +87,21 @@ def autocompletePaper(request):
     return HttpResponse(data, mimetype)
 
 @login_required
-def edit_paper(request):
-
-    # Either render only the modal content, or a full standalone page
-    #if request.is_ajax():
+def edit_paper(request, pk=None):
     template_name = 'edit_paper_modal.html'
-    pk = request.GET['pk']
-    object = get_object_or_404(Paper, pk = pk)
-    if request.method == 'POST':
+    if request.POST:
+        print('trying to post')
+        object = get_object_or_404(Paper, pk = pk)
         form = PaperForm(instance=object, data=request.POST)
         if form.is_valid():
-            form.save()
-    # if is_ajax(), we just return the validated form, so the modal will close
+            print('form is valid')
+            object = form.save()
     else:
+        pk = request.GET.get('pk')
+        object = get_object_or_404(Paper, pk = pk)
         form = PaperForm(instance=object)
+        if object:
+            print('object exists', pk, request.method)
     return render(request, template_name, {
         'object': object,
         'form': form,
@@ -110,16 +111,16 @@ class HomePageView(ListView):
     model = Paper
     template_name = 'home.html'
 
-
-class JournalAutocomplete(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
-        #if not self.request.user.is_authenticated():
-        #    return Paper.objects.none()
-
-        qs = Journal.objects.all()
-
-        if self.q:
-            qs = qs.filter(name__icontains=self.q).distinct().order_by('name')
-
-        return qs
+#
+# class JournalAutocomplete(autocomplete.Select2QuerySetView):
+#     def get_queryset(self):
+#         # Don't forget to filter out results depending on the visitor !
+#         #if not self.request.user.is_authenticated():
+#         #    return Paper.objects.none()
+#
+#         qs = Journal.objects.all()
+#
+#         if self.q:
+#             qs = qs.filter(name__icontains=self.q).distinct().order_by('name')
+#
+#         return qs
