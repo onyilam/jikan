@@ -54,7 +54,6 @@ $(document).ready(function(){
     var modal = $(this)
     var pk = $(this).data('pid')
     $.ajax({
-        type: $(this).attr('method'),
         data: {'pk': pk},
         url: "{% url 'search:load_paper' %}",
         context: document.body,
@@ -84,7 +83,7 @@ $(document).ready(function(){
         <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
 
        <!-- Modal -->
-       <div class="modal fade" id="myModal" role="dialog" method="get"> {% csrf_token %}
+       <div class="modal fade" id="myModal" role="dialog" data-pid={{paper.pk}}> {% csrf_token %}
          <div class="modal-dialog">
          </div>
        </div>

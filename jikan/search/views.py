@@ -16,7 +16,6 @@ class HomePageView(ListView):
     model = Paper
     template_name = 'home.html'
 
-
 def searchpaper(request):
     if request.method == 'GET':
         query = request.GET.get('q')
@@ -92,26 +91,27 @@ def autocompletePaper(request):
     return HttpResponse(data, mimetype)
 
 @login_required
+def load_paper(request):
+    pk = request.GET.get('pk')
+    object = get_object_or_404(Paper, pk = pk)
+    form = PaperForm(instance=object)
+    return render(request, 'edit_paper_modal.html', {
+        'object': object,
+        'pk': pk,
+        'form': form,
+        })
+
+@login_required
 def edit_paper(request, pk=None):
     template_name = 'edit_paper_modal.html'
     if request.POST:
-        print('trying to post')
         paper = get_object_or_404(Paper, pk = pk)
         form = PaperForm(instance=paper, data=request.POST)
         if form.is_valid():
-            print('form is valid')
             form.save()
-        return render(request, 'paper_detail.html', {'paper': paper})
-    else:
-        pk = request.GET.get('pk')
-        object = get_object_or_404(Paper, pk = pk)
-        form = PaperForm(instance=object)
-        if object:
-            print('object exists', pk, request.method)
-        return render(request, template_name, {
-            'object': object,
-            'form': form,
-            })
+    return render(request, 'paper_detail.html', {'paper': paper})
+
+
 
 
 
