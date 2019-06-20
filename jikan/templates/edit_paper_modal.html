@@ -1,7 +1,7 @@
 {% load crispy_forms_tags %}
 {% load i18n widget_tweaks %}
 <div class="modal-dialog modal-lg" role="document">
-    <form action="{% url 'search:edit_paper' %} {{object.pk}}" method="post" class="form" >
+    <form action="{% url 'search:edit_paper' pk=object.pk %}" method="post" class="form" >
       {% csrf_token %}
         <div class="modal-content">
             <div class="modal-header">
@@ -24,7 +24,3 @@
         </div><!-- /.modal-content -->
     </form>
 </div>
-<!-- <script>
-    var form_options = { target: '#modal', success: function(response) {} };
-    $('#edit_paper').ajaxForm(form_options);
-</script> -->

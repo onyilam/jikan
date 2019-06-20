@@ -56,7 +56,7 @@ $(document).ready(function(){
     $.ajax({
         type: $(this).attr('method'),
         data: {'pk': pk},
-        url: "{% url 'search:edit_paper' %}",
+        url: "{% url 'search:load_paper' %}",
         context: document.body,
         error: function(response, error) {
             alert(error);
@@ -67,28 +67,7 @@ $(document).ready(function(){
   });
 });
 </script>
-<!-- <script>
-var modalDiv = $("#modaldiv");
-
-$("#open_modal").on("click", function() {
-  var pk = $(this).data('pid')
-  $.ajax({
-    url: "{% url 'search:edit_paper' %}",
-    data: {'pk': pk},
-    success: function(data) {
-      modalDiv.html(data);
-      $("#myEdit").modal();
-    },
-    error: function(response, error) {
-        alert(error);
-    },
-  });
-});
-</script> -->
-
 {% endblock %}
-
-
 {% block fullwidthheader %}
     <section class="features">
     <div class="col-md-7 col-md-offset-2">
@@ -99,13 +78,13 @@ $("#open_modal").on("click", function() {
           {% csrf_token %}
 
         </form> -->
-        <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid={{paper.pk}}>Edit Paper Details</button>
+        <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid={{paper.pk}} >Edit Paper Details</button>
         <!-- <a class="btn btn-primary" id="open_modal" data-pid="{{ paper.pk }}">Edit Paper Details</a> -->
         {% csrf_token %}
         <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
 
        <!-- Modal -->
-       <div class="modal fade" id="myModal" role="dialog" data-pid={{paper.pk}}> {% csrf_token %}
+       <div class="modal fade" id="myModal" role="dialog" method="get"> {% csrf_token %}
          <div class="modal-dialog">
          </div>
        </div>
