@@ -23,12 +23,6 @@
     <div class="wrapper">
     {% include 'includes/header.html' %}
     {% comment %}
-      <div class="announcement">
-        <div class="container">
-          <strong>Scheduled Maintenance:</strong>
-          In order to upgrade our servers, the application will be offline for approximately 20 minutes on Oct 17, 2015 07:00 UTC.
-        </div>
-      </div>
     {% endcomment %}
     {% block fullwidthheader %}{% endblock %}
     <main>
@@ -63,8 +57,8 @@
         <div class="bounce3"></div>
         </div>
      </div>
-    <script type="text/javascript" src={% static 'admin/js/vendor/jquery/jquery.js' %}></script>
-    <script type="text/javascript" src={% static 'js/jquery-3.4.1.min.js' %}></script>
+    <!-- <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script> -->
+    <!-- <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script> -->
 
     <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
     <script src="{% static 'js/infinite.min.js' %}"></script>
@@ -78,8 +72,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
   <!-- needed for autocomplete  -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src={% static 'admin/js/vendor/jquery/jquery.js' %}></script>
-  <script type="text/javascript" src={% static 'js/jquery-3.4.1.min.js' %}></script>
+  <!-- <script type="text/javascript" src= "{% static 'admin/js/vendor/jquery/jquery.js' %}"></script> -->
+  <!-- <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script> -->
 
     <script id="alert-template" type="x-tmpl-mustache">
       <div id="{{ id }}" class="alert alert-dismissible fade in {{ alert-class }}" role="alert">
