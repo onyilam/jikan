@@ -2,6 +2,7 @@ from django.db.models import CharField, Model, IntegerField, TextField, DateTime
 from django.db import models
 from users.models import CustomUser
 from django.core.validators import MaxValueValidator
+from django.conf import settings
 
 STATUS_OPTIONS =[("1", "Early development"), ("2", "Writing and Editing"),
 ("3", "Subitted"), ("4", "R&R"), ("5", "In Print")]
@@ -22,6 +23,9 @@ class Paper(models.Model):
     document = FileField(upload_to='documents/', null=True)
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     modified_date = models.DateTimeField(auto_now=True, null= True)
+    created_by = ForeignKey(settings.AUTH_USER_MODEL,
+                            related_name='papers',
+                            null=True, on_delete=PROTECT)
 
 
 class Journal(models.Model):
