@@ -20,7 +20,8 @@ class Paper(models.Model):
     likes = IntegerField(default=0)
     dislikes = IntegerField(default=0)
     document = FileField(upload_to='documents/', null=True)
-    uploaded_at = DateTimeField(auto_now_add=True, null=True)
+    created_date = models.DateTimeField(auto_now_add=True, null=True)
+    modified_date = models.DateTimeField(auto_now=True, null= True)
 
 
 class Journal(models.Model):
