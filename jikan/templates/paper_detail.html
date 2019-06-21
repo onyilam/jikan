@@ -73,23 +73,24 @@ $(document).ready(function(){
         {% if paper %}
 
         <h4>Details for <b>{{ paper.title }}</b></h4>
-        <!-- <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
 
-        </form> -->
+        <!-- <p>can edit, {{ can_edit}}</p> -->
+        {% if can_edit %}
+
         <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid={{paper.pk}} >Edit Paper Details</button>
-        <!-- <a class="btn btn-primary" id="open_modal" data-pid="{{ paper.pk }}">Edit Paper Details</a> -->
         {% csrf_token %}
-        <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
 
        <!-- Modal -->
        <div class="modal fade" id="myModal" role="dialog" data-pid={{paper.pk}}> {% csrf_token %}
          <div class="modal-dialog">
          </div>
        </div>
+
+       {% endif %}
        <!-- <div class="modaldiv"></div> -->
 
-        <p>Status: {{paper.get_status_display }} Modified at: {{paper.modifited_date}} </p>
+        <p>Status: {{paper.get_status_display }} </p>
+        Created at:{{paper.created_date}} Modified at: {{paper.modifited_date}}
         <p>Created By: {{paper.created_by}}
         <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up"></span>
             <strong id="like_count_{{ paper.pk }}">{{paper.likes}} </strong> </a>
@@ -102,7 +103,6 @@ $(document).ready(function(){
         <embed src={{paper.document.url}} width="800" height="1000"
           type="application/pdf">
         {% else %}
-
         {% endif %}
 
     </div>
@@ -154,7 +154,7 @@ $(document).ready(function(){
           <p>No comments here yet :( </p>
       {% endfor %} -->
 
-      </div> -->
+      </div>
 
     </section>
 

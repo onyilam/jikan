@@ -52,7 +52,11 @@ def get_recommendation(request):
 
 def paper_detail(request, pk):
     paper = get_object_or_404(Paper, pk=pk)
-    return render(request, 'paper_detail.html', {'paper': paper})
+    can_edit=False
+    if request.user==paper.created_by:
+         can_edit=True
+    context = {'paper': paper, 'can_edit': can_edit}
+    return render(request, 'paper_detail.html', context)
 
 @login_required
 def add_paper(request):
@@ -105,12 +109,16 @@ def load_paper(request):
 @login_required
 def edit_paper(request, pk=None):
     template_name = 'edit_paper_modal.html'
+    paper = get_object_or_404(Paper, pk = pk)
+    can_edit=False
+    if request.user==paper.created_by:
+         can_edit=True
     if request.POST:
-        paper = get_object_or_404(Paper, pk = pk)
         form = PaperForm(instance=paper, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
-    return render(request, 'paper_detail.html', {'paper': paper})
+    context = {'paper': paper, 'can_edit': can_edit}
+    return render(request, 'paper_detail.html', context)
 
 
 
