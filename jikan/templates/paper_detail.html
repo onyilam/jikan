@@ -89,7 +89,8 @@ $(document).ready(function(){
        </div>
        <!-- <div class="modaldiv"></div> -->
 
-        <p>Status: {{paper.get_status_display }} </p>
+        <p>Status: {{paper.get_status_display }} Modified at: {{paper.modifited_date}} </p>
+        <p>Created By: {{paper.created_by}}
         <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up"></span>
             <strong id="like_count_{{ paper.pk }}">{{paper.likes}} </strong> </a>
             <p>Abstract:

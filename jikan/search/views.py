@@ -60,6 +60,7 @@ def add_paper(request):
         form = PaperForm(request.POST, request.FILES)
         if form.is_valid():
             paper = form.save(commit=False)
+            paper.created_by = request.user
             paper.save()
             return redirect('paper_detail', pk=paper.pk)
     else:
