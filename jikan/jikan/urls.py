@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 
+app_name = 'search'
 
 urlpatterns = [
     path('', include('search.urls')),
@@ -28,8 +29,9 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
+    path('search/', include(('search.urls', 'search'), namespace='search')),
     url(r'pages/', include(('pages.urls', 'pages'), namespace='pages')),
-    url(r'search/', include(('search.urls', 'search'), namespace='search')),
+    #url(r'search/', include(('search.urls', 'search'), namespace='search')),
 ]
 
 if settings.DEBUG: # new

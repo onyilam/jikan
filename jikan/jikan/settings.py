@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'pages',
     'users',
     'search',
-    'floppyforms',
+    #'floppyforms',
     #'simple_autocomplete',
 
 ]
