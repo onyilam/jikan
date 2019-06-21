@@ -106,7 +106,7 @@ def edit_paper(request, pk=None):
     template_name = 'edit_paper_modal.html'
     if request.POST:
         paper = get_object_or_404(Paper, pk = pk)
-        form = PaperForm(instance=paper, data=request.POST)
+        form = PaperForm(instance=paper, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
     return render(request, 'paper_detail.html', {'paper': paper})
