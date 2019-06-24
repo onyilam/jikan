@@ -49,8 +49,7 @@ INSTALLED_APPS = [
     'pages',
     'users',
     'search',
-    #'floppyforms',
-    #'simple_autocomplete',
+    #'users.apps.UsersConfig',
 
 ]
 
@@ -160,6 +159,9 @@ AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
@@ -167,6 +169,10 @@ AUTHENTICATION_BACKENDS = (
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
 
 
 STATICFILES_FINDERS = (
