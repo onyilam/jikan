@@ -69,6 +69,7 @@ $(document).ready(function(){
 {% endblock %}
 {% block fullwidthheader %}
     <section class="features">
+      <div class="row">
     <div class="col-md-7 col-md-offset-2">
         {% if paper %}
 
@@ -89,7 +90,7 @@ $(document).ready(function(){
        {% endif %}
        <!-- <div class="modaldiv"></div> -->
 
-        <p>Status: {{paper.get_status_display }} </p>
+        <p>Project Stage: <b> {{paper.get_status_display }} </b></p>
         Created at:{{paper.created_date}} Modified at: {{paper.modifited_date}}
         <p>Created By: {{paper.created_by}}
         <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up"></span>
@@ -106,7 +107,7 @@ $(document).ready(function(){
         {% endif %}
 
     </div>
-
+</div>
 
     <div class="container">
 
