@@ -111,8 +111,8 @@ $(document).ready(function(){
        <!-- <div class="modaldiv"></div> -->
 
         <p>Project Stage: <b> {{paper.get_status_display }} </b></p>
-        Created At: <i>{{paper.year_month_createed}}</i> <br>
-        Modified At: {{paper.modifited_date}} <br>
+        Created At: <i>{{paper.year_month_created}}</i> <br>
+        Modified At: {{paper.modified_date}} <br>
         <p>Created By: {{paper.created_by}} <br>
         <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up fa-2x"></span>
             <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong> </a> <br>

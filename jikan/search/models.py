@@ -27,8 +27,11 @@ class Paper(models.Model):
                             related_name='papers',
                             null=True, on_delete=PROTECT)
 
-    def year_month_createed(self):
+    def year_month_created(self):
         return self.created_date.strftime('%Y-%m-%d')
+
+    def year_month_modified(self):
+        return self.modified_date.strftime('%Y-%m-%d')
 
 
 class Journal(models.Model):
