@@ -66,6 +66,26 @@ $(document).ready(function(){
   });
 });
 </script>
+<script>
+    $(document).ready(function(){
+      $(".sim_button").click(function(){
+            var pk = $(this).data('pid')
+            $.ajax({
+                type: "GET",
+                data: {'pk': $(this).data('pid')},
+                url: "{% url 'search:get_recommendation' %}",
+                success: function(response) {
+                    $("#sim_paper").html(response.rec_list + ", "+ response.rec_journal).css({ 'font-weight': 'bold' })
+                    console.log($("#sim_" + pk))
+                },
+                error: function(response, error) {
+                    alert(error);
+                }
+            });
+        });
+      });
+</script>
+
 {% endblock %}
 {% block fullwidthheader %}
     <section class="features">
@@ -91,15 +111,21 @@ $(document).ready(function(){
        <!-- <div class="modaldiv"></div> -->
 
         <p>Project Stage: <b> {{paper.get_status_display }} </b></p>
-        Created At: <i>{{paper.year_month_createed}}</i> </b>
-        Modified At: {{paper.modifited_date}}
-        <p>Created By: {{paper.created_by}}
-        <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up"></span>
-            <strong id="like_count_{{ paper.pk }}">{{paper.likes}} </strong> </a>
+        Created At: <i>{{paper.year_month_createed}}</i> <br>
+        Modified At: {{paper.modifited_date}} <br>
+        <p>Created By: {{paper.created_by}} <br>
+        <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up fa-2x"></span>
+            <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong> </a> <br>
+
+        <button class="sim_button" data-pid="{{ paper.pk }}">Similar Papers </button>
+
+        <div class="expand" id="sim_paper"></div>
             <p>Abstract:
                 <br>{{ paper.abstract }}</p>
 
         {% endif %}
+
+
 
         {% if paper.document %}
         <embed src={{paper.document.url}} width="800" height="1000"

@@ -4,25 +4,7 @@
 
 
 {% block javascript %}
-    <script>
-        $(document).ready(function(){
-          $(".sim_button").click(function(){
-                var pk = $(this).data('pid')
-                $.ajax({
-                    type: "GET",
-                    data: {'pk': $(this).data('pid')},
-                    url: "{% url 'search:get_recommendation' %}",
-                    success: function(response) {
-                        $("#sim_" + pk).html(response.rec_list + ", "+ response.rec_journal).css({ 'font-weight': 'bold' })
-                        console.log($("#sim_" + pk))
-                    },
-                    error: function(response, error) {
-                        alert(error);
-                    }
-                });
-            });
-          });
-    </script>
+
     <script>
         $(document).ready(function(){
           $(".like_button").click(function(){
@@ -105,7 +87,6 @@
             <strong> {{ result.journal }} </strong>
             <i>{{ result.year }} </i>
 
-            <button class="sim_button" data-pid="{{ result.pk }}">Similar Papers </button>
 
                <a href="#" class="like_button" data-pid="{{ result.pk }}"> <span class="like_span fa fa-thumbs-up"></span>
                    <strong id="like_count_{{ result.pk }}">{{result.likes}} </strong> </a>
