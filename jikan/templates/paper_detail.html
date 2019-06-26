@@ -70,10 +70,10 @@ $(document).ready(function(){
 {% block fullwidthheader %}
     <section class="features">
       <div class="row">
-    <div class="col-md-7 col-md-offset-2">
+    <div class="col-md-8 col-md-offset-2">
         {% if paper %}
 
-        <h4>Details for <b>{{ paper.title }}</b></h4>
+        <p class="lead">Details for <b>{{ paper.title }}</b></p>
 
         <!-- <p>can edit, {{ can_edit}}</p> -->
         {% if can_edit %}
@@ -91,7 +91,8 @@ $(document).ready(function(){
        <!-- <div class="modaldiv"></div> -->
 
         <p>Project Stage: <b> {{paper.get_status_display }} </b></p>
-        Created at:{{paper.created_date}} Modified at: {{paper.modifited_date}}
+        Created At: <i>{{paper.year_month_createed}}</i> </b>
+        Modified At: {{paper.modifited_date}}
         <p>Created By: {{paper.created_by}}
         <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up"></span>
             <strong id="like_count_{{ paper.pk }}">{{paper.likes}} </strong> </a>
@@ -109,7 +110,7 @@ $(document).ready(function(){
     </div>
 </div>
 
-    <div class="container">
+    <div class="row">
 
 
       <div class="col-md-7 col-md-offset-2" id="disqus_thread"></div>

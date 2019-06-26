@@ -27,6 +27,9 @@ class Paper(models.Model):
                             related_name='papers',
                             null=True, on_delete=PROTECT)
 
+    def year_month_createed(self):
+        return self.created_date.strftime('%Y-%m-%d')
+
 
 class Journal(models.Model):
     name = CharField(max_length=500)
