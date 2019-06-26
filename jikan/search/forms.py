@@ -26,3 +26,9 @@ class PaperForm(ModelForm):
     class Meta:
         model = Paper
         fields = ('title', 'abstract', 'status', 'document',)
+
+
+class EditPaperForm(PaperForm):
+    class Meta:
+        model = Paper
+        fields = ('title', 'abstract', 'status', 'document', 'authors')

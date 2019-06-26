@@ -7,7 +7,7 @@ from django.db.models import Q
 from .models import Paper, Preference, Journal, Author
 from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
-from .forms import CommentForm, PaperForm
+from .forms import CommentForm, PaperForm, EditPaperForm
 from django import forms
 from dal import autocomplete
 import json
@@ -71,7 +71,7 @@ def add_paper(request):
         form = PaperForm()
     return render(request, 'add_paper.html', {'form': form})
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def like_paper(request):
    # if request.method == "GET":
     pid = request.GET['pk']
@@ -99,7 +99,8 @@ def autocompletePaper(request):
 def load_paper(request):
     pk = request.GET.get('pk')
     object = get_object_or_404(Paper, pk = pk)
-    form = PaperForm(instance=object)
+    form = EditPaperForm(instance=object)
+    print('edit', form)
     return render(request, 'edit_paper_modal.html', {
         'object': object,
         'pk': pk,
@@ -114,7 +115,7 @@ def edit_paper(request, pk=None):
     if request.user==paper.created_by:
          can_edit=True
     if request.POST:
-        form = PaperForm(instance=paper, data=request.POST, files=request.FILES)
+        form = EditPaperForm(instance=paper, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
     context = {'paper': paper, 'can_edit': can_edit}
