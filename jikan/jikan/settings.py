@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google', # new
     'widget_tweaks',
     'crispy_forms',
+    'easy_select2',
     'pages',
     'users',
     'search',
