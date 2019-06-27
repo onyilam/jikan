@@ -95,12 +95,17 @@ $(document).ready(function(){
 
         <p class="lead">Details for <b>{{ paper.title }}</b></p>
 
+        <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up fa-2x"></span>
+            <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong> </a> <br>
+
+            <br>
         <!-- <p>can edit, {{ can_edit}}</p> -->
         {% if can_edit %}
 
         <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid={{paper.pk}} >Edit Paper Details</button>
         {% csrf_token %}
-
+        <br>
+        <br>
        <!-- Modal -->
        <div class="modal fade" id="myModal" role="dialog" data-pid={{paper.pk}}> {% csrf_token %}
          <div class="modal-dialog">
@@ -109,18 +114,16 @@ $(document).ready(function(){
 
        {% endif %}
        <!-- <div class="modaldiv"></div> -->
-
-        <p>Project Stage: <b> {{paper.get_status_display }} </b></p>
+       <br>
+        <p class="lead">Project Stage: <b> {{paper.get_status_display }} </b> <br>
         Created At: <i>{{paper.year_month_created}}</i> <br>
-        Modified At: {{paper.modified_date}} <br>
-        <p>Created By: {{paper.created_by}} <br>
-        <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up fa-2x"></span>
-            <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong> </a> <br>
+        Modified At: {{paper.year_month_modified}} <br>
+        Created By: {{paper.created_by}} <br> </p>
 
         <button class="sim_button" data-pid="{{ paper.pk }}">Similar Papers </button>
 
         <div class="expand" id="sim_paper"></div>
-            <p>Abstract:
+        <p class="lead">    Abstract:
                 <br>{{ paper.abstract }}</p>
 
         {% endif %}
