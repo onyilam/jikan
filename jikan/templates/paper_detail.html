@@ -93,7 +93,7 @@ $(document).ready(function(){
     <div class="col-md-8 col-md-offset-2">
         {% if paper %}
 
-        <p class="lead">Details for <b>{{ paper.title }}</b></p>
+        <h2> <b>{{ paper.title }}</b></h2>
 
         <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up fa-2x"></span>
             <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong> </a> <br>
