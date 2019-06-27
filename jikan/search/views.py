@@ -121,6 +121,10 @@ def edit_paper(request, pk=None):
     context = {'paper': paper, 'can_edit': can_edit}
     return render(request, 'paper_detail.html', context)
 
+@login_required
+def view_user(request):
+    url = request.user.get_profile().url
+
 
 
 
