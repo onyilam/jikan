@@ -1,6 +1,6 @@
 # Jikan
 
-A Django webapp that suggests academic papers to read based on similarity of papers. It uses jquery to display search results so the pages do not need to be rendered every time. 
+A web platform that allows user to upload their papers to seek comments and allow them to track paper progress. Also built in features such as similar papers recommendation, and other user engagement features. Django + Ajax + Bootstrap.
 
 ## Paper Recommendation
 
