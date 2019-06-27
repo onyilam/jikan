@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block fullwidthheader %}
+    <section class="features">
+    <div class="col-md-6 col-md-offset-3">
+    <h3>Profile for {{user.first_name}}{{user.last_name}}</h3>
+
+    {{ user.institution }}
+    {{ user.url }}
+
+    </section>
+
+{% endblock fullwidthheader %}

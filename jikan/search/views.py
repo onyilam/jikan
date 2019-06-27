@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from .models import Paper, Preference, Journal, Author
+from .models import Paper, Preference, Journal, Author, CustomUser
 from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
 from .forms import CommentForm, PaperForm, EditPaperForm
@@ -122,8 +122,10 @@ def edit_paper(request, pk=None):
     return render(request, 'paper_detail.html', context)
 
 @login_required
-def view_user(request):
-    url = request.user.get_profile().url
+def view_user(request, username):
+    user = CustomUser.objects.get(user=username)
+    return render(request, '<app_name>/profile.html', {"user":user})
+    #url = request.user.get_profile().url
 
 
 
