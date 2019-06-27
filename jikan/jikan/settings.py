@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google', # new
     'widget_tweaks',
     'crispy_forms',
-    'easy_select2',
     'pages',
     'users',
     'search',
@@ -159,6 +158,7 @@ TEMPLATE_DIRS = (
 AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+AUTH_PROFILE_MODULE = "users.UserProfile"
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
