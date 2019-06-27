@@ -122,9 +122,9 @@ def edit_paper(request, pk=None):
     return render(request, 'paper_detail.html', context)
 
 @login_required
-def view_user(request, username):
-    user = CustomUser.objects.get(user=username)
-    return render(request, '<app_name>/profile.html', {"user":user})
+def view_user(request, user):
+    user = CustomUser.objects.get(email=user.email)
+    return render(request, 'profile.html', {"user":user})
     #url = request.user.get_profile().url
 
 
