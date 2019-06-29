@@ -117,8 +117,7 @@ $(document).ready(function(){
        <br>
         <p class="lead">Project Stage: <b> {{paper.get_status_display }} </b> <br>
         Created At: <i>{{paper.year_month_created}}</i> <br>
-        Modified At: {{paper.year_month_modified}} <br>
-        Created By: {{paper.created_by}} <br> </p>
+        Created By: <a href = "{% url 'search:view_user' pk=paper.created_by.pk %}"> {{paper.created_by.first_name}} {{paper.created_by.last_name}}</a> <br> </p>
 
         <button class="sim_button" data-pid="{{ paper.pk }}">Similar Papers </button>
 

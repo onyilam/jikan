@@ -10,6 +10,7 @@ urlpatterns = [
      url(r'^load/', views.load_paper, name='load_paper'),
      url(r'^edit/(?P<pk>\d+)/', views.edit_paper, name='edit_paper'),
      url(r'^ajax_calls/search/', views.autocompletePaper),
+     path('profile/<int:pk>/', views.view_user, name="view_user"),
      path('', views.HomePageView.as_view(), name='home'),
      url(r'add/$', views.add_paper, name='add_paper'),
 ]
