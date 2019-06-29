@@ -25,7 +25,7 @@ class Paper(models.Model):
     modified_date = models.DateTimeField(auto_now=True, null= True)
     created_by = ForeignKey(settings.AUTH_USER_MODEL,
                             related_name='papers',
-                            null=True, on_delete=PROTECT)
+                            null=True, on_delete=CASCADE)
 
     def year_month_created(self):
         return self.created_date.strftime('%Y-%m-%d')
