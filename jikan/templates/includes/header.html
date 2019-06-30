@@ -17,21 +17,17 @@
             <li><a href="{% url 'pages:about' %}">About</a></li>
         </ul>
 
+
           {% if user.is_authenticated %}
           <ul class="nav navbar-nav navbar-right">
-
-
-            {% comment %}
-            <li>
-              <a href="{% url 'library:index' %}">
-                Library
-              </a>
-            </li>
-            {% endcomment %}
-
-              <a href="{% url 'account_logout' %}" title="Logout" class="btn btn-default navbar-btn navbar-right">Logout</a>
-
+            <div>
+            <span class="navbar-brand value-brand">{{user.first_name}}</span>
+            <a href="{% url 'account_logout' %}" title="Logout" class="btn btn-default navbar-btn navbar-right">Logout</a>
+            </div>
           </ul>
+          <!-- <ul class="nav navbar-nav navbar-right">
+            <p> {{user.first_name}}</p>
+            </ul> -->
         {% else %}
           <a href="{% url 'account_login' %}" title="Login" class="btn btn-default navbar-btn navbar-right">Login</a>
           <a href="{% url 'account_signup' %}" title="Sign up" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 5px;">Sign up</a>
