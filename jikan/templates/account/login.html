@@ -8,25 +8,30 @@
 {% block content %}
 
 <div class="features">
+<div class="container">
+  <h1>{% trans "Sign In" %}</h1>
 
-<h1>{% trans "Sign In" %}</h1>
+  {% get_providers as socialaccount_providers %}
 
-{% get_providers as socialaccount_providers %}
+  {% if socialaccount_providers %}
+  <p class="lead">{% blocktrans with site.name as site_name %}Please sign in with
+  your Google account. Or, <a href="{{ signup_url }}">sign up</a>
+  for a Jikan account and sign in below:{% endblocktrans %}</p>
 
-{% if socialaccount_providers %}
-<p class="lead">{% blocktrans with site.name as site_name %}Please sign in with
-your Google account. Or, <a href="{{ signup_url }}">sign up</a>
-for a Jikan account and sign in below:{% endblocktrans %}</p>
 
-<div class="socialaccount_ballot">
+  <!-- <div class="socialaccount_ballot">
 
-  <ul class="socialaccount_providers" style="font-size:20px">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
+    <ul class="socialaccount_providers" style="font-size:20px">
+      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    </ul>
 
-  <div class="login-or">{% trans 'or' %}</div>
+    <div class="login-or">{% trans 'or' %}</div>
 
-</div>
+  </div> -->
+
+<div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+
+
 
 {% include "socialaccount/snippets/login_extra.html" %}
 
@@ -46,5 +51,7 @@ for a Jikan account and sign in below:{% endblocktrans %}</p>
   <button class="btn btn-default" type="submit">{% trans "Sign In" %}</button>
 </form>
 
+</div>
+</div>
 </div>
 {% endblock %}
