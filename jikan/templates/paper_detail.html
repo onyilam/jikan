@@ -89,8 +89,8 @@ $(document).ready(function(){
 {% endblock %}
 {% block fullwidthheader %}
     <section class="features">
-      <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+      <div class="container">
+    <!-- <div class="col-md-8 col-md-offset-2"> -->
         {% if paper %}
 
         <h2> <b>{{ paper.title }}</b></h2>
@@ -134,14 +134,14 @@ $(document).ready(function(){
           type="application/pdf">
         {% else %}
         {% endif %}
-
-    </div>
+<!--
+    </div> -->
 </div>
 
-    <div class="row">
+    <div class="container">
 
 
-      <div class="col-md-7 col-md-offset-2" id="disqus_thread"></div>
+      <div id="disqus_thread"></div>
 
         <script>
 
