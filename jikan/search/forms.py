@@ -19,7 +19,8 @@ class PaperForm(ModelForm):
     #     widget = ModelSelect2(url='journal_autocomplete')
     # )
     c =[("1", "Early development"), ("2", "Writing and Editing"),
-    ("3", "Submitted"), ("4", "R&R"), ("5", "In Print")]
+    ("3", "Ready for Submission"),
+    ("4", "Subitted"), ("5", "R&R"), ("6", "In Print")]
     status = forms.ChoiceField(choices=c, label="Status")
     document = forms.FileField(required=False, label="File")
 
@@ -31,4 +32,9 @@ class PaperForm(ModelForm):
 class EditPaperForm(PaperForm):
     class Meta:
         model = Paper
+        # widgets = ModelChoiceField(
+        #     'myformfield': ModelSelect2(
+        #         # ...
+        #     ),
+        # )
         fields = ('title', 'abstract', 'status', 'document', 'authors')

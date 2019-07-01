@@ -5,7 +5,8 @@ from django.core.validators import MaxValueValidator
 from django.conf import settings
 
 STATUS_OPTIONS =[("1", "Early development"), ("2", "Writing and Editing"),
-("3", "Subitted"), ("4", "R&R"), ("5", "In Print")]
+("3", "Ready for Submission"),
+("4", "Subitted"), ("5", "R&R"), ("6", "In Print")]
 
 class Paper(models.Model):
 #   store the academic paper information
