@@ -8,6 +8,7 @@ from .models import Paper, Preference, Journal, Author, CustomUser
 from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
 from .forms import CommentForm, PaperForm, EditPaperForm
+from users.forms import CustomUserChangeForm
 from django import forms
 from dal import autocomplete
 import json
@@ -99,8 +100,7 @@ def autocompletePaper(request):
 def load_paper(request):
     pk = request.GET.get('pk')
     object = get_object_or_404(Paper, pk = pk)
-    form = EditPaperForm(instance=object)
-    print('edit', form)
+    form = PaperForm(instance=object)
     return render(request, 'edit_paper_modal.html', {
         'object': object,
         'pk': pk,
@@ -115,7 +115,7 @@ def edit_paper(request, pk=None):
     if request.user==paper.created_by:
          can_edit=True
     if request.POST:
-        form = EditPaperForm(instance=paper, data=request.POST, files=request.FILES)
+        form = PaperForm(instance=paper, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
     context = {'paper': paper, 'can_edit': can_edit}
@@ -126,6 +126,29 @@ def view_user(request, pk):
     user = CustomUser.objects.get(pk=pk)
     return render(request, 'profile.html', {"user":user})
     #url = request.user.get_profile().url
+
+@login_required
+def load_user(request):
+    pk = request.GET.get('pk')
+    object = get_object_or_404(CustomUser, pk = pk)
+    form = CustomUserChangeForm(instance=object)
+    return render(request, 'edit_user_modal.html', {
+        'object': object,
+        'pk': pk,
+        'form': form,
+        })
+
+@login_required
+def edit_user(request, pk=None):
+    template_name = 'edit_user_modal.html'
+    user = get_object_or_404(CustomUser, pk = pk)
+    #can_edit=False
+    if request.POST:
+        form = CustomUserChangeForm(instance=user, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+    context = {'user': user}
+    return render(request, 'profile.html', context)
 
 
 

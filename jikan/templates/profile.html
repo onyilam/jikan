@@ -1,6 +1,31 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load widget_tweaks %}
+{% block javascript%}
+<script>
+$(document).ready(function(){
+  $("#myBtn").click(function(){
+    var pk = $(this).data('pid')
+    $("#myModal").modal("show");
+  });
+  $("#myModal").on('show.bs.modal', function(event){
+    var modal = $(this)
+    var pk = $(this).data('pid')
+    $.ajax({
+        data: {'pk': pk},
+        url: "{% url 'search:load_user' %}",
+        context: document.body,
+        error: function(response, error) {
+            alert(error);
+        }
+    }).done(function(response) {
+        modal.html(response);
+    });
+  });
+});
+</script>
+
+{% endblock %}
 {% block fullwidthheader %}
     <section class="features">
     <!-- <div class="col-md-6 col-md-offset-3"> -->
