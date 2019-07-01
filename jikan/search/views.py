@@ -157,6 +157,10 @@ def edit_user(request, pk=None):
     context = {'user': user, 'can_edit': can_edit}
     return render(request, 'profile.html', context)
 
+@login_required
+def remove_paper(request, pk):
+    return None
+
 
 
 

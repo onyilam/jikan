@@ -103,6 +103,38 @@ $(document).ready(function(){
         {% if can_edit %}
 
         <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid={{paper.pk}} >Edit Paper Details</button>
+        <!-- <button type='button' class="btn btn-default" data-pid={{paper.pk}} > Delete Paper</button> -->
+
+        <button type="button" data-toggle="modal" data-target="#fm-modal-grid" class="btn btn-default" data-pid={{paper.pk}}>Delete Paper</button>
+        <div class="modal fade" id="fm-modal-grid" tabindex="-1"
+             role="dialog" aria-labelledBy="fm-modal-grid"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Cerrar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12 col-sm-6">
+                                    <p>Are you sure you want to delte {{paper.title}}?</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="{% url 'search:remove_paper' %}" class="btn">Delete</a>
+                        <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {% csrf_token %}
         <br>
         <br>
@@ -119,7 +151,7 @@ $(document).ready(function(){
         Created At: <i>{{paper.year_month_created}}</i> <br>
         Created By: <a href = "{% url 'search:view_user' pk=paper.created_by.pk %}"> {{paper.created_by.first_name}} {{paper.created_by.last_name}}</a> <br> </p>
 
-        <button class="sim_button" data-pid="{{ paper.pk }}">Similar Papers </button>
+        <!-- <button class="sim_button" data-pid="{{ paper.pk }}">Similar Papers </button> -->
 
         <div class="expand" id="sim_paper"></div>
         <p class="lead">    Abstract:
