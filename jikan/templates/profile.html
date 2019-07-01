@@ -35,6 +35,12 @@ $(document).ready(function(){
                 <div class="col-sm-12">
                   <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid={{user.pk}} >Edit Profile</button>
 
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModal" role="dialog" data-pid={{user.pk}}> {% csrf_token %}
+                    <div class="modal-dialog">
+                    </div>
+                  </div>
+
                     <div class="col-xs-12 col-sm-8">
                         <h2>{{user.first_name}} {{user.last_name}}</h2>
                         <p><strong>Institution: </strong> {{user.institution}}  </p>
