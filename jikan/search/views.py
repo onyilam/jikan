@@ -124,7 +124,12 @@ def edit_paper(request, pk=None):
 @login_required
 def view_user(request, pk):
     user = CustomUser.objects.get(pk=pk)
-    return render(request, 'profile.html', {"user":user})
+    print('user', user)
+    print('request.user', request.user)
+    can_edit=False
+    if request.user==user:
+         can_edit=True
+    return render(request, 'profile.html', {"user":user, "can_edit": can_edit})
     #url = request.user.get_profile().url
 
 @login_required
@@ -142,12 +147,14 @@ def load_user(request):
 def edit_user(request, pk=None):
     template_name = 'edit_user_modal.html'
     user = get_object_or_404(CustomUser, pk = pk)
-    #can_edit=False
+    can_edit=False
+    if request.user==user:
+         can_edit=True
     if request.POST:
         form = CustomUserChangeForm(instance=user, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
-    context = {'user': user}
+    context = {'user': user, 'can_edit': can_edit}
     return render(request, 'profile.html', context)
 
 
