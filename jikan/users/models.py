@@ -1,6 +1,10 @@
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 
+POSITION_OPTIONS =[("1", "Undergraduate Student"), ("2", "Graduate Student"),
+("3", "Assistant Professor"),
+("4", "Associate Professor"), ("5", "Professor"), ("6", "Non-academic Research")]
+
 class CustomUserManager(UserManager):
     pass
 
@@ -10,6 +14,7 @@ class CustomUser(AbstractUser):
     url = models.URLField("Website", blank=True)
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
+    position = models.CharField(max_length=100, null=True, choices=POSITION_OPTIONS)
 
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
