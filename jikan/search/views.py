@@ -124,8 +124,6 @@ def edit_paper(request, pk=None):
 @login_required
 def view_user(request, pk):
     user = CustomUser.objects.get(pk=pk)
-    print('user', user)
-    print('request.user', request.user)
     can_edit=False
     if request.user==user:
          can_edit=True
@@ -158,8 +156,12 @@ def edit_user(request, pk=None):
     return render(request, 'profile.html', context)
 
 @login_required
-def remove_paper(request, pk):
-    return None
+def remove_paper(request, pk=None):
+    print('remove pk', pk)
+    paper = get_object_or_404(Paper, pk = pk)
+    paper.delete()
+    context = {'paper': paper}
+    return render(request, 'paper_removed.html', context)
 
 
 
