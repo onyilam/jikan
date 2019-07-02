@@ -46,9 +46,10 @@ $(document).ready(function(){
 
                     <div class="col-xs-12 col-sm-8">
                         <h2>{{user.first_name}} {{user.last_name}}</h2>
-                        <p><strong>Institution: </strong> {{user.institution}}  </p>
-                        <p><strong> url:</strong> {{user.url}} </p>
-                          <p><strong>Research Area: </strong>
+                        <p class="lead"><strong>Institution: </strong> {{user.institution}}  </p>
+                        <p class="lead"><strong> url:</strong> {{user.url}} </p>
+                        <p class="lead"><strong> Position:</strong> {{user.get_position_display}} </p>
+                          <p class="lead"><strong>Research Area: </strong>
                             <span class="tags"> </span>
                             <span class="tags"></span>
                             <span class="tags"></span>
