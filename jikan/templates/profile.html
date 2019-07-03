@@ -31,7 +31,6 @@ $(document).ready(function(){
     <!-- <div class="col-md-6 col-md-offset-3"> -->
     <div class="container">
 
-
     <!-- <div class="col-md-6 col-md-offset-3"> -->
                 <div class="col-sm-12">
                     {% if can_edit %}
@@ -47,7 +46,7 @@ $(document).ready(function(){
                     <div class="col-xs-12 col-sm-8">
                         <h2>{{user.first_name}} {{user.last_name}}</h2>
                         <p class="lead"><strong>Institution: </strong> {{user.institution}}  </p>
-                        <p class="lead"><strong> url:</strong> {{user.url}} </p>
+                        <p class="lead"><strong> url:</strong> <a href="{{ user.url }}"> {{user.url}} </a> </p>
                         <p class="lead"><strong> Position:</strong> {{user.get_position_display}} </p>
                           <p class="lead"><strong>Research Area: </strong>
                             <span class="tags"> </span>
