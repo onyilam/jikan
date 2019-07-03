@@ -8,6 +8,8 @@ STATUS_OPTIONS =[("1", "Early development"), ("2", "Writing and Editing"),
 ("3", "Ready for Submission"),
 ("4", "Submitted"), ("5", "Revising"), ("6", "In Print")]
 
+VENUE_OPTIONS = [("1", "Conference"), ("2", "Journal")]
+
 class Paper(models.Model):
 #   store the academic paper information
     aminer_id = CharField(max_length=100, null=True)
@@ -66,11 +68,13 @@ class Preference(models.Model):
 
 
 class Comment(models.Model):
+    """
+    stores referee comments.
+    """
     paper = ForeignKey(Paper, on_delete=models.CASCADE, related_name='comments')
-    author = CharField(max_length=200)
+    venue = CharField(max_length=50, null=True, choices=VENUE_OPTIONS)
     text = TextField()
-    created_date = DateTimeField(auto_now=True)
-    approved_comment = BooleanField(default=False)
+    date = DateTimeField(null=True)
 
     def approve(self):
         self.approved_comment = True

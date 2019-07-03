@@ -7,7 +7,7 @@ from dal.autocomplete import ModelSelect2
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ('author', 'text',)
+        fields = ('venue', 'text',)
 
 
 class PaperForm(ModelForm):
