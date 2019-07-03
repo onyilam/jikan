@@ -117,15 +117,16 @@ $(document).ready(function(){
               <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up fa-2x"></span>
                   <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong> </a> <br>
                   <br>
-                  <p class="lead">Project Stage: <b> {{paper.get_status_display }} </b> <br>
+                  <p class="h5 text-secondary">Project Stage: <b> {{paper.get_status_display }} </b> <br>
                     Created At: <i>{{paper.year_month_created}}</i> <br>
+                    {% if paper.created_by %}
                     Created By: <a href = "{% url 'search:view_user' pk=paper.created_by.pk %}"> {{paper.created_by.first_name}} {{paper.created_by.last_name}}</a> <br> </p>
-
+                    {% endif %}
         <!-- <button class="sim_button" data-pid="{{ paper.pk }}">Similar Papers </button> -->
 
             <div class="expand" id="sim_paper"></div>
-            <p class="lead">    Abstract:
-                <br>{{ paper.abstract }}</p>
+            <p class="h4 text-muted">    Abstract: </p>
+            <p class="text-muted">     <br>{{ paper.abstract }} </p>
 
         {% endif %}
 
