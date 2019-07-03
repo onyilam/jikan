@@ -68,21 +68,12 @@ $(document).ready(function(){
 {% block fullwidthheader %}
     <section class="features">
       <div class="container">
-    <!-- <div class="col-md-8 col-md-offset-2"> -->
         {% if paper %}
-        <h2> <b>{{ paper.title }}</b></h2>
-
-        <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up fa-2x"></span>
-            <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong> </a> <br>
-
-            <br>
-        <!-- <p>can edit, {{ can_edit}}</p> -->
-        {% if can_edit %}
+          {% if can_edit %}
 
         <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid={{paper.pk}} >Edit Paper Details</button>
-        <!-- <button type='button' class="btn btn-default" data-pid={{paper.pk}} > Delete Paper</button> -->
 
-        <button type="button" data-toggle="modal" data-target="#fm-modal-grid" class="btn btn-default" data-pid={{paper.pk}}>Delete Paper</button>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#fm-modal-grid" data-pid={{paper.pk}}>Delete Paper</button>
         <div class="modal fade" id="fm-modal-grid" tabindex="-1"
              role="dialog" aria-labelledBy="fm-modal-grid"
             aria-hidden="true">
@@ -113,8 +104,7 @@ $(document).ready(function(){
         </div>
 
         {% csrf_token %}
-        <br>
-        <br>
+
        <!-- Modal -->
        <div class="modal fade" id="myModal" role="dialog" data-pid={{paper.pk}}> {% csrf_token %}
          <div class="modal-dialog">
@@ -122,16 +112,19 @@ $(document).ready(function(){
        </div>
 
        {% endif %}
-       <!-- <div class="modaldiv"></div> -->
-       <br>
-        <p class="lead">Project Stage: <b> {{paper.get_status_display }} </b> <br>
-        Created At: <i>{{paper.year_month_created}}</i> <br>
-        Created By: <a href = "{% url 'search:view_user' pk=paper.created_by.pk %}"> {{paper.created_by.first_name}} {{paper.created_by.last_name}}</a> <br> </p>
+       <div class="col-xs-12 col-sm-8">
+          <h3> {{ paper.title }}</h3>
+              <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up fa-2x"></span>
+                  <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong> </a> <br>
+                  <br>
+                  <p class="lead">Project Stage: <b> {{paper.get_status_display }} </b> <br>
+                    Created At: <i>{{paper.year_month_created}}</i> <br>
+                    Created By: <a href = "{% url 'search:view_user' pk=paper.created_by.pk %}"> {{paper.created_by.first_name}} {{paper.created_by.last_name}}</a> <br> </p>
 
         <!-- <button class="sim_button" data-pid="{{ paper.pk }}">Similar Papers </button> -->
 
-        <div class="expand" id="sim_paper"></div>
-        <p class="lead">    Abstract:
+            <div class="expand" id="sim_paper"></div>
+            <p class="lead">    Abstract:
                 <br>{{ paper.abstract }}</p>
 
         {% endif %}
@@ -143,9 +136,8 @@ $(document).ready(function(){
           type="application/pdf">
         {% else %}
         {% endif %}
-<!--
-    </div> -->
-</div>
+      </div>
+
 
     <div class="container">
 
