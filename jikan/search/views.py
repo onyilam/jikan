@@ -163,6 +163,20 @@ def remove_paper(request, pk=None):
     context = {'paper': paper}
     return render(request, 'paper_removed.html', context)
 
+@login_required
+def add_comment(request, pk):
+    paper = get_object_or_404(Paper, pk = pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.paper = paper.pk
+            comment.save()
+            return redirect('paper_detail', pk=paper.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'add_comment_modal.html', {'form': form})
+
 
 
 
