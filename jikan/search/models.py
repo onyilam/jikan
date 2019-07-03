@@ -6,7 +6,7 @@ from django.conf import settings
 
 STATUS_OPTIONS =[("1", "Early development"), ("2", "Writing and Editing"),
 ("3", "Ready for Submission"),
-("4", "Submitted"), ("5", "R&R"), ("6", "In Print")]
+("4", "Submitted"), ("5", "Revising"), ("6", "In Print")]
 
 class Paper(models.Model):
 #   store the academic paper information

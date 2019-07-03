@@ -20,7 +20,7 @@ class PaperForm(ModelForm):
     # )
     c =[("1", "Early development"), ("2", "Writing and Editing"),
     ("3", "Ready for Submission"),
-    ("4", "Subitted"), ("5", "R&R"), ("6", "In Print")]
+    ("4", "Submitted"), ("5", "Revising"), ("6", "In Print")]
     status = forms.ChoiceField(choices=c, label="Status")
     document = forms.FileField(required=False, label="File")
 
