@@ -74,6 +74,7 @@ $(document).ready(function(){
         <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid={{paper.pk}} >Edit Paper Details</button>
 
         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#fm-modal-grid" data-pid={{paper.pk}}>Delete Paper</button>
+
         <div class="modal fade" id="fm-modal-grid" tabindex="-1"
              role="dialog" aria-labelledBy="fm-modal-grid"
             aria-hidden="true">
@@ -112,7 +113,9 @@ $(document).ready(function(){
        </div>
 
        {% endif %}
-       <div class="col-xs-12 col-sm-8">
+
+       <br>
+       <!-- <div class="col-xs-16 col-sm-8"> -->
           <h3> {{ paper.title }}</h3>
               <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up fa-2x"></span>
                   <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong> </a> <br>
@@ -128,6 +131,9 @@ $(document).ready(function(){
             <p class="h4 text-muted">    Abstract: </p>
             <p class="text-muted">     <br>{{ paper.abstract }} </p>
 
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#fm-modal-grid" data-pid={{paper.pk}}>Referee Comments</button>
+            <span class="fa fa-plus-circle fa-2x"></span> 
+
         {% endif %}
 
 
@@ -137,12 +143,12 @@ $(document).ready(function(){
           type="application/pdf">
         {% else %}
         {% endif %}
-      </div>
+      <!-- </div> -->
 
 
     <div class="container">
 
-
+      <!-- <div class = "col-xs-12 col-sm-8"> -->
       <div id="disqus_thread"></div>
 
         <script>
@@ -186,8 +192,8 @@ $(document).ready(function(){
           <p>No comments here yet :( </p>
       {% endfor %} -->
 
+      <!-- </div> -->
       </div>
-
     </section>
 
 {% endblock fullwidthheader %}
