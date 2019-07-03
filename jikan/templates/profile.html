@@ -93,18 +93,19 @@ $(document).ready(function(){
                     <div class="col-xs-12 col-sm-4 emphasis">
 
                         <div class="btn-group dropup btn-block">
-                          <button type="button" class="btn btn-primary"><span class="fa fa-gear"></span> Options </button>
-                          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+
+                          <button type="button" class="btn btn-primary" onclick="location.href='mailto:{{user.email}}';" ><span class="fa fa-envelope"></span> Email this user </button>
+                          <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                             <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <ul class="dropdown-menu text-left" role="menu">
+                          </button> -->
+                          <!-- <ul class="dropdown-menu text-left" role="menu">
                             <li><a href="#"><span class="fa fa-envelope pull-right"></span> Send an email </a></li>
                             <li class="divider"></li>
                             <li><a href="#"><span class="fa fa-warning pull-right"></span>Report this user for spam</a></li>
                             <li class="divider"></li>
                             <li><a href="#" class="btn disabled" role="button"> Unfollow </a></li>
-                          </ul>
+                          </ul> -->
                         </div>
                     </div>
                 </div>
