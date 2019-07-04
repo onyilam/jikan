@@ -122,11 +122,11 @@ def edit_paper(request, pk=None):
     return render(request, 'paper_detail.html', context)
 
 def view_user(request, pk):
-    user = CustomUser.objects.get(pk=pk)
+    creator = CustomUser.objects.get(pk=pk)
     can_edit=False
-    if request.user==user:
+    if request.user==creator:
          can_edit=True
-    return render(request, 'profile.html', {"user":user, "can_edit": can_edit})
+    return render(request, 'profile.html', {"creator": creator, "can_edit": can_edit})
     #url = request.user.get_profile().url
 
 @login_required

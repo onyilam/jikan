@@ -34,20 +34,20 @@ $(document).ready(function(){
     <!-- <div class="col-md-6 col-md-offset-3"> -->
                 <div class="col-sm-12">
                     {% if can_edit %}
-                  <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid={{user.pk}} >Edit Profile</button>
+                  <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid= {{creator.pk}} >Edit Profile</button>
 
                   <!-- Modal -->
-                  <div class="modal fade" id="myModal" role="dialog" data-pid={{user.pk}}> {% csrf_token %}
+                  <div class="modal fade" id="myModal" role="dialog" data-pid={{ creator.pk }}> {% csrf_token %}
                     <div class="modal-dialog">
                     </div>
                   </div>
                   {% endif %}
 
                     <div class="col-xs-12 col-sm-8">
-                        <h2>{{user.first_name}} {{user.last_name}}</h2>
-                        <p class="lead"><strong>Institution: </strong> {{user.institution}}  </p>
-                        <p class="lead"><strong> url:</strong> <a href="{{ user.url }}"> {{user.url}} </a> </p>
-                        <p class="lead"><strong> Position:</strong> {{user.get_position_display}} </p>
+                        <h2>{{creator.first_name}} {{creator.last_name}}</h2>
+                        <p class="lead"><strong>Institution: </strong> {{creator.institution}}  </p>
+                        <p class="lead"><strong> url:</strong> <a href="{{ created_by.url }}"> {{ creator.url}} </a> </p>
+                        <p class="lead"><strong> Position:</strong> {{ creator.get_position_display }} </p>
                           <p class="lead"><strong>Research Area: </strong>
                             <span class="tags"> </span>
                             <span class="tags"></span>
@@ -93,7 +93,7 @@ $(document).ready(function(){
 
                         <div class="btn-group dropup btn-block">
 
-                          <button type="button" class="btn btn-primary" onclick="location.href='mailto:{{user.email}}';" ><span class="fa fa-envelope"></span> Email this user </button>
+                          <button type="button" class="btn btn-primary" onclick="location.href='mailto:{{creator.email}}';" ><span class="fa fa-envelope"></span> Email this user </button>
                           <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                             <span class="sr-only">Toggle Dropdown</span>
