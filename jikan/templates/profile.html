@@ -56,11 +56,11 @@ $(document).ready(function(){
                         </p>
                         <p class="lead"> <strong>Papers Uploaded:<strong>
                           {% for paper in creator.papers.all %}
-                          <li> {{ paper.title }}
+                          <li> <a href="{% url 'search:paper_detail' pk=paper.pk %}">{{ paper.title }}
                               {% empty %}
                               No paper uploaded.
                               {% endfor %}
-                              </li>
+                              </a></li>
                           </p>
                     </div>
                     <!-- <div class="col-xs-12 col-sm-4 text-center">
