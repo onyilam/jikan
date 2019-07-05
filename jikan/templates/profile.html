@@ -54,6 +54,14 @@ $(document).ready(function(){
                             <span class="tags"></span>
                             <span class="tags"></span>
                         </p>
+                        <p class="lead"> <strong>Papers Uploaded:<strong>
+                          {% for paper in creator.papers.all %}
+                          <li> {{ paper.title }}
+                              {% empty %}
+                              No paper uploaded.
+                              {% endfor %}
+                              </li>
+                          </p>
                     </div>
                     <!-- <div class="col-xs-12 col-sm-4 text-center">
                         <figure>
