@@ -7,7 +7,7 @@ from django.db.models import Q
 from .models import Paper, Preference, Journal, Author, CustomUser
 from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
-from .forms import CommentForm, PaperForm, EditPaperForm
+from .forms import CommentForm, PaperForm, EditPaperForm, AddEventForm
 from users.forms import CustomUserChangeForm
 from django import forms
 from dal import autocomplete
@@ -163,19 +163,18 @@ def remove_paper(request, pk=None):
     return render(request, 'paper_removed.html', context)
 
 @login_required
-def add_comment(request, pk):
+def add_event(request, pk):
     paper = get_object_or_404(Paper, pk = pk)
     if request.method == "POST":
-        form = CommentForm(request.POST, request.FILES)
+        form = AddEventForm(request.POST, request.FILES)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.paper = paper.pk
             comment.save()
             return redirect('paper_detail', pk=paper.pk)
     else:
-        form = CommentForm()
-    return render(request, 'add_comment_modal.html', {'form': form})
-
+        form = AddEventForm()
+    return render(request, 'add_event_modal.html', {'form': form})
 
 
 

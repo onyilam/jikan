@@ -80,8 +80,11 @@ $(document).ready(function(){
     By: <a href = "{% url 'search:view_user' pk=paper.created_by.pk %}"> {{paper.created_by.first_name}} {{paper.created_by.last_name}}</a> <br> </p>
     {% endif %}
     </p>
-    <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up fa-2x"></span>
-    <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong> </a> <br>
+    <a href="#" class="like_button" data-pid="{{ paper.pk }}">
+      <span class="like_span fa fa-thumbs-up fa-2x"></span>
+        <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong>
+    </a>
+    <br>
     <p class="h4 text-muted">    Abstract: </p>
     <p class="text-muted">     {{ paper.abstract }} </p>
 
@@ -145,11 +148,29 @@ $(document).ready(function(){
         {% else %}
         {% endif %}
       <!-- </div> -->
+      <!-- <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="add_event" data-pid={{paper.pk}}> Add Event</button> -->
+
+
+
 
       <div class="page">
+        {% if can_edit %}
+        <div style="text-align: center;">
+          <a href="#" class="add_event" data-pid="{{ paper.pk }}">
+            <span class="fa fa-pencil-square-o fa-3x" align="center"></span>
+          </a>
+        </div>
+
+        {% endif %}
         <div class="page__demo">
           <div class="main-container page__container">
+
+
+
             <div class="timeline">
+
+
+
               <div class="timeline__group">
                 <span class="timeline__year">2019</span>
                 <div class="timeline__box">

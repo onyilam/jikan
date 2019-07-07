@@ -4,11 +4,14 @@ from users.models import CustomUser
 from django.core.validators import MaxValueValidator
 from django.conf import settings
 
-STATUS_OPTIONS =[("1", "Early development"), ("2", "Writing and Editing"),
+STATUS_OPTIONS =[("1", "Early Development"), ("2", "Writing and Editing"),
 ("3", "Ready for Submission"),
 ("4", "Submitted"), ("5", "Revising"), ("6", "In Print")]
 
 VENUE_OPTIONS = [("1", "Conference"), ("2", "Journal")]
+
+EVENT_OPTIONS = [  ("1", "Working Paper"), ( "2", "Presentation"), ("3", "Submitted"),
+("4", "Rejected"), ("5", "Revise and Resubmitted"), ("6", "Accepted"), ("7", "Appeared in Journal")]
 
 class Paper(models.Model):
 #   store the academic paper information
@@ -82,3 +85,14 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
+
+class PaperEvent(models.Model):
+    """
+    information about the status stage of paper
+    """
+    paper = ForeignKey(Paper, on_delete=models.CASCADE, related_name='events')
+    date = DateTimeField(null=True)
+    event = CharField(max_length=50, null=True, choices=EVENT_OPTIONS)
+    comment = TextField()
+    document = FileField(upload_to='documents/', null=True)

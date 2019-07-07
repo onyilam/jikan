@@ -1,4 +1,4 @@
-from .models import Paper, Comment, Author
+from .models import Paper, Comment, Author, PaperEvent
 from django.forms import ModelForm, ModelChoiceField, MultipleChoiceField
 from django import forms
 from dal.autocomplete import ModelSelect2
@@ -32,9 +32,13 @@ class PaperForm(ModelForm):
 class EditPaperForm(PaperForm):
     class Meta:
         model = Paper
-        # widgets = ModelChoiceField(
-        #     'myformfield': ModelSelect2(
-        #         # ...
-        #     ),
-        # )
         fields = ('title', 'abstract', 'status', 'document', 'authors')
+
+
+class AddEventForm(ModelForm):
+    class Meta:
+        model = PaperEvent
+        fields = '__all__'
+        widgets = {
+          'comment': forms.Textarea(attrs={'rows':4, 'cols':15}),
+        }
