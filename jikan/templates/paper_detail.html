@@ -45,6 +45,28 @@ $(document).ready(function(){
 });
 </script>
 <script>
+$(document).ready(function(){
+  $("#add_event").click(function(){
+    var pk = $(this).data('pid')
+    $("#myModal2").modal("show");
+  });
+  $("#myModal2").on('show.bs.modal', function(event){
+    var modal = $(this)
+    var pk = $(this).data('pid')
+    $.ajax({
+        data: {'pk': pk},
+        url: "{% url 'search:add_event' %}",
+        context: document.body,
+        error: function(response, error) {
+            alert(error);
+        }
+    }).done(function(response) {
+        modal.html(response);
+    });
+  });
+});
+</script>
+<script>
     $(document).ready(function(){
       $(".sim_button").click(function(){
             var pk = $(this).data('pid')
@@ -148,18 +170,21 @@ $(document).ready(function(){
         {% else %}
         {% endif %}
       <!-- </div> -->
-      <!-- <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="add_event" data-pid={{paper.pk}}> Add Event</button> -->
-
-
 
 
       <div class="page">
         {% if can_edit %}
         <div style="text-align: center;">
-          <a href="#" class="add_event" data-pid="{{ paper.pk }}">
+          <a href="#" id="add_event" data-pid={{ paper.pk }}>
             <span class="fa fa-pencil-square-o fa-3x" align="center"></span>
           </a>
         </div>
+
+        <div class="modal fade" id="myModal2" role="dialog" data-pid={{ paper.pk }}> {% csrf_token %}
+          <div class="modal-dialog">
+          </div>
+        </div>
+
 
         {% endif %}
         <div class="page__demo">

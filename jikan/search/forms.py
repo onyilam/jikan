@@ -42,3 +42,8 @@ class AddEventForm(ModelForm):
         widgets = {
           'comment': forms.Textarea(attrs={'rows':4, 'cols':15}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(AddEventForm, self).__init__(*args, **kwargs)
+        self.fields['comment'].required = False
+        self.fields['document'].required = False

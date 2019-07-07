@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from .models import Paper, Preference, Journal, Author, CustomUser
+from .models import Paper, Preference, Journal, Author, CustomUser, PaperEvent
 from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
 from .forms import CommentForm, PaperForm, EditPaperForm, AddEventForm
@@ -99,6 +99,7 @@ def autocompletePaper(request):
 @login_required
 def load_paper(request):
     pk = request.GET.get('pk')
+    print('pk', pk, request.method)
     object = get_object_or_404(Paper, pk = pk)
     form = PaperForm(instance=object)
     return render(request, 'edit_paper_modal.html', {
@@ -163,8 +164,13 @@ def remove_paper(request, pk=None):
     return render(request, 'paper_removed.html', context)
 
 @login_required
-def add_event(request, pk):
-    paper = get_object_or_404(Paper, pk = pk)
+def add_event(request):
+    #paper = get_object_or_404(Paper, pk = pk)
+    pk = request.GET.get('pk')
+    print('pk', pk, request.method)
+    paper = Paper.objects.get(pk=pk)
+    pe, _ = PaperEvent.objects.get_or_create(paper=paper)
+    print('pe', pe)
     if request.method == "POST":
         form = AddEventForm(request.POST, request.FILES)
         if form.is_valid():
@@ -173,7 +179,8 @@ def add_event(request, pk):
             comment.save()
             return redirect('paper_detail', pk=paper.pk)
     else:
-        form = AddEventForm()
+        form = AddEventForm(instance=pe)
+        print('form', form)
     return render(request, 'add_event_modal.html', {'form': form})
 
 
