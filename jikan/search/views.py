@@ -169,7 +169,8 @@ def add_event(request):
     pk = request.GET.get('pk')
     print('pk', pk, request.method)
     paper = Paper.objects.get(pk=pk)
-    pe, _ = PaperEvent.objects.get_or_create(paper=paper)
+    pe = PaperEvent()
+    pe.paper = paper
     print('pe', pe)
     if request.method == "POST":
         form = AddEventForm(request.POST, request.FILES)

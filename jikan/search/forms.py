@@ -39,6 +39,7 @@ class AddEventForm(ModelForm):
     class Meta:
         model = PaperEvent
         fields = '__all__'
+        exclude = ('paper',)
         widgets = {
           'comment': forms.Textarea(attrs={'rows':4, 'cols':15}),
         }
