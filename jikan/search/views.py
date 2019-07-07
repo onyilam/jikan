@@ -167,13 +167,10 @@ def remove_paper(request, pk=None):
 def add_event(request):
     if request.method == 'GET':
         pk = request.GET.get('pk')
-        print('1', pk)
         paper = Paper.objects.get(pk=pk)
-        print('2')
         pe = PaperEvent()
         pe.paper = paper
         form = AddEventForm(instance=pe)
-        print('3', pe.pk) ## pe does not have a pk here.
     return render(request, 'add_event_modal.html', {
             'form': form,
             'object': pe,
@@ -183,11 +180,12 @@ def add_event(request):
 @login_required
 def post_event(request, pk=None):
     if request.method == "POST":
-        form = AddEventForm(data=request.POST, files=request.FILES)
-        print('4')
+        p=Paper.objects.get(pk=pk)
+        form = AddEventForm(initial={'paper':p}, data=request.POST, files=request.FILES)
         if form.is_valid():
             event = form.save(commit=False)
-            print('saved')
+            event.paper = p
+            event.save()
             return redirect('paper_detail', pk=pk)
 
 
