@@ -75,11 +75,18 @@ $(document).ready(function(){
     {% endif %}
 <div class="masthead">
   <h1>{{paper.title}}</h1>
-  <p>  Created At: <i>{{paper.year_month_created}}</i>
+  <p>  Created On: <i>{{paper.year_month_created}}</i>
     {% if paper.created_by %}
-    Created By: <a href = "{% url 'search:view_user' pk=paper.created_by.pk %}"> {{paper.created_by.first_name}} {{paper.created_by.last_name}}</a> <br> </p>
+    By: <a href = "{% url 'search:view_user' pk=paper.created_by.pk %}"> {{paper.created_by.first_name}} {{paper.created_by.last_name}}</a> <br> </p>
     {% endif %}
-    </p
+    </p>
+    <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up fa-2x"></span>
+    <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong> </a> <br>
+    <p class="h4 text-muted">    Abstract: </p>
+    <p class="text-muted">     {{ paper.abstract }} </p>
+
+
+
 </div>
 
     <section class="features">
@@ -125,18 +132,10 @@ $(document).ready(function(){
 
        <br>
        <!-- <div class="col-xs-16 col-sm-8"> -->
-              <a href="#" class="like_button" data-pid="{{ paper.pk }}"> <span class="like_span fa fa-thumbs-up fa-2x"></span>
-                  <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong> </a> <br>
                   <!-- <br> -->
                   <!-- <p class="h5 text-secondary">Project Stage: <b> {{paper.get_status_display }} </b> <br> -->
 
         <!-- <button class="sim_button" data-pid="{{ paper.pk }}">Similar Papers </button> -->
-
-            <div class="expand" id="sim_paper"></div>
-            <p class="h4 text-muted">    Abstract: </p>
-            <p class="text-muted">     {{ paper.abstract }} </p>
-
-
 
 
 
@@ -152,7 +151,18 @@ $(document).ready(function(){
           <div class="main-container page__container">
             <div class="timeline">
               <div class="timeline__group">
-                <span class="timeline__year">2008</span>
+                <span class="timeline__year">2019</span>
+                <div class="timeline__box">
+                  <div class="timeline__date">
+                    <span class="timeline__day">2</span>
+                    <span class="timeline__month">Feb</span>
+                  </div>
+                  <div class="timeline__post">
+                    <div class="timeline__content">
+                      <p>Attends the Philadelphia Museum School of Industrial Art. Studies design with Alexey Brodovitch, art director at Harper's Bazaar, and works as his assistant.</p>
+                    </div>
+                  </div>
+                </div>
                 <div class="timeline__box">
                   <div class="timeline__date">
                     <span class="timeline__day">2</span>
