@@ -165,24 +165,30 @@ def remove_paper(request, pk=None):
 
 @login_required
 def add_event(request):
-    #paper = get_object_or_404(Paper, pk = pk)
-    pk = request.GET.get('pk')
-    print('pk', pk, request.method)
-    paper = Paper.objects.get(pk=pk)
-    pe = PaperEvent()
-    pe.paper = paper
-    print('pe', pe)
-    if request.method == "POST":
-        form = AddEventForm(request.POST, request.FILES)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.paper = paper.pk
-            comment.save()
-            return redirect('paper_detail', pk=paper.pk)
-    else:
+    if request.method == 'GET':
+        pk = request.GET.get('pk')
+        print('1', pk)
+        paper = Paper.objects.get(pk=pk)
+        print('2')
+        pe = PaperEvent()
+        pe.paper = paper
         form = AddEventForm(instance=pe)
-        print('form', form)
-    return render(request, 'add_event_modal.html', {'form': form})
+        print('3', pe.pk) ## pe does not have a pk here.
+    return render(request, 'add_event_modal.html', {
+            'form': form,
+            'object': pe,
+            'pk': pk,
+            })
+
+@login_required
+def post_event(request, pk=None):
+    if request.method == "POST":
+        form = AddEventForm(data=request.POST, files=request.FILES)
+        print('4')
+        if form.is_valid():
+            event = form.save(commit=False)
+            print('saved')
+            return redirect('paper_detail', pk=pk)
 
 
 
