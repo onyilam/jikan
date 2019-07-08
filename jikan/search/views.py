@@ -54,9 +54,10 @@ def get_recommendation(request):
 def paper_detail(request, pk):
     paper = get_object_or_404(Paper, pk=pk)
     can_edit=False
+    events = PaperEvent.objects.filter(paper=paper).order_by("-date")
     if request.user==paper.created_by:
          can_edit=True
-    context = {'paper': paper, 'can_edit': can_edit}
+    context = {'paper': paper, 'can_edit': can_edit, 'events': events}
     return render(request, 'paper_detail.html', context)
 
 @login_required
