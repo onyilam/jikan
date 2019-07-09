@@ -206,8 +206,18 @@ $(document).ready(function(){
                   </div>
                   <div class="timeline__post">
                     <div class="timeline__content">
-                      <p> {{event.get_event_display}} - {{event.comment}} </p>
+                      <p>
+                        <a data-toggle="collapse" href="#eventdetails" role="button" aria-expanded="false" aria-controls="eventdetails">
+                         {{event.get_event_display}} -
+                       </a>
+                     </p>
                     </div>
+                    <div class="collapse" id="eventdetails">
+                      <div class="card-body">
+                        {{event.comment}}
+                      </div>
+                    </div>
+
                   </div>
                 </div>
                 {% endfor %}
@@ -219,7 +229,11 @@ $(document).ready(function(){
         </div>
 
 
+
     <div class="container">
+
+
+
 
       <!-- <div class = "col-xs-12 col-sm-8"> -->
       <!-- <div id="disqus_thread"></div>
