@@ -219,6 +219,11 @@ $(document).ready(function(){
                     <div class="collapse" id="eventdetails_{{event.pk}}">
                       <div class="card-body">
                         {{event.comment}}
+                        <br>
+                        <br>
+                      {% if event.document %}
+                      <i class="fa fa-file" aria-hidden="true"></i>
+                      {% endif %}
                       </div>
                     </div>
 
