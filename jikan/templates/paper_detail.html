@@ -189,14 +189,16 @@ $(document).ready(function(){
         {% endif %}
 
 
-        {% for event in events %}
+        {% regroup events by date.year as events_by_year %}
+
 
         <div class="page__demo">
           <div class="main-container page__container">
-
+            {% for year in events_by_year %}
             <div class="timeline">
               <div class="timeline__group">
-                <span class="timeline__year">{{event.date|date:'Y'}}</span>
+                <span class="timeline__year">{{year.grouper}}</span>
+                {% for event in year.list %}
                 <div class="timeline__box">
                   <div class="timeline__date">
                     <span class="timeline__day">{{event.date|date:'j'}}</span>
@@ -208,9 +210,15 @@ $(document).ready(function(){
                     </div>
                   </div>
                 </div>
+                {% endfor %}
+              </div>
+            </div>
+
+            {% endfor %}
+          </div>
+        </div>
 
 
-              {% endfor %}
     <div class="container">
 
       <!-- <div class = "col-xs-12 col-sm-8"> -->

@@ -141,7 +141,7 @@
 }
 
 .timeline{
-  --timelineMainColor: #4557bb;
+  --timelineMainColor: #4592bb;
   font-size: 16px;
 }
 
@@ -202,6 +202,10 @@ p:last-child{
 
   margin-left: auto;
   margin-right: auto;
+}
+
+.timeline span {
+  text-align: center;
 }
 
 .page__container{
