@@ -43,6 +43,9 @@ class AddEventForm(ModelForm):
         widgets = {
           'comment': forms.Textarea(attrs={'rows':4, 'cols':15}),
         }
+        help_texts = {
+            'date': 'MM/DD/YYYY',
+        }
 
     def __init__(self, *args, **kwargs):
         super(AddEventForm, self).__init__(*args, **kwargs)

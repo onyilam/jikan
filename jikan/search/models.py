@@ -1,8 +1,9 @@
-from django.db.models import CharField, Model, IntegerField, TextField, DateTimeField, FileField, BooleanField, ForeignKey, ManyToManyField, PROTECT, CASCADE
+from django.db.models import CharField, Model, IntegerField, TextField, DateField, DateTimeField, FileField, BooleanField, ForeignKey, ManyToManyField, PROTECT, CASCADE
 from django.db import models
 from users.models import CustomUser
 from django.core.validators import MaxValueValidator
 from django.conf import settings
+from datetime import date
 
 STATUS_OPTIONS =[("1", "Early Development"), ("2", "Writing and Editing"),
 ("3", "Ready for Submission"),
@@ -92,7 +93,7 @@ class PaperEvent(models.Model):
     information about the status stage of paper
     """
     paper = ForeignKey(Paper, on_delete=models.CASCADE, related_name='events')
-    date = DateTimeField(null=True)
+    date = DateTimeField(null=True, help_text="format (mm/dd/yyyy)")
     event = CharField(max_length=50, null=True, choices=EVENT_OPTIONS)
     comment = TextField()
     document = FileField(upload_to='documents/', null=True)

@@ -176,7 +176,7 @@ $(document).ready(function(){
         {% if can_edit %}
         <div style="text-align: center;">
           <a href="#" id="add_event" data-pid={{ paper.pk }}>
-            <span class="fa fa-pencil-square-o fa-3x" align="center"></span>
+             <p class= "lead"> <span class="fa fa-pencil-square-o fa-2x" align="center"></span>  Enter a new paper milestone </p>
           </a>
         </div>
 
@@ -190,7 +190,6 @@ $(document).ready(function(){
 
 
         {% regroup events by date.year as events_by_year %}
-
 
         <div class="page__demo">
           <div class="main-container page__container">
@@ -222,8 +221,10 @@ $(document).ready(function(){
                         <br>
                         <br>
                       {% if event.document %}
-                      <i class="fa fa-file" aria-hidden="true"></i>
+                      <i class="fa fa-file" aria-hidden="true" style="color:silver"></i>
+
                       {% endif %}
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                       </div>
                     </div>
 
