@@ -1,13 +1,13 @@
-from .models import Paper, Comment, Author, PaperEvent
+from .models import Paper, ViewerComment, Author, PaperEvent
 from django.forms import ModelForm, ModelChoiceField, MultipleChoiceField
 from django import forms
 from dal.autocomplete import ModelSelect2
 #from floppyforms.widgets import input
 
-class CommentForm(ModelForm):
-    class Meta:
-        model = Comment
-        fields = ('venue', 'text',)
+# class CommentForm(ModelForm):
+#     class Meta:
+#         model = Comment
+#         fields = ('venue', 'text',)
 
 
 class PaperForm(ModelForm):

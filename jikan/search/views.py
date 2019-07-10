@@ -7,7 +7,7 @@ from django.db.models import Q
 from .models import Paper, Preference, Journal, Author, CustomUser, PaperEvent
 from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
-from .forms import CommentForm, PaperForm, EditPaperForm, AddEventForm
+from .forms import PaperForm, EditPaperForm, AddEventForm
 from users.forms import CustomUserChangeForm
 from django import forms
 from dal import autocomplete

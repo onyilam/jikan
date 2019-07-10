@@ -71,23 +71,6 @@ class Preference(models.Model):
         unique_together = ("user", "paper", "value")
 
 
-class Comment(models.Model):
-    """
-    stores referee comments.
-    """
-    paper = ForeignKey(Paper, on_delete=models.CASCADE, related_name='comments')
-    venue = CharField(max_length=50, null=True, choices=VENUE_OPTIONS)
-    text = TextField()
-    date = DateTimeField(null=True)
-
-    def approve(self):
-        self.approved_comment = True
-        self.save()
-
-    def __str__(self):
-        return self.text
-
-
 class PaperEvent(models.Model):
     """
     information about the status stage of paper
@@ -97,3 +80,20 @@ class PaperEvent(models.Model):
     event = CharField(max_length=50, null=True, choices=EVENT_OPTIONS)
     comment = TextField()
     document = FileField(upload_to='documents/', null=True)
+
+
+class ViewerComment(models.Model):
+    """
+    stores viewers' comments on each event
+    """
+    event = ForeignKey(PaperEvent, on_delete=models.CASCADE, related_name='comments')
+    text = TextField()
+    date = DateTimeField(null=True)
+    commenter = ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='comments')
+
+    def approve(self):
+        self.approved_comment = True
+        self.save()
+
+    def __str__(self):
+        return self.text
