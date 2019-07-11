@@ -198,16 +198,9 @@ def post_event(request, pk=None):
 @login_required
 def edit_event(request, pk=None):
     pk = request.GET.get('pk')
-    print('EDIT EVENT', pk)
-    template_name = 'add_event_modal.html'
-    pe = get_object_or_404(PaperEvent, pk = pk)
-    can_edit=False
-    if request.user==pe.paper.created_by:
-         can_edit=True
-    if request.POST:
-        form = AddEventForm(instance=pe, data=request.POST, files=request.FILES)
-        if form.is_valid():
-            form.save()
+    print('pk', pk, request.method)
+    object = get_object_or_404(PaperEvent, pk = pk)
+    form = AddEventForm(instance=object)
     return render(request, 'add_event_modal.html', {
         'object': object,
         'pk': pk,

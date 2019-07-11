@@ -68,17 +68,18 @@ $(document).ready(function(){
 </script>
 <script>
 $(document).ready(function(){
-  $("#edit_event").click(function(){
+  $(".edit_event").click(function(){
     var pk = $(this).data('pid')
-    $("#edit_event_modal").modal("show");
-    $.ajax({success: console.log('pk', pk)})
+    $(".edit_event_modal").modal("show");
   });
-  $("#edit_event_modal").on('show.bs.modal', function(event){
+  $(".edit_event_modal").on('show.bs.modal', function(event){
       var modal = $(this)
       var pk = $(this).data('pid')
       $.ajax({
+          success: console.log('pk', pk),
           data: {'pk': pk},
-          url: "{% url 'search:edit_paper' %}",
+          // NEED TO FIX THIS
+          url: "{% url 'search:edit_event' %}",
           context: document.body,
           error: function(response, error) {
               alert(error);
@@ -87,6 +88,7 @@ $(document).ready(function(){
           modal.html(response);
       });
     });
+
 });
 </script>
 <script>
@@ -240,11 +242,12 @@ $(document).ready(function(){
                           <i class="fa fa-expand pull-right" aria-hidden="true"></i>
                         </a>
                         {% if can_edit %}
-                        <a href="#" data-toggle="modal" data-target="#edit_event_modal" id="edit_event" data-pid="{{event.pk}}" >
+                        <a href="#" data-toggle="modal" data-target="#edit_event_modal" class="edit_event" data-pid="{{event.pk}}" >
                           <i class="fa fa-pencil pull-right" > </i>
                         </a>
                         {% endif %}
                         <div class="modal fade" id="edit_event_modal" role="dialog" data-pid="{{event.pk}}"> {% csrf_token %}
+
                           <div class="modal-dialog">
                           </div>
                         </div>
@@ -279,9 +282,6 @@ $(document).ready(function(){
 
     <div class="container">
 
-
-
-
       <!-- <div class = "col-xs-12 col-sm-8"> -->
       <!-- <div id="disqus_thread"></div>
 
@@ -306,27 +306,6 @@ $(document).ready(function(){
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
 
 
-
-
-      <!-- {% for comment in paper.comments.all %}
-          {% if user.is_authenticated or comment.approved_comment %}
-          <div class="comment">
-              <div class="date">
-                  {{ comment.created_date }}
-                  {% if not comment.approved_comment %}
-                      <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
-                      <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
-                  {% endif %}
-              </div>
-              <strong>{{ comment.author }}</strong>
-              <p>{{ comment.text|linebreaks }}</p>
-          </div>
-          {% endif %}
-      {% empty %}
-          <p>No comments here yet :( </p>
-      {% endfor %} -->
-
-      <!-- </div> -->
       </div>
     </section>
 
