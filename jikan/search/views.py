@@ -186,9 +186,18 @@ def post_event(request, pk=None):
     """
     actually saving the event in the database. calls from the modal.html
     """
+    event_pk = request.POST.get('event_pk')
+    print('event_pk', event_pk)
     if request.method == "POST":
         p=Paper.objects.get(pk=pk)
-        form = AddEventForm(initial={'paper':p}, data=request.POST, files=request.FILES)
+        if event_pk=="None":
+            print('no event, new form')
+            form = AddEventForm(initial={'paper':p}, data=request.POST, files=request.FILES)
+        else:
+            print("there is an event already", event_pk)
+            pe = PaperEvent.objects.get(pk=event_pk)
+            form = AddEventForm(instance=pe, data=request.POST, files=request.FILES)
+
         if form.is_valid():
             event = form.save(commit=False)
             event.paper = p
@@ -197,10 +206,12 @@ def post_event(request, pk=None):
 
 @login_required
 def edit_event(request, pk=None):
-    pk = request.GET.get('pk')
-    print('pk', pk, request.method)
-    object = get_object_or_404(PaperEvent, pk = pk)
+    event_pk = request.GET.get('pk')
+    print('pk', event_pk, request.method)
+    object = get_object_or_404(PaperEvent, pk = event_pk)
     form = AddEventForm(instance=object)
+    #get the pk of the paper
+    pk = object.paper.pk
     return render(request, 'add_event_modal.html', {
         'object': object,
         'pk': pk,
