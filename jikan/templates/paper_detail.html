@@ -68,8 +68,18 @@ $(document).ready(function(){
 </script>
 <script>
   $('#editevent').on('show.bs.modal', function (e) {
+    var modal = $(this)
 		var pk = $(e.relatedTarget).data('pid');
-		$(".pid").html(pk);
+    $.ajax({
+        data: {'pk': pk},
+        url: "{% url 'search:edit_event' %}",
+        context: document.body,
+        error: function(response, error) {
+            alert(error);
+        }
+    }).done(function(response) {
+        modal.html(response);
+    });
 	});
 </script>
 <script>
@@ -256,20 +266,6 @@ $(document).ready(function(){
 
 <!-- modal for event edit -->
         <div id="editevent" class="modal fade" role="dialog"> {% csrf_token %}
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title"><span class="pid"></span></h4>
-              </div>
-              <div class="modal-body">
-                <p>Some text in the modal.</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
         </div>
 
     <div class="container">
