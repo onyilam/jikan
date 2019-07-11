@@ -15,6 +15,7 @@ urlpatterns = [
      url(r'^post_event/(?P<pk>\d+)/', views.post_event, name='post_event'),
      url(r'^edit_event/', views.edit_event, name='edit_event'),
      url(r'^remove_paper/(?P<pk>\d+)/', views.remove_paper, name='remove_paper'),
+     url(r'^remove_event/(?P<pk>\d+)/', views.remove_event, name='remove_event'),
      url(r'^ajax_calls/search/', views.autocompletePaper),
      path('profile/<int:pk>/', views.view_user, name="view_user"),
      path('', views.HomePageView.as_view(), name='home'),

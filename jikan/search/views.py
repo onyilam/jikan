@@ -218,7 +218,13 @@ def edit_event(request, pk=None):
         'form': form,
         })
 
-
+@login_required
+def remove_event(request, pk=None):
+    print('remove pk', pk)
+    pe = get_object_or_404(PaperEvent, pk = pk)
+    paper_pk = pe.paper.pk
+    pe.delete()
+    return redirect('paper_detail', pk=paper_pk)
 
 
 #

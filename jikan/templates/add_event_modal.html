@@ -21,6 +21,9 @@
 
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <input type="submit" class="btn btn-primary" value="Save changes" />
+                {% if object.pk %}
+                <a href="{% url 'search:remove_event' pk=object.pk %}" class="btn btn-danger">Delete</a>
+                {% endif %}
             </div>
         </div><!-- /.modal-content -->
     </form>
