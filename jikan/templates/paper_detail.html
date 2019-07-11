@@ -67,6 +67,29 @@ $(document).ready(function(){
 });
 </script>
 <script>
+$(document).ready(function(){
+  $("#edit_event").click(function(){
+    var pk = $(this).data('pid')
+    $("#edit_event_modal").modal("show");
+    $.ajax({success: console.log('pk', pk)})
+  });
+  $("#edit_event_modal").on('show.bs.modal', function(event){
+      var modal = $(this)
+      var pk = $(this).data('pid')
+      $.ajax({
+          data: {'pk': pk},
+          url: "{% url 'search:edit_paper' %}",
+          context: document.body,
+          error: function(response, error) {
+              alert(error);
+          }
+      }).done(function(response) {
+          modal.html(response);
+      });
+    });
+});
+</script>
+<script>
     $(document).ready(function(){
       $(".sim_button").click(function(){
             var pk = $(this).data('pid')
@@ -180,7 +203,7 @@ $(document).ready(function(){
           </a>
         </div>
 
-        <div class="modal fade" id="myModal2" role="dialog" data-pid={{ paper.pk }}> {% csrf_token %}
+        <div class="modal fade" id="myModal2" role="dialog" data-pid={{paper.pk}}> {% csrf_token %}
           <div class="modal-dialog">
           </div>
         </div>
@@ -215,9 +238,16 @@ $(document).ready(function(){
 
                         <a data-toggle="collapse" href="#eventdetails_{{event.pk}}" role="button" aria-expanded="false" aria-controls="eventdetails_{{event.pk}}">
                           <i class="fa fa-expand pull-right" aria-hidden="true"></i>
-
                         </a>
-                        <i class="fa fa-pencil pull-right" > </i>
+                        {% if can_edit %}
+                        <a href="#" data-toggle="modal" data-target="#edit_event_modal" id="edit_event" data-pid="{{event.pk}}" >
+                          <i class="fa fa-pencil pull-right" > </i>
+                        </a>
+                        {% endif %}
+                        <div class="modal fade" id="edit_event_modal" role="dialog" data-pid="{{event.pk}}"> {% csrf_token %}
+                          <div class="modal-dialog">
+                          </div>
+                        </div>
                       </p>
                     </div>
                     <div class="collapse" id="eventdetails_{{event.pk}}">

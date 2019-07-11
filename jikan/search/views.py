@@ -166,6 +166,9 @@ def remove_paper(request, pk=None):
 
 @login_required
 def add_event(request):
+    """
+    callling the add event form from the paper_detail.html
+    """
     if request.method == 'GET':
         pk = request.GET.get('pk')
         paper = Paper.objects.get(pk=pk)
@@ -180,6 +183,9 @@ def add_event(request):
 
 @login_required
 def post_event(request, pk=None):
+    """
+    actually saving the event in the database. calls from the modal.html
+    """
     if request.method == "POST":
         p=Paper.objects.get(pk=pk)
         form = AddEventForm(initial={'paper':p}, data=request.POST, files=request.FILES)
@@ -188,6 +194,25 @@ def post_event(request, pk=None):
             event.paper = p
             event.save()
             return redirect('paper_detail', pk=pk)
+
+@login_required
+def edit_event(request, pk=None):
+    pk = request.GET.get('pk')
+    print('EDIT EVENT', pk)
+    template_name = 'add_event_modal.html'
+    pe = get_object_or_404(PaperEvent, pk = pk)
+    can_edit=False
+    if request.user==pe.paper.created_by:
+         can_edit=True
+    if request.POST:
+        form = AddEventForm(instance=pe, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+    return render(request, 'add_event_modal.html', {
+        'object': object,
+        'pk': pk,
+        'form': form,
+        })
 
 
 

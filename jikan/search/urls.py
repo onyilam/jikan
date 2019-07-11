@@ -12,6 +12,8 @@ urlpatterns = [
      url(r'^load_user/', views.load_user, name='load_user'),
      url(r'^edit_user/(?P<pk>\d+)/', views.edit_user, name='edit_user'),
      url(r'^event/', views.add_event, name='add_event'),
+     url(r'^post_event/(?P<pk>\d+)/', views.post_event, name='post_event'),
+     url(r'^edit_event/', views.edit_event, name='edit_event'),
      url(r'^remove_paper/(?P<pk>\d+)/', views.remove_paper, name='remove_paper'),
      url(r'^ajax_calls/search/', views.autocompletePaper),
      path('profile/<int:pk>/', views.view_user, name="view_user"),
