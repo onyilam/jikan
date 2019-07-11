@@ -67,28 +67,10 @@ $(document).ready(function(){
 });
 </script>
 <script>
-$(document).ready(function(){
-  $(".edit_event_modal").click(function(){
-    var pk = $(this).data('pid')
-    $("#editevent_"+pk).modal("show");
-    $("#editevent_"+pk).on('show.bs.modal', function(event){
-      var modal = $(this)
-      var pk = $(this).data('pid')
-      $.ajax({
-          success: console.log('pk', pk),
-          data: {'pk': pk},
-          // NEED TO FIX THIS
-          url: "{% url 'search:edit_event' %}",
-          context: document.body,
-          error: function(response, error) {
-              alert(error);
-          }
-      }).done(function(response) {
-          modal.html(response);
-      });
-    });
-  });
-});
+  $('#editevent').on('show.bs.modal', function (e) {
+		var pk = $(e.relatedTarget).data('pid');
+		$(".pid").html(pk);
+	});
 </script>
 <script>
     $(document).ready(function(){
@@ -241,15 +223,10 @@ $(document).ready(function(){
                           <i class="fa fa-expand pull-right" aria-hidden="true"></i>
                         </a>
                         {% if can_edit %}
-                        <a href="#" class="edit_event_modal" data-target="editevent_{{event.pk}}" data-pid="{{event.pk}}" >
+                        <a href="#" class="edit_event_modal"  data-toggle="modal" data-target="#editevent" data-pid="{{event.pk}}" >
                           <i class="fa fa-pencil pull-right" > </i>
                         </a>
                         {% endif %}
-                        <div id="editevent_{{event.pk}}" class="modal fade" role="dialog" data-pid="{{event.pk}}"> {% csrf_token %}
-
-                          <div class="modal-dialog">
-                          </div>
-                        </div>
                       </p>
                     </div>
                     <div class="collapse" id="eventdetails_{{event.pk}}">
@@ -277,7 +254,23 @@ $(document).ready(function(){
           </div>
         </div>
 
-
+<!-- modal for event edit -->
+        <div id="editevent" class="modal fade" role="dialog"> {% csrf_token %}
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"><span class="pid"></span></h4>
+              </div>
+              <div class="modal-body">
+                <p>Some text in the modal.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
     <div class="container">
 
