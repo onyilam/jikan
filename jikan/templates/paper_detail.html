@@ -109,7 +109,7 @@ $(document).ready(function(){
 <div class="container">
     {% if can_edit %}
     <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid={{paper.pk}} >Edit Paper Details</button>
-    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#fm-modal-grid" data-pid={{paper.pk}}>Delete Paper</button>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#fm-modal-grid" data-pid={{paper.pk}}>Delete Paper</button>
     {% endif %}
 <div class="masthead">
   <h1>{{paper.title}}</h1>
@@ -131,35 +131,32 @@ $(document).ready(function(){
 </div>
 
     <section class="features">
-      <div class="container">
-        <div class="modal fade" id="fm-modal-grid" tabindex="-1"
-             role="dialog" aria-labelledBy="fm-modal-grid"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modalcontent">
-                    <div class="modal-header">
-                        <button class="close" data-dismiss="modal" aria-label="Cerrar">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12 col-sm-6">
-                                    <p>Are you sure you want to delte {{paper.title}}?</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="modal-footer">
-                        <a href="{% url 'search:remove_paper' pk=paper.pk %}" class="btn">Delete</a>
-                        <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+      <div class="modal fade" id="fm-modal-grid" role="dialog">
+          <div class="modal-dialog">
 
-                    </div>
-                </div>
+            <!-- Modal content-->
+            {% csrf_token %}
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Modal Header</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+              </div>
+              <div class="modal-body">
+              <p>Are you sure you want to delte {{paper.title}}?</p>
+              </div>
+              <div class="modal-footer">
+                <a href="{% url 'search:remove_paper' pk=paper.pk %}" class="btn btn-danger" role="button">Delete</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              </div>
             </div>
+
+          </div>
         </div>
+
+
+
 
         {% csrf_token %}
 
