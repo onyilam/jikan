@@ -4,8 +4,10 @@
 {% block javascript%}
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script>
-$('.comment-btn').click(function(){
-  $(this).next().toggleClass('show-form');
+$(".comment_btn").click(function() {
+  var event_pk = $(this).data('pid')
+  $("#comment_field_"+event_pk).show();
+
 });
 </script>
 <script>
@@ -244,14 +246,12 @@ $(document).ready(function(){
                       {% endif %}
 
 
-                      <a onclick="document.getElementById('CommentField').style.display = 'block';">
-                        <i class="fa fa-commenting-o comment-btn" aria-hidden="true"></i>
-                        Comment
 
+                      <div class="comment_btn" data-pid="{{event.pk}}">
+                        <i class="fa fa-commenting-o" aria-hidden="true"></i> Comment
+                      </div>
 
-                      </a>
-
-                      <div id="CommentField" style="display:none;">
+                      <div id="comment_field_{{event.pk }}" style="display:none;">
                          <input type="text" id="textInput" value="Add a comment..." />
                       </div>
 
