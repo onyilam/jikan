@@ -4,6 +4,11 @@
 {% block javascript%}
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script>
+$('.comment-btn').click(function(){
+  $(this).next().toggleClass('show-form');
+});
+</script>
+<script>
     $(document).ready(function(){
       $(".like_button").click(function(){
             var pk = $(this).data('pid')
@@ -118,12 +123,14 @@ $(document).ready(function(){
     By: <a href = "{% url 'search:view_user' pk=paper.created_by.pk %}"> {{paper.created_by.first_name}} {{paper.created_by.last_name}}</a> <br> </p>
     {% endif %}
     </p>
+    <p class="h5 text-muted">  Status: {{paper.get_status_display}} </p>
     <a href="#" class="like_button" data-pid="{{ paper.pk }}">
       <span class="like_span fa fa-thumbs-up fa-2x"></span>
         <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong>
     </a>
+
     <br>
-    <p class="h4 text-muted">    Abstract: </p>
+    <p class="h5 text-muted">    Abstract: </p>
     <p class="text-muted">     {{ paper.abstract }} </p>
 
 
@@ -132,19 +139,18 @@ $(document).ready(function(){
 
     <section class="features">
 
+      <!-- Modal for deleting Paper -->
       <div class="modal fade" id="fm-modal-grid" role="dialog">
           <div class="modal-dialog">
-
-            <!-- Modal content-->
             {% csrf_token %}
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Modal Header</h4>
+                <h4 class="modal-title">Delete Paper</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
 
               </div>
               <div class="modal-body">
-              <p>Are you sure you want to delte {{paper.title}}?</p>
+              <p>Are you sure you want to delete {{paper.title}}?</p>
               </div>
               <div class="modal-footer">
                 <a href="{% url 'search:remove_paper' pk=paper.pk %}" class="btn btn-danger" role="button">Delete</a>
@@ -169,12 +175,6 @@ $(document).ready(function(){
        {% endif %}
 
        <br>
-       <!-- <div class="col-xs-16 col-sm-8"> -->
-                  <!-- <br> -->
-                  <!-- <p class="h5 text-secondary">Project Stage: <b> {{paper.get_status_display }} </b> <br> -->
-
-        <!-- <button class="sim_button" data-pid="{{ paper.pk }}">Similar Papers </button> -->
-
 
 
         {% if paper.document %}
@@ -189,7 +189,7 @@ $(document).ready(function(){
         {% if can_edit %}
         <div style="text-align: center;">
           <a href="#" id="add_event" data-pid={{ paper.pk }}>
-             <p class= "lead"> <span class="fa fa-pencil-square-o fa-2x" align="center"></span>  Enter a new paper milestone </p>
+             <p class= "lead"> <span class="fa fa-plus fa-2x" align="center"></span>  Enter a new paper milestone </p>
           </a>
         </div>
 
@@ -200,7 +200,6 @@ $(document).ready(function(){
 
 
         {% endif %}
-
 
         {% regroup events by date.year as events_by_year %}
 
@@ -221,14 +220,11 @@ $(document).ready(function(){
 
                   <div class="timeline__post">
 
-                    <div class="timeline__content">
+                    <div class="timeline__content" data-toggle="collapse" href="#eventdetails_{{event.pk}}" role="button" aria-expanded="false" aria-controls="eventdetails_{{event.pk}}">
                       <p>
 
-                         {{event.get_event_display}} -
+                             {{event.get_event_display}} -
 
-                        <a data-toggle="collapse" href="#eventdetails_{{event.pk}}" role="button" aria-expanded="false" aria-controls="eventdetails_{{event.pk}}">
-                          <i class="fa fa-expand pull-right" aria-hidden="true"></i>
-                        </a>
                         {% if can_edit %}
                         <a href="#" class="edit_event_modal"  data-toggle="modal" data-target="#editevent" data-pid="{{event.pk}}" >
                           <i class="fa fa-pencil pull-right" > </i>
@@ -246,7 +242,19 @@ $(document).ready(function(){
                         <i class="fa fa-file" aria-hidden="true" style="color:black"></i>
                         </a>
                       {% endif %}
-                      <i class="fa fa-commenting-o" aria-hidden="true"></i>
+
+
+                      <a onclick="document.getElementById('CommentField').style.display = 'block';">
+                        <i class="fa fa-commenting-o comment-btn" aria-hidden="true"></i>
+                        Comment
+
+
+                      </a>
+
+                      <div id="CommentField" style="display:none;">
+                         <input type="text" id="textInput" value="Add a comment..." />
+                      </div>
+
 
                       </div>
                     </div>
