@@ -7,7 +7,7 @@ from django.db.models import Q
 from .models import Paper, Preference, Journal, Author, CustomUser, PaperEvent
 from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
-from .forms import PaperForm, EditPaperForm, AddEventForm
+from .forms import PaperForm, EditPaperForm, EventForm
 from users.forms import CustomUserChangeForm
 from django import forms
 from dal import autocomplete
@@ -158,11 +158,10 @@ def edit_user(request, pk=None):
 
 @login_required
 def remove_paper(request, pk=None):
-    print('remove pk', pk)
+    print('remove paper pk', pk)
     paper = get_object_or_404(Paper, pk = pk)
     paper.delete()
-    context = {'paper': paper}
-    return render(request, 'paper_removed.html', context)
+    return render(request, 'paper_removed.html')
 
 @login_required
 def add_event(request):
@@ -170,11 +169,12 @@ def add_event(request):
     callling the add event form from the paper_detail.html
     """
     if request.method == 'GET':
+        print('add event')
         pk = request.GET.get('pk')
         paper = Paper.objects.get(pk=pk)
         pe = PaperEvent()
         pe.paper = paper
-        form = AddEventForm(instance=pe)
+        form = EventForm(instance=pe)
     return render(request, 'add_event_modal.html', {
             'form': form,
             'object': pe,
@@ -187,16 +187,21 @@ def post_event(request, pk=None):
     actually saving the event in the database. calls from the modal.html
     """
     event_pk = request.POST.get('event_pk')
-    print('event_pk', event_pk)
+    print('post event_pk', event_pk)
     if request.method == "POST":
         p=Paper.objects.get(pk=pk)
         if event_pk=="None":
+            # add new event
             print('no event, new form')
-            form = AddEventForm(initial={'paper':p}, data=request.POST, files=request.FILES)
-        else:
+            form = EventForm(initial={'paper':p}, data=request.POST, files=request.FILES)
+        elif 'save_edits' in request.POST :
+            #save edits to existing event
             print("there is an event already", event_pk)
             pe = PaperEvent.objects.get(pk=event_pk)
-            form = AddEventForm(instance=pe, data=request.POST, files=request.FILES)
+            form = EventForm(instance=pe, data=request.POST, files=request.FILES)
+        elif 'deleteBtn' in request.POST:
+            print("remove event")
+
 
         if form.is_valid():
             event = form.save(commit=False)
@@ -207,12 +212,12 @@ def post_event(request, pk=None):
 @login_required
 def edit_event(request, pk=None):
     event_pk = request.GET.get('pk')
-    print('pk', event_pk, request.method)
+    print('about to edit pk', event_pk, request.method)
     object = get_object_or_404(PaperEvent, pk = event_pk)
-    form = AddEventForm(instance=object)
+    form = EventForm(instance=object)
     #get the pk of the paper
     pk = object.paper.pk
-    return render(request, 'add_event_modal.html', {
+    return render(request, 'edit_event_modal.html', {
         'object': object,
         'pk': pk,
         'form': form,

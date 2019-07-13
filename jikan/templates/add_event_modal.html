@@ -1,5 +1,8 @@
 {% load crispy_forms_tags %}
 {% load i18n widget_tweaks %}
+{% block javascript %}
+</script>
+{% endblock %}
 <div class="modal-dialog modal-lg" role="document">
     <form action="{% url 'search:post_event' pk=pk%}" method="post" class="form" enctype="multipart/form-data">
        <input type="hidden" name="event_pk" value="{{object.pk}}" />
@@ -19,12 +22,9 @@
               {{ form.media }}
             </div>
             <div class="modal-footer">
-
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <input type="submit" class="btn btn-primary" value="Save changes" />
-                {% if object.pk %}
-                <a href="{% url 'search:remove_event' pk=object.pk %}" class="btn btn-danger">Delete</a>
-                {% endif %}
+
             </div>
         </div><!-- /.modal-content -->
     </form>
