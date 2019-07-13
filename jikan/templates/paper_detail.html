@@ -191,7 +191,7 @@ $(document).ready(function(){
         {% if can_edit %}
         <div style="text-align: center;">
           <a href="#" id="add_event" data-pid={{ paper.pk }}>
-             <p class= "lead"> <span class="fa fa-plus fa-2x" align="center"></span>  Enter a new paper milestone </p>
+             <p class= "lead"> <span class="fa fa-plus" align="center"></span>  Enter a new paper milestone </p>
           </a>
         </div>
 
@@ -248,11 +248,14 @@ $(document).ready(function(){
 
 
                       <div class="comment_btn" data-pid="{{event.pk}}">
-                        <i class="fa fa-commenting-o" aria-hidden="true"></i> Comment
+                        <p><i class="fa fa-commenting-o" aria-hidden="true"></i> Comment </p>
                       </div>
 
-                      <div id="comment_field_{{event.pk }}" style="display:none;">
-                         <input type="text" id="textInput" value="Add a comment..." />
+                      <div id="comment_field_{{event.pk }}" style="display:none;" >
+                        <p style="line-height: 50%;"> <br></p>
+                         <input type="text" class="form-control" id="textInput" value="Add a comment..." />
+                         <p style="line-height: 10%;"> <br></p>
+                         <button type="post" class="btn btn-primary btn-sm" name="post" value="Post">Post</button>
                       </div>
 
 
