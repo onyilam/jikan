@@ -231,6 +231,13 @@ def remove_event(request, pk=None):
     pe.delete()
     return redirect('paper_detail', pk=paper_pk)
 
+@login_required
+def add_comment_to_event(request, event_pk=None):
+    print('add comment to event', event_pk)
+    pe = get_object_or_404(PaperEvent, pk = event_pk)
+    paper_pk = pe.paper.pk
+    return redirect('paper_detail', pk=paper_pk)
+
 
 #
 # class JournalAutocomplete(autocomplete.Select2QuerySetView):
