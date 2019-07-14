@@ -88,8 +88,10 @@ class ViewerComment(models.Model):
     """
     event = ForeignKey(PaperEvent, on_delete=models.CASCADE, related_name='comments')
     text = TextField()
-    date = DateTimeField(null=True)
+    created_date = DateTimeField(null=True, auto_now_add=True)
     commenter = ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='comments')
+    approved_comment = BooleanField(default=False)
+
 
     def approve(self):
         self.approved_comment = True

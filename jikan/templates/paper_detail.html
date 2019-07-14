@@ -253,8 +253,8 @@ $(document).ready(function(){
 
                       <div id="comment_field_{{event.pk }}" style="display:none;" >
                         <p style="line-height: 50%;"> <br></p>
-                            <form id="add_comment" action="{% url 'search:add_comment_to_event' pk=event.pk %}" method="GET" value="{{request.GET.q}}">
-                                <input type="text" class="form-control" id="textInput" name="q" value="{{request.GET.q}}" placeholder="Add a comment..." />
+                            <form id="add_comment" action="{% url 'search:add_comment_to_event' event_pk=event.pk %}" method="GET" value="{{request.GET.comment}}">
+                                <input type="text" class="form-control" id="textInput" name="comment" value="{{request.GET.comment}}" placeholder="Add a comment..." />
                                 <p style="line-height: 10%;"> <br></p>
                                 <button type="post" class="btn btn-primary btn-sm" name="post" value="Post">Post</button>
                             </form>
@@ -263,8 +263,8 @@ $(document).ready(function(){
 
                          {% for comment in event.comments.all %}
                             <div class="comment">
-                                <div class="date">{{ comment.created_date }}</div>
-                                <strong>{{ comment.commenter }}</strong>
+                                <div class="date"> <strong>{{ comment.commenter }}</strong> {{ comment.created_date }}</div>
+
                                 <p>{{ comment.text|linebreaks }}</p>
                             </div>
                         {% empty %}

@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from .models import Paper, Preference, Journal, Author, CustomUser, PaperEvent
+from .models import Paper, Preference, Journal, Author, CustomUser, PaperEvent, ViewerComment
 from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
 from .forms import PaperForm, EditPaperForm, EventForm
@@ -236,6 +236,16 @@ def add_comment_to_event(request, event_pk=None):
     print('add comment to event', event_pk)
     pe = get_object_or_404(PaperEvent, pk = event_pk)
     paper_pk = pe.paper.pk
+    if request.method == 'GET':
+        comment_text = request.GET.get('comment')
+        if comment_text is not None:
+            vc = ViewerComment()
+            vc.text = comment_text
+            vc.commenter = request.user
+            vc.event = pe
+            vc.save()
+        print('saved comment')
+
     return redirect('paper_detail', pk=paper_pk)
 
 

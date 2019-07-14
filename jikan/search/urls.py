@@ -5,7 +5,7 @@ from django.urls import path, re_path
 urlpatterns = [
      url(r'recommendation/$', views.get_recommendation, name='get_recommendation'),
      url(r'^$', views.searchpaper, name='search_paper'),
-     url(r'event/(?P<pk>\d+)/comment', views.add_comment_to_event, name='add_comment_to_event'),
+     url(r'event/(?P<event_pk>\d+)/comment', views.add_comment_to_event, name='add_comment_to_event'),
      url(r'like/$', views.like_paper, name='like_paper'),
      path('paper/<int:pk>/', views.paper_detail, name='paper_detail'),
      url(r'^load/', views.load_paper, name='load_paper'),
