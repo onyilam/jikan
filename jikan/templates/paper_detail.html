@@ -263,7 +263,9 @@ $(document).ready(function(){
 
                          {% for comment in event.comments.all %}
                             <div class="comment">
-                                <div class="date"> <strong>{{ comment.commenter }}</strong> {{ comment.created_date }}</div>
+                                <div class="date"> <a href = "{% url 'search:view_user' pk=comment.commenter.pk %}">
+                                  <strong>{{ comment.commenter }}</strong> </a>
+                                  {{ comment.created_date }}</div>
 
                                 <p>{{ comment.text|linebreaks }}</p>
                             </div>
