@@ -64,9 +64,6 @@ class Preference(models.Model):
         ])
     date = DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return str(self.user) + ':' + str(self.paper) + ':' + str(self.value)
-
     class Meta:
         unique_together = ("user", "paper", "value")
 

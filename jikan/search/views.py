@@ -77,7 +77,10 @@ def add_paper(request):
 def like_paper(request):
    # if request.method == "GET":
     pid = request.GET['pk']
+    user = request.user
     paper = Paper.objects.get(pk=pid)
+    pref = Preference.objects.get_or_create(user=user, paper=paper)
+    print('paper pref', pref )
     likes = paper.likes + 1
     paper.likes = likes
     paper.save()
