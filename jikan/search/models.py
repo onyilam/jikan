@@ -57,7 +57,7 @@ class Author(models.Model):
 
 
 class Preference(models.Model):
-    user = ForeignKey(CustomUser, on_delete=CASCADE, null=True)
+    user = ForeignKey(settings.AUTH_USER_MODEL, related_name="preference", on_delete=CASCADE, null=True)
     paper = ForeignKey(Paper, on_delete=CASCADE, null=True)
     value = IntegerField(null=True, validators=[
             MaxValueValidator(20)

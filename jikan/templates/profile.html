@@ -62,6 +62,15 @@ $(document).ready(function(){
                               {% endfor %}
                               </a>
                           </p>
+
+                          <p class="lead"> <strong>Papers liked:<strong>
+                            {% for pref in creator.preference.all %}
+                            <a href="{% url 'search:paper_detail' pk=pref.paper.pk %}"><p class="lead">{{ pref.paper.title }}</p>
+                                {% empty %}
+                                No paper liked.
+                                {% endfor %}
+                              </a>
+                            </p>
                     </div>
                     <!-- <div class="col-xs-12 col-sm-4 text-center">
                         <figure>
