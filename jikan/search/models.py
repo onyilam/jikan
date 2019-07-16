@@ -65,7 +65,7 @@ class Preference(models.Model):
     date = DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = ("user", "paper", "value")
+        unique_together = ("user", "paper")
 
 
 class PaperEvent(models.Model):

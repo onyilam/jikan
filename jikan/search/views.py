@@ -79,9 +79,20 @@ def like_paper(request):
     pid = request.GET['pk']
     user = request.user
     paper = Paper.objects.get(pk=pid)
-    pref = Preference.objects.get_or_create(user=user, paper=paper)
-    print('paper pref', pref )
-    likes = paper.likes + 1
+    pref, _ = Preference.objects.get_or_create(user=user, paper=paper)
+    # if there is no record of the user on the paper, incrrement the pref and likes of the paper
+    if not pref.value:
+        likes = paper.likes + 1
+        value = 1
+    # maximum allowable likes is 10 per person.
+    elif pref.value < 10:
+        likes = paper.likes + 1
+        value = pref.value + 1
+    else:
+        likes = paper.likes 
+        value = pref.value 
+    pref.value = value  
+    pref.save()
     paper.likes = likes
     paper.save()
     data = {'likes': paper.likes}
