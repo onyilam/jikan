@@ -1,11 +1,16 @@
+.comment {
+  background-color: grey;
+  border-radius: 10px;
+}
+
+
 .comment_btn {
   cursor: pointer;
 }
 /* timeline */
 
-
 .timeline{
-  --uiTimelineMainColor: var(--timelineMainColor, #222);
+  --uiTimelineMainColor: var(--timelineMainColor, #191970);
   --uiTimelineSecondaryColor: var(--timelineSecondaryColor, #fff);
 
   position: relative;

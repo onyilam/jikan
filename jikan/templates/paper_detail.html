@@ -256,7 +256,7 @@ $(document).ready(function(){
                             <form id="add_comment" action="{% url 'search:add_comment_to_event' event_pk=event.pk %}" method="GET" value="{{request.GET.comment}}">
                                 <input type="text" class="form-control" id="textInput" name="comment" value="{{request.GET.comment}}" placeholder="Add a comment..." />
                                 <p style="line-height: 10%;"> <br></p>
-                                <button type="post" class="btn btn-primary btn-sm" name="post" value="Post">Post</button>
+                                <button type="post" class="btn btn-info btn-sm" name="post" value="Post">Post</button>
                             </form>
                          <br>
 
@@ -265,13 +265,13 @@ $(document).ready(function(){
                                 <div class="date"> <a href = "{% url 'search:view_user' pk=comment.commenter.pk %}">
                                   <span>
                                   <strong>{{ comment.commenter }}</strong> </a> <em> {{comment.commenter.get_position_display}} </em>
-                                  {{ comment.created_date }}
+                                  {{ comment.created_date|date:'Y-m-d' }}
                                   </span>  
                                 </div>
-
-
                                 <p>{{ comment.text|linebreaks }}</p>
+                                
                             </div>
+                            <br>
                         {% empty %}
                         {% endfor %}
 
