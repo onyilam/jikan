@@ -54,37 +54,39 @@ $(document).ready(function(){
                             <span class="tags"></span>
                             <span class="tags"></span>
                         </p>
-                        <p class="lead"> <strong>Papers Uploaded:</strong>
+                        <p class="lead"> <strong>Papers Uploaded:</strong> </p>
                           {% for paper in creator.papers.all %}
-                          <a href="{% url 'search:paper_detail' pk=paper.pk %}"><p class="lead">{{ paper.title }}</p>
+                          <a href="{% url 'search:paper_detail' pk=paper.pk %}"><p class="lead">{{ paper.title }}</p></a>
                               {% empty %}
                               No paper uploaded.
                               {% endfor %}
-                              </a>
-                          </p>
-
-                          <p class="lead"> <strong>Papers liked:</strong>
+                              
+                         
+                          <br>
+                          <p class="lead"> <strong>Papers liked:</strong></p>
                             {% for pref in creator.preference.all %}
-                            <a href="{% url 'search:paper_detail' pk=pref.paper.pk %}"><p class="lead">{{ pref.paper.title }}</p>
+                            <a href="{% url 'search:paper_detail' pk=pref.paper.pk %}">
+                              <p class="lead">{{ pref.paper.title }}</p></a>
                                 {% empty %}
                                 No paper liked.
                                 {% endfor %}
-                              </a>
-                            </p>
-
-                            <p class="lead"> <strong>Papers Commented:</strong>
+                  
+                            
+                            <br>
+                            <p class="lead"> <strong>Papers Commented:</strong></p>
                               {% for comment in creator.comments.all %}
                               <a href="{% url 'search:paper_detail' pk=comment.event.paper.pk %}"><p class="lead">{{ comment.event.paper.title }}</p>
                                   {% empty %}
                                   No paper liked.
                                   {% endfor %}
                                 </a>
-                              </p>
                       
                     </div>
                     <br>
+                    <br>
                     
                 </div>
+                <br>
                 <div class="col-xs-12 divider text-center">
                     
                     <div class="col-xs-12 col-sm-4 emphasis">

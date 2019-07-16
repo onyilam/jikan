@@ -1,16 +1,16 @@
-.comment {
-  background-color: grey;
-  border-radius: 10px;
+header {
+  background-color: #e75d0d;
 }
 
-
-.comment_btn {
-  cursor: pointer;
+.comment {
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  padding: 20px;
 }
 /* timeline */
 
-.timeline{
-  --uiTimelineMainColor: var(--timelineMainColor, #191970);
+.timeline {
+  --uiTimelineMainColor: var(--timelineMainColor, #3bd1c5);
   --uiTimelineSecondaryColor: var(--timelineSecondaryColor, #fff);
 
   position: relative;
@@ -92,8 +92,8 @@
 
 .timeline__post{
   padding: 1.5rem 2rem;
-  border-radius: 2px;
-  border-left: 3px solid var(--uiTimelineMainColor);
+  border-radius: 20px;
+  border: 2px solid var(--uiTimelineMainColor);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 1px 2px 0 rgba(0, 0, 0, .24);
   background-color: var(--uiTimelineSecondaryColor);
 }
@@ -148,7 +148,7 @@
 }
 
 .timeline{
-  --timelineMainColor: #4592bb;
+  --timelineMainColor: #16142b ;
   font-size: 16px;
 }
 
@@ -250,6 +250,9 @@ p:last-child{
 }
 
 /* end timeline */
+.comment_btn {
+  cursor: pointer;
+}
 
 .modalcontent {
   position: relative;
@@ -288,6 +291,9 @@ p:last-child{
   padding: 70px 0;
 }
 
+.masthead h1{
+  color: #3A3D40
+}
 .masthead h2 {
   margin-top: 0;
   margin-bottom: 10px;
@@ -334,6 +340,8 @@ html, body {
 .push {
   height: 50px;
 }
+
+
 
 header .navbar {
   margin-bottom: 0;
@@ -581,7 +589,7 @@ a.library-documents-indexes:active  {
 }
 
 section.features {
-  background-color: #e7e7e7;
+  background-color: #748da3;
   text-align: center;
 }
 

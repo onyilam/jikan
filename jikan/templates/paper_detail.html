@@ -116,7 +116,7 @@ $(document).ready(function(){
 <div class="container">
     {% if can_edit %}
     <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid={{paper.pk}} >Edit Paper Details</button>
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#fm-modal-grid" data-pid={{paper.pk}}>Delete Paper</button>
+    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#fm-modal-grid" data-pid={{paper.pk}}>Delete Paper</button>
     {% endif %}
 <div class="masthead">
   <h1>{{paper.title}}</h1>
@@ -256,7 +256,7 @@ $(document).ready(function(){
                             <form id="add_comment" action="{% url 'search:add_comment_to_event' event_pk=event.pk %}" method="GET" value="{{request.GET.comment}}">
                                 <input type="text" class="form-control" id="textInput" name="comment" value="{{request.GET.comment}}" placeholder="Add a comment..." />
                                 <p style="line-height: 10%;"> <br></p>
-                                <button type="post" class="btn btn-info btn-sm" name="post" value="Post">Post</button>
+                                <button type="post" class="btn btn-primary btn-sm" name="post" value="Post">Post</button>
                             </form>
                          <br>
 
