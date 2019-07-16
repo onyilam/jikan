@@ -247,7 +247,7 @@ $(document).ready(function(){
 
 
                       <div class="comment_btn" data-pid="{{event.pk}}">
-                         {{ event.comments.count }} comment <br>
+                         <p class="text-secondary">{{ event.event_comments.count }} comment(s) <br> </p>
                         <p><i class="fa fa-commenting-o" aria-hidden="true"></i> Comment </p>
                       </div>
 
@@ -259,9 +259,8 @@ $(document).ready(function(){
                                 <button type="post" class="btn btn-primary btn-sm" name="post" value="Post">Post</button>
                             </form>
                          <br>
-                         <br>
 
-                         {% for comment in event.comments.all %}
+                         {% for comment in event.event_comments.all %}
                             <div class="comment">
                                 <div class="date"> <a href = "{% url 'search:view_user' pk=comment.commenter.pk %}">
                                   <span>
