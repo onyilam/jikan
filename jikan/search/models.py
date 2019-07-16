@@ -83,10 +83,10 @@ class ViewerComment(models.Model):
     """
     stores viewers' comments on each event
     """
-    event = ForeignKey(PaperEvent, on_delete=models.CASCADE, related_name='comments')
+    event = ForeignKey(PaperEvent, on_delete=models.CASCADE, related_name='event_comments')
     text = TextField()
     created_date = DateTimeField(null=True, auto_now_add=True)
-    commenter = ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='comments')
+    commenter = ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
     approved_comment = BooleanField(default=False)
 
 
