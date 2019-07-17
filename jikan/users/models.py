@@ -3,7 +3,7 @@ from django.db import models
 
 POSITION_OPTIONS =[("1", "Undergraduate Student"), ("2", "Graduate Student"),
 ("3", "Assistant Professor"),
-("4", "Associate Professor"), ("5", "Professor"), ("6", "Non-academic Research")]
+("4", "Associate Professor"), ("5", "Professor"), ("6", "Non-academic Researcher")]
 
 class CustomUserManager(UserManager):
     pass
@@ -15,6 +15,7 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     position = models.CharField(max_length=100, null=True, choices=POSITION_OPTIONS)
+    research_area = models.TextField(null=True)
 
     REQUIRED_FIELDS = ['first_name', 'last_name']
 

@@ -140,6 +140,7 @@ def edit_paper(request, pk=None):
 def view_user(request, pk):
     creator = CustomUser.objects.get(pk=pk)
     can_edit=False
+    print(request.user, creator)
     if request.user==creator:
          can_edit=True
     return render(request, 'profile.html', {"creator": creator, "can_edit": can_edit})
@@ -167,8 +168,9 @@ def edit_user(request, pk=None):
         form = CustomUserChangeForm(instance=user, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
+            print('saved')
     context = {'user': user, 'can_edit': can_edit}
-    return render(request, 'profile.html', context)
+    return redirect('view_user', pk)
 
 @login_required
 def remove_paper(request, pk=None):
