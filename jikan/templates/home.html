@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% load socialaccount %}
 {% load widget_tweaks %}
-
-
 {% block javascript %}
 
     <script>
@@ -46,13 +44,17 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
 
 </head>
-
-
+<h2>hi</h2>
 {% block fullwidthheader %}
     <section class="features">
-    <div class="container">
+    <div class="container" style="text-align:center">
     <h2>Get Feedback for Your Paper. And Give Feedback too.</h2>
-      <div class="col-xs-10" style="text-align:center">
+    <br>
+
+      <div class="col-lg-8 col-lg-offset-2" >
+          <p class="lead">
+              <strong>Jikan</strong> is a platform for open, transparent discussion to help researchers improve their work. To get started, simply sign up, upload the title and abstract of your paper. 
+            </p> 
           <div class="form-group" style="text-align:center">
             <form id="search" action="{% url 'search:search_paper' %}" method="GET" value="{{request.GET.q}}">
             {% csrf_token %}
@@ -62,80 +64,13 @@
             <p> <a href="{% url 'add_paper' %}" >Add your paper </a></h4> </p>
             </div>
      
-            <p class="lead">
-                <strong>Jikan</strong> is a platform for open, transparent discussion to help researchers improve their work. To get started, simply sign up, upload the title and abstract of your paper. </p> 
-                <br>
-                <br>
-        </div>
-  
-
-                
-
-
-    
-    {% if submitbutton == 'Search' and request.GET.q != '' %}
-    {% if results %}
-
-
-
-    <h3>Search Results</b></h3>
-        <br/>
-
-
-        <div style="width: 90%; overflow: hidden;">
-
-       {% for result in results %}
-           <li>
-          <a href="{% url 'search:paper_detail' pk=result.pk %}">{{ result.title}}</a>,
-              <i>{{ result.year_month_created }} </i>
-
-
-               <a href="#" class="like_button" data-pid="{{ result.pk }}"> <span class="like_span fa fa-thumbs-up"></span>
-                   <strong id="like_count_{{ result.pk }}">{{result.likes}} </strong> </a>
-            <!-- <br> -->
-
-           </li>
-           <br/>
-
-       {% endfor %}
-
-            {% if results.has_other_pages %}
-              <ul class="pagination">
-                {% if results.has_previous %}
-                  <li><a href="?q={{request.GET.q}}&submit=Search&page={{ results.previous_page_number }}">&laquo;</a></li>
-                {% else %}
-                  <li class="disabled"><span>&laquo;</span></li>
-                {% endif %}
-                {% for i in results.paginator.page_range %}
-                  {% if results.number == i %}
-                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-                  {% else %}
-                    <li><a href="?q={{request.GET.q}}&submit=Search&page={{ i }}">{{ i }}</a></li>
-                  {% endif %}
-                {% endfor %}
-                {% if results.has_next %}
-                  <li><a href="?q={{request.GET.q}}&submit=Search&page={{ results.next_page_number }}">&raquo;</a></li>
-                {% else %}
-                  <li class="disabled"><span>&raquo;</span></li>
-                {% endif %}
-              </ul>
-            {% endif %}
-    {% else %}
-        <h3> No result </h3>
-
-        {% endif %}
-    {% endif %}
-    </div>
+            
+            <br>
+            <br>
       </div>
-
-      
-
+    </div>
+    <br>
+    <br>
     </section>
-
 {% endblock fullwidthheader %}
-
-{% block fullwidthfooter %}
-  <section class="features">
-
-  </section>
-{% endblock fullwidthfooter %}
+    

@@ -37,7 +37,7 @@ def searchpaper(request):
             context = {'results': results,
                        'submitbutton': submitbutton,
                        }
-            return render(request, 'home.html', context)
+            return render(request, 'search_result.html', context)
         else:
             return render(request, 'home.html')
     else:
@@ -75,7 +75,7 @@ def add_paper(request):
 
 @login_required(login_url='/accounts/login/')
 def like_paper(request):
-   # if request.method == "GET":
+    # if request.method == "GET":
     pid = request.GET['pk']
     user = request.user
     paper = Paper.objects.get(pk=pid)
@@ -263,6 +263,30 @@ def add_comment_to_event(request, event_pk=None):
         print('saved comment')
 
     return redirect('paper_detail', pk=paper_pk)
+
+# @login_required
+# def like_event(request, vc_pk=None):
+#     vc = ViewerComment(pk=vc_pk)
+    
+#     user = request.user
+#     pref, _ = Preference.objects.get_or_create(user=user, paper=paper)
+#     # if there is no record of the user on the paper, incrrement the pref and likes of the paper
+#     if not pref.value:
+#         likes = paper.likes + 1
+#         value = 1
+#     # maximum allowable likes is 10 per person.
+#     elif pref.value < 10:
+#         likes = paper.likes + 1
+#         value = pref.value + 1
+#     else:
+#         likes = paper.likes 
+#         value = pref.value 
+#     pref.value = value  
+#     pref.save()
+#     paper.likes = likes
+#     paper.save()
+#     data = {'likes': paper.likes}
+#     return JsonResponse(data)
 
 
 #

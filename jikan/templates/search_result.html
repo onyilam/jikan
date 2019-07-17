@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Result{% endblock %}
+
+{% block fullwidthheader %}
+
+<section class="features">
+    <div class="container">
+        {% if submitbutton == 'Search' and request.GET.q != '' %}
+        {% if results %}
+    
+        <br>
+        <h3>Search Results</b></h3>
+            <br/>
+    
+    
+            <div style="width: 90%; overflow: hidden;">
+    
+           {% for result in results %}
+               <li>
+              <a href="{% url 'search:paper_detail' pk=result.pk %}">{{ result.title}}</a>,
+                  <i>{{ result.year_month_created }} </i>
+    
+    
+                   <a href="#" class="like_button" data-pid="{{ result.pk }}"> <span class="like_span fa fa-thumbs-up"></span>
+                       <strong id="like_count_{{ result.pk }}">{{result.likes}} </strong> </a>
+                <!-- <br> -->
+    
+               </li>
+               <br/>
+    
+           {% endfor %}
+    
+                {% if results.has_other_pages %}
+                  <ul class="pagination">
+                    {% if results.has_previous %}
+                      <li><a href="?q={{request.GET.q}}&submit=Search&page={{ results.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                      <li class="disabled"><span>&laquo;</span></li>
+                    {% endif %}
+                    {% for i in results.paginator.page_range %}
+                      {% if results.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                      {% else %}
+                        <li><a href="?q={{request.GET.q}}&submit=Search&page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if results.has_next %}
+                      <li><a href="?q={{request.GET.q}}&submit=Search&page={{ results.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                      <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
+                  </ul>
+                {% endif %}
+        {% else %}
+            <h3> No result </h3>
+    
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
+</section>
+    
+{% endblock %}
+    
