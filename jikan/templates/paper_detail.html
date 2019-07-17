@@ -241,8 +241,15 @@ $(document).ready(function(){
 
                       <div class="comment_btn" data-pid="{{event.pk}}">
                          <p class="text-secondary">{{ event.event_comments.count }} comment(s) <br> </p>
-                        <p><i class="fa fa-commenting-o" aria-hidden="true"></i> Comment </p>
                       </div>
+                        
+                      <div class="comment_btn" data-pid="{{event.pk}}" style="display: inline-block"> 
+                        <i class="fa fa-commenting-o" aria-hidden="true"></i> Comment  
+                      </div>
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"> </i> Like 
+                            <i class="fa fa-frown-o" aria-hidden="true"></i> Frown 
+                          
+                     
 
                       <div id="comment_field_{{event.pk }}" style="display:none;" >
                         <p style="line-height: 50%;"> <br></p>
