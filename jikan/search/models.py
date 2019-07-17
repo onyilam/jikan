@@ -77,6 +77,8 @@ class PaperEvent(models.Model):
     event = CharField(max_length=50, null=True, choices=EVENT_OPTIONS)
     comment = TextField()
     document = FileField(upload_to='documents/', null=True)
+    likes = IntegerField(default=0)
+    frowns = IntegerField(default=0)
 
 
 class ViewerComment(models.Model):
@@ -96,3 +98,17 @@ class ViewerComment(models.Model):
 
     def __str__(self):
         return self.text
+
+
+class EventReaction(models.Model):
+    user = ForeignKey(settings.AUTH_USER_MODEL, related_name="event_reaction", on_delete=CASCADE, null=True)
+    paperevent = ForeignKey(PaperEvent, on_delete=CASCADE, null=True)
+    likes = IntegerField(null=True, validators=[
+            MaxValueValidator(1)
+        ])
+    frowns = IntegerField(null=True, validators=[
+            MaxValueValidator(1)
+        ])
+    date = DateTimeField(auto_now=True)
+
+

@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from .models import Paper, Preference, Journal, Author, CustomUser, PaperEvent, ViewerComment
+from .models import Paper, Preference, Journal, Author, CustomUser, PaperEvent, ViewerComment, EventReaction
 from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
 from .forms import PaperForm, EditPaperForm, EventForm
@@ -264,8 +264,27 @@ def add_comment_to_event(request, event_pk=None):
 
     return redirect('paper_detail', pk=paper_pk)
 
-# @login_required
-# def like_event(request, vc_pk=None):
+@login_required
+def react_event(request, event_pk=None):
+    pe = get_object_or_404(PaperEvent, pk = event_pk)
+    paper_pk = pe.paper.pk
+    user = request.user
+    reaction, _ = EventReaction.objects.get_or_create(user=user, paperevent=pe)
+    user_reaction = request.GET.get('submit')
+    if user_reaction == 'like' and not reaction.likes:
+        reaction.likes = 1
+        likes = pe.likes + 1
+        pe.likes = likes
+    elif user_reaction == 'frown' and not reaction.frown:
+        reaction.frown = 1
+        frowns = pe.frowns + 1
+        pe.frowns = frowns
+    reaction.save()
+    pe.save()
+    return redirect('paper_detail', pk=paper_pk)
+
+
+
 #     vc = ViewerComment(pk=vc_pk)
     
 #     user = request.user
