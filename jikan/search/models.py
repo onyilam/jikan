@@ -101,8 +101,11 @@ class ViewerComment(models.Model):
 
 
 class EventReaction(models.Model):
+    """
+    stores the user level reaction to event
+    """
     user = ForeignKey(settings.AUTH_USER_MODEL, related_name="event_reaction", on_delete=CASCADE, null=True)
-    paperevent = ForeignKey(PaperEvent, on_delete=CASCADE, null=True)
+    paperevent = ForeignKey(PaperEvent, on_delete=CASCADE, null=True, related_name="reaction")
     likes = IntegerField(null=True, validators=[
             MaxValueValidator(1)
         ])

@@ -268,7 +268,6 @@ def add_comment_to_event(request, event_pk=None):
 def react_event(request):
     event_pk = request.GET['event_pk']
     pe = get_object_or_404(PaperEvent, pk = event_pk)
-    paper_pk = pe.paper.pk
     user = request.user
     reaction, _ = EventReaction.objects.get_or_create(user=user, paperevent=pe)
     user_reaction = request.GET['submit']
@@ -276,7 +275,7 @@ def react_event(request):
         reaction.likes = 1
         likes = pe.likes + 1
         pe.likes = likes
-    elif user_reaction == 'frown' and not reaction.frown:
+    elif user_reaction == 'frown' and not reaction.frowns:
         reaction.frown = 1
         frowns = pe.frowns + 1
         pe.frowns = frowns
@@ -287,27 +286,6 @@ def react_event(request):
 
 
 
-#     vc = ViewerComment(pk=vc_pk)
-    
-#     user = request.user
-#     pref, _ = Preference.objects.get_or_create(user=user, paper=paper)
-#     # if there is no record of the user on the paper, incrrement the pref and likes of the paper
-#     if not pref.value:
-#         likes = paper.likes + 1
-#         value = 1
-#     # maximum allowable likes is 10 per person.
-#     elif pref.value < 10:
-#         likes = paper.likes + 1
-#         value = pref.value + 1
-#     else:
-#         likes = paper.likes 
-#         value = pref.value 
-#     pref.value = value  
-#     pref.save()
-#     paper.likes = likes
-#     paper.save()
-#     data = {'likes': paper.likes}
-#     return JsonResponse(data)
 
 
 #
