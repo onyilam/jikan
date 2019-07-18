@@ -12,6 +12,27 @@ $(".comment_btn").click(function() {
 </script>
 <script>
     $(document).ready(function(){
+      $(".like_event").click(function(){
+            var event_pk = $(this).data('pid')
+            var submit = 'like'
+            $.ajax({
+                type: "GET",
+                data: {'event_pk': event_pk,
+                       'submit': 'like' },
+                url: "{% url 'search:react_event' %}",
+                success: function(response) {
+                    $("#event_like_count_"+ event_pk).html(response.event_like_count)
+                },
+                error: function(response, error) {
+                    alert(error);
+                }
+            });
+        });
+      });
+</script>
+
+<script>
+    $(document).ready(function(){
       $(".like_button").click(function(){
             var pk = $(this).data('pid')
             $.ajax({
@@ -239,19 +260,33 @@ $(document).ready(function(){
                       {% endif %}
 
 
-                      <div class="comment_btn" data-pid="{{event.pk}}">
+                      <div class="comment_btn" data-pid="{{event.pk}}" style="display: inline-block">
                          <p class="text-secondary">{{ event.event_comments.count }} comment(s) <br> </p>
                       </div>
+
+                      <div id="event_like_count_{{event.pk}}" style="display: inline-block"> 
+                          <p class="text-secondary">{{ event.event_reaction.likes }} like(s) <br> </p>
+                       </div>
                         
+                       <div id="event_frown_count_{{event.pk}}" style="display: inline-block"> 
+                          <p class="text-secondary">{{ event.event_reaction.frowns }} frown(s) <br> </p>
+                       </div>
+                      
+                       <br>
                       <div class="comment_btn" data-pid="{{event.pk}}" style="display: inline-block"> 
                         <i class="fa fa-commenting-o" aria-hidden="true"></i> Comment  
                       </div>
+                      
+                      <a href="#" class="like_event" data-pid="{{event.pk}}">
                             <i class="fa fa-thumbs-o-up" aria-hidden="true"> </i> Like 
+                          </a>
+                      <a href="#" class="frown_event" data-pid="{{ event.pk }}">
                             <i class="fa fa-frown-o" aria-hidden="true"></i> Frown 
+                      </a>
                           
                      
 
-                      <div id="comment_field_{{event.pk }}" style="display:none;" >
+                      <div id="comment_field_{{event.pk }" style="display:none;" >
                         <p style="line-height: 50%;"> <br></p>
                             <form id="add_comment" action="{% url 'search:add_comment_to_event' event_pk=event.pk %}" method="GET" value="{{request.GET.comment}}">
                                 <input type="text" class="form-control" id="textInput" name="comment" value="{{request.GET.comment}}" placeholder="Add a comment..." />

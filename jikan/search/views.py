@@ -265,12 +265,13 @@ def add_comment_to_event(request, event_pk=None):
     return redirect('paper_detail', pk=paper_pk)
 
 @login_required
-def react_event(request, event_pk=None):
+def react_event(request):
+    event_pk = request.GET['event_pk']
     pe = get_object_or_404(PaperEvent, pk = event_pk)
     paper_pk = pe.paper.pk
     user = request.user
     reaction, _ = EventReaction.objects.get_or_create(user=user, paperevent=pe)
-    user_reaction = request.GET.get('submit')
+    user_reaction = request.GET['submit']
     if user_reaction == 'like' and not reaction.likes:
         reaction.likes = 1
         likes = pe.likes + 1
@@ -281,7 +282,8 @@ def react_event(request, event_pk=None):
         pe.frowns = frowns
     reaction.save()
     pe.save()
-    return redirect('paper_detail', pk=paper_pk)
+    data = {'event_like_count': pe.likes, 'event_frown_count': pe.frowns}
+    return JsonResponse(data)
 
 
 
