@@ -35,11 +35,11 @@ class EditPaperForm(PaperForm):
         fields = ('title', 'abstract', 'status', 'document', 'authors')
 
 
-class AddEventForm(ModelForm):
+class EventForm(ModelForm):
     class Meta:
         model = PaperEvent
         fields = '__all__'
-        exclude = ('paper',)
+        exclude = ('paper', 'likes', 'frowns')
         widgets = {
           'comment': forms.Textarea(attrs={'rows':4, 'cols':15}),
         }
@@ -48,6 +48,6 @@ class AddEventForm(ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(AddEventForm, self).__init__(*args, **kwargs)
+        super(EventForm, self).__init__(*args, **kwargs)
         self.fields['comment'].required = False
         self.fields['document'].required = False
