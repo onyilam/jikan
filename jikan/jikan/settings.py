@@ -26,7 +26,8 @@ SECRET_KEY = 'k+97=&hs4949pu@tc&s+)9!glb2vmt7ld!1@rdj(pcq6lhksjy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['jicount-env.r6yjmefmvf.us-east-1.elasticbeanstalk.com',
+ALLOWED_HOSTS = ['www.jicount.com',
+                 'jicount-env.r6yjmefmvf.us-east-1.elasticbeanstalk.com',
                  '127.0.0.1']
 
 # Application definition
