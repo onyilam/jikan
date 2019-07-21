@@ -17,6 +17,6 @@ class CustomUser(AbstractUser):
     position = models.CharField(max_length=100, null=True, choices=POSITION_OPTIONS)
     research_area = models.TextField(null=True)
 
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = ['email']
 
 CustomUser.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])

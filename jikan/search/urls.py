@@ -7,7 +7,7 @@ urlpatterns = [
      url(r'^$', views.searchpaper, name='search_paper'),
      url(r'event/(?P<event_pk>\d+)/comment', views.add_comment_to_event, name='add_comment_to_event'),
      url(r'like/$', views.like_paper, name='like_paper'),
-     url(r'event/(?P<event_pk>\d+)/react', views.react_event, name='react_event'),
+     url(r'event/react', views.react_event, name='react_event'),
      path('paper/<int:pk>/', views.paper_detail, name='paper_detail'),
      url(r'^load/', views.load_paper, name='load_paper'),
      url(r'^edit/(?P<pk>\d+)/', views.edit_paper, name='edit_paper'),
@@ -21,5 +21,5 @@ urlpatterns = [
      url(r'^ajax_calls/search/', views.autocompletePaper),
      path('profile/<int:pk>/', views.view_user, name="view_user"),
      path('', views.HomePageView.as_view(), name='home'),
-     url(r'add/$', views.add_paper, name='add_paper'),
+     url(r'addpaper/$', views.add_paper, name='add_paper'),
 ]

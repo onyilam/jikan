@@ -21,7 +21,7 @@
           {% if user.is_authenticated %}
           <ul class="nav navbar-nav navbar-right">
             <div>
-            <span class="navbar-brand value-brand"><a href= "{% url 'search:view_user' pk=user.pk %}">{{user.first_name}} </a></span>
+            <span class="navbar-brand value-brand"><a href= "{% url 'search:view_user' pk=user.pk %}">{{user.email}} </a></span>
             <a href="{% url 'account_logout' %}" title="Logout" class="btn btn-default navbar-btn navbar-right">Logout</a>
             </div>
           </ul>
