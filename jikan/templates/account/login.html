@@ -14,9 +14,9 @@
   {% get_providers as socialaccount_providers %}
 
   {% if socialaccount_providers %}
-  <p class="lead">{% blocktrans with site.name as site_name %}Please sign in with
-  your Google account. Or, <a href="{{ signup_url }}">sign up</a>
-  for a Jikan account and sign in below:{% endblocktrans %}</p>
+  <p class="lead">Please sign in with
+  your <a href="{% provider_login_url 'google' %}">Google</a> account. Or, <a href="{{ signup_url }}">sign up</a>
+  for a Jicount account and sign in below:</p>
 
 
   <!-- <div class="socialaccount_ballot">
