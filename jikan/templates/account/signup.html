@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
 {% load i18n %}
 
 {% block title %}{% trans "Signup" %}{% endblock %}
@@ -22,6 +23,7 @@
   {% endif %}
   <button class="btn btn-default" type="submit">{% trans "Sign Up" %} &raquo;</button>
 </form>
+<p class="lead">Or sign up directly using <a href="{% provider_login_url 'google' %}"> Gmail</a>.</p>
 
 </div>
 

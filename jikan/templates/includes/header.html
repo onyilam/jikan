@@ -12,7 +12,7 @@
         </button>
       </div>
       <div class="collapse navbar-collapse" id="header-menu">
-        <a href="{% url 'home' %}" class="navbar-brand value-brand">Jikan</a>
+        <a href="{% url 'home' %}" class="navbar-brand value-brand">Jicount</a>
         <ul class="nav navbar-nav">
             <li><a href="{% url 'pages:about' %}">About</a></li>
         </ul>
@@ -31,7 +31,7 @@
         {% else %}
           <a href="{% url 'account_login' %}" title="Login" class="btn btn-default navbar-btn navbar-right">Login</a>
           <a href="{% url 'account_signup' %}" title="Sign up" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 5px;">Sign up</a>
-            <a href="{% provider_login_url 'google' %}" title="Sign Up With Gmail" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 5px;">Log In with Gmail</a>
+            
         {% endif %}
       </div>
 
