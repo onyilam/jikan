@@ -61,7 +61,15 @@ $(".comment_btn").click(function() {
                        'liked': $("span").hasClass('fa fa-thumbs-up') },
                 url: "{% url 'search:like_paper' %}",
                 success: function(response) {
+                  if (response.authenticated=='true')
+                  {
                     $("#like_count_"+ pk).html(response.likes )
+                    console.log('liked');
+                  }
+                  else if (response.authenticated=='false')
+                  {
+                    window.location.assign("/accounts/login");
+                  }
                 },
                 error: function(response, error) {
                     alert(error);
@@ -130,25 +138,7 @@ $(document).ready(function(){
     });
 	});
 </script>
-<script>
-    $(document).ready(function(){
-      $(".sim_button").click(function(){
-            var pk = $(this).data('pid')
-            $.ajax({
-                type: "GET",
-                data: {'pk': $(this).data('pid')},
-                url: "{% url 'search:get_recommendation' %}",
-                success: function(response) {
-                    $("#sim_paper").html(response.rec_list + ", "+ response.rec_journal).css({ 'font-weight': 'bold' })
-                    console.log($("#sim_" + pk))
-                },
-                error: function(response, error) {
-                    alert(error);
-                }
-            });
-        });
-      });
-</script>
+
 
 {% endblock %}
 
@@ -225,7 +215,7 @@ $(document).ready(function(){
         {% if can_edit %}
         <div style="text-align: center;">
           <a href="#" id="add_event" data-pid={{ paper.pk }}>
-             <p class= "lead"> <span class="fa fa-plus" align="center"></span>  Enter a new paper milestone </p>
+             <p class= "lead"> <span class="fa fa-plus" align="center"></span>  New paper activity </p>
           </a>
         </div>
 

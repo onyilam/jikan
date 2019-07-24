@@ -73,30 +73,36 @@ def add_paper(request):
         form = PaperForm()
     return render(request, 'add_paper.html', {'form': form})
 
-@login_required(login_url='/accounts/login/')
+# @login_required(login_url='/accounts/login/')
 def like_paper(request):
-    # if request.method == "GET":
-    pid = request.GET['pk']
-    user = request.user
-    paper = Paper.objects.get(pk=pid)
-    pref, _ = Preference.objects.get_or_create(user=user, paper=paper)
-    # if there is no record of the user on the paper, incrrement the pref and likes of the paper
-    if not pref.value:
-        likes = paper.likes + 1
-        value = 1
-    # maximum allowable likes is 10 per person.
-    elif pref.value < 10:
-        likes = paper.likes + 1
-        value = pref.value + 1
+    if request.user.is_authenticated:
+        # if request.method == "GET":
+        pid = request.GET['pk']
+        user = request.user
+        paper = Paper.objects.get(pk=pid)
+        pref, _ = Preference.objects.get_or_create(user=user, paper=paper)
+        # if there is no record of the user on the paper, incrrement the pref and likes of the paper
+        if not pref.value:
+            likes = paper.likes + 1
+            value = 1
+        # maximum allowable likes is 10 per person.
+        elif pref.value < 10:
+            likes = paper.likes + 1
+            value = pref.value + 1
+        else:
+            likes = paper.likes 
+            value = pref.value 
+        pref.value = value  
+        pref.save()
+        paper.likes = likes
+        paper.save()
+        data = {'likes': paper.likes, 'authenticated': 'true' }
+        print('authenticated', data)
+        return JsonResponse(data)
     else:
-        likes = paper.likes 
-        value = pref.value 
-    pref.value = value  
-    pref.save()
-    paper.likes = likes
-    paper.save()
-    data = {'likes': paper.likes}
-    return JsonResponse(data)
+        data = {'authenticated': 'false' }
+        print('unauthen', data)
+        return JsonResponse(data)
 
 def autocompletePaper(request):
     if request.is_ajax():
