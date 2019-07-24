@@ -48,12 +48,12 @@
 {% block fullwidthheader %}
     <section class="features">
     <div class="container" style="text-align:center">
-    <h2>Get Feedback for Your Paper. And Give Feedback too.</h2>
+    <h1>Your Path to Publication.</h1>
     <br>
 
       <div class="col-lg-8 col-lg-offset-2" >
           <p class="lead">
-              <strong>Jikan</strong> is a platform for open, transparent discussion to help researchers improve their work. To get started, simply sign up, upload the title and abstract of your paper. 
+              <strong>Jicount</strong> is a platform for researchers to share their path to publication. It helps faciliate an open, transparent discussion to help researchers improve their work.  <br>
             </p> 
           <div class="form-group" style="text-align:center">
             <form id="search" action="{% url 'search:search_paper' %}" method="GET" value="{{request.GET.q}}">
@@ -61,7 +61,8 @@
             <input type="text"  class="form-control"  style="font-size: 12pt;" name="q" value="{{request.GET.q}}" placeholder="Paper Title" id="txtSearch" name="txtSearch"/><br>
             <button type="submit" class="btn btn-primary" name="submit" value="Search">Search</button>
             </form>
-            <p> <a href="{% url 'add_paper' %}" >Add your paper </a></h4> </p>
+            <p class='lead'>To get started, simply sign up, upload the title and abstract of your paper. <br>
+             <a href="{% url 'add_paper' %}" >Add your paper </a> </p>
             </div>
      
             

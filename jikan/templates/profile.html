@@ -49,10 +49,7 @@ $(document).ready(function(){
                         <p class="lead"><strong> url:</strong> <a href="{{ created_by.url }}"> {{ creator.url}} </a> </p>
                         <p class="lead"><strong> Position:</strong> {{ creator.get_position_display }} </p>
                           <p class="lead"><strong>Research Area: </strong>
-                            <span class="tags"> </span>
-                            <span class="tags"></span>
-                            <span class="tags"></span>
-                            <span class="tags"></span>
+                            <span class="tags"> {{creator.research_area}} </span>
                         </p>
                         <p class="lead"> <strong>Papers Uploaded:</strong> </p>
                           {% for paper in creator.papers.all %}
