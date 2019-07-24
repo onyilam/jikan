@@ -73,7 +73,6 @@ def add_paper(request):
         form = PaperForm()
     return render(request, 'add_paper.html', {'form': form})
 
-# @login_required(login_url='/accounts/login/')
 def like_paper(request):
     if request.user.is_authenticated:
         # if request.method == "GET":
@@ -270,24 +269,26 @@ def add_comment_to_event(request, event_pk=None):
 
     return redirect('paper_detail', pk=paper_pk)
 
-@login_required
 def react_event(request):
-    event_pk = request.GET['event_pk']
-    pe = get_object_or_404(PaperEvent, pk = event_pk)
-    user = request.user
-    reaction, _ = EventReaction.objects.get_or_create(user=user, paperevent=pe)
-    user_reaction = request.GET['submit']
-    if user_reaction == 'like' and not reaction.likes:
-        reaction.likes = 1
-        likes = pe.likes + 1
-        pe.likes = likes
-    elif user_reaction == 'frown' and not reaction.frowns:
-        reaction.frown = 1
-        frowns = pe.frowns + 1
-        pe.frowns = frowns
-    reaction.save()
-    pe.save()
-    data = {'event_like_count': pe.likes, 'event_frown_count': pe.frowns}
+    if request.user.is_authenticated:
+        event_pk = request.GET['event_pk']
+        pe = get_object_or_404(PaperEvent, pk = event_pk)
+        user = request.user
+        reaction, _ = EventReaction.objects.get_or_create(user=user, paperevent=pe)
+        user_reaction = request.GET['submit']
+        if user_reaction == 'like' and not reaction.likes:
+            reaction.likes = 1
+            likes = pe.likes + 1
+            pe.likes = likes
+        elif user_reaction == 'frown' and not reaction.frowns:
+            reaction.frown = 1
+            frowns = pe.frowns + 1
+            pe.frowns = frowns
+        reaction.save()
+        pe.save()
+        data = {'event_like_count': pe.likes, 'event_frown_count': pe.frowns, 'authenticated': 'true'}
+    else:
+        data = {'authenticated': 'false'}
     return JsonResponse(data)
 
 

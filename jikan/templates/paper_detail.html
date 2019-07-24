@@ -21,7 +21,13 @@ $(".comment_btn").click(function() {
                        'submit': 'like' },
                 url: "{% url 'search:react_event' %}",
                 success: function(response) {
+                  if (response.authenticated=='true'){
                     $("#event_like_count_"+ event_pk).html(response.event_like_count)
+                  }
+                  else if (response.authenticated=='false')
+                  {
+                    window.location.assign("/accounts/login");
+                  } 
                 },
                 error: function(response, error) {
                     alert(error);
@@ -41,7 +47,14 @@ $(".comment_btn").click(function() {
                        'submit': 'frown' },
                 url: "{% url 'search:react_event' %}",
                 success: function(response) {
+                  if (response.authenticated=='true')
+                  {
                     $("#event_frown_count_"+ event_pk).html(response.event_frown_count)
+                  }
+                  else if (response.authenticated=='false')
+                  {
+                    window.location.assign("/accounts/login");
+                  } 
                 },
                 error: function(response, error) {
                     alert(error);
@@ -64,7 +77,6 @@ $(".comment_btn").click(function() {
                   if (response.authenticated=='true')
                   {
                     $("#like_count_"+ pk).html(response.likes )
-                    console.log('liked');
                   }
                   else if (response.authenticated=='false')
                   {
