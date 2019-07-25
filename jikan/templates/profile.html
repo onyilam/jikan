@@ -35,7 +35,7 @@ $(document).ready(function(){
                 <div class="col-sm-12">
                     {% if can_edit %}
                   <button type='button' class="btn btn-primary" data-toggle="modal" data-target="#modal" id="myBtn" data-pid= {{creator.pk}} >Edit Profile</button>
-
+                  <button type="button" class="btn btn-primary"  onclick="location.href='{% url 'add_paper' %}'"  > Add a new paper </button>
                   <!-- Modal -->
                   <div class="modal fade" id="myModal" role="dialog" data-pid={{ creator.pk }}> {% csrf_token %}
                     <div class="modal-dialog">
