@@ -54,10 +54,20 @@ def get_recommendation(request):
 def paper_detail(request, pk):
     paper = get_object_or_404(Paper, pk=pk)
     can_edit=False
+    paper_liked=False
     events = PaperEvent.objects.filter(paper=paper).order_by("-date")
     if request.user==paper.created_by:
          can_edit=True
-    context = {'paper': paper, 'can_edit': can_edit, 'events': events}
+    # check if paper has been liked by the user, if so return true to paper_liekd
+    if Preference.objects.filter(paper=paper, user=request.user).exists():
+        paper_liked=True
+    #if there has been reactions for the event, return them in a list
+    return_list=[]
+    if EventReaction.objects.filter(paperevent__in=paper.events.all(), user=request.user):
+        for reaction in EventReaction.objects.filter(paperevent__in=paper.events.all(), user=request.user):
+            return_list.append((reaction.event, reaction.likes, reaction.frowns))
+
+    context = {'paper': paper, 'can_edit': can_edit, 'events': events, 'event_reaction': return_list}
     return render(request, 'paper_detail.html', context)
 
 @login_required

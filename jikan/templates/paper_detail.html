@@ -3,6 +3,7 @@
 {% load widget_tweaks %}
 {% block javascript%}
 <script src="http://malsup.github.com/jquery.form.js"></script>
+
 <script>
 $(".comment_btn").click(function() {
   var event_pk = $(this).data('pid')
@@ -13,6 +14,7 @@ $(".comment_btn").click(function() {
 <script>
     $(document).ready(function(){
       $(".like_event").click(function(){
+            var _this = $(this);
             var event_pk = $(this).data('pid')
             var submit = 'like'
             $.ajax({
@@ -23,6 +25,8 @@ $(".comment_btn").click(function() {
                 success: function(response) {
                   if (response.authenticated=='true'){
                     $("#event_like_count_"+ event_pk).html(response.event_like_count)
+                    _this.find('i').removeClass('fa fa-thumbs-o-up');
+                    _this.find('i').addClass('fa fa-thumbs-up');
                   }
                   else if (response.authenticated=='false')
                   {
@@ -39,6 +43,7 @@ $(".comment_btn").click(function() {
 <script>
     $(document).ready(function(){
       $(".frown_event").click(function(){
+            var _this = $(this);
             var event_pk = $(this).data('pid')
             var submit = 'frown'
             $.ajax({
@@ -50,6 +55,8 @@ $(".comment_btn").click(function() {
                   if (response.authenticated=='true')
                   {
                     $("#event_frown_count_"+ event_pk).html(response.event_frown_count)
+                    _this.find('i').removeClass('fa fa-frown-o');
+                    _this.find('i').addClass('fa fa-frown');
                   }
                   else if (response.authenticated=='false')
                   {
@@ -71,7 +78,7 @@ $(".comment_btn").click(function() {
             $.ajax({
                 type: "GET",
                 data: {'pk': pk,
-                       'liked': $("span").hasClass('fa fa-thumbs-up') },
+                       'liked': $("span").hasClass('fa fa-thumbs-o-up') },
                 url: "{% url 'search:like_paper' %}",
                 success: function(response) {
                   if (response.authenticated=='true')
@@ -169,8 +176,8 @@ $(document).ready(function(){
     {% endif %}
     </p>
     <p class="h5 text-muted">  Status: {{paper.get_status_display}} </p>
-    <a href="#" class="like_button" data-pid="{{ paper.pk }}">
-      <span class="like_span fa fa-thumbs-up fa-2x"></span>
+    <a href="#" class="like_button" data-pid="{{ paper.pk }}" style="text-decoration: none;">
+      <span class="like_span fa fa-thumbs-o-up fa-2x " ></span>
         <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong>
     </a>
 
@@ -292,17 +299,17 @@ $(document).ready(function(){
                         
                        <div style="display: inline-block"> 
                           <strong id="event_frown_count_{{event.pk}}"> {{ event.frowns }} </strong> <span class="text-secondary">frown(s)  </span><br> 
-                         </div>
+                        </div>
                       
                        <br>
                       <div class="comment_btn" data-pid="{{event.pk}}" style="display: inline-block"> 
                         <i class="fa fa-commenting-o" aria-hidden="true"></i> Comment  
                       </div>
                       
-                      <a href="#" class="like_event" data-pid="{{event.pk}}">
-                            <i class="fa fa-thumbs-o-up" aria-hidden="true"> </i> Like 
+                      <a href="#" class="like_event" data-pid="{{event.pk}}" style="text-decoration: none;" >
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"  > </i> Like 
                           </a>
-                      <a href="#" class="frown_event" data-pid="{{ event.pk }}">
+                      <a href="#" class="frown_event" data-pid="{{ event.pk }}" style="text-decoration: none;">
                             <i class="fa fa-frown-o" aria-hidden="true"></i> Frown 
                       </a>
                           
