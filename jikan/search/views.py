@@ -291,7 +291,7 @@ def react_event(request):
             likes = pe.likes + 1
             pe.likes = likes
         elif user_reaction == 'frown' and not reaction.frowns:
-            reaction.frown = 1
+            reaction.frowns = 1
             frowns = pe.frowns + 1
             pe.frowns = frowns
         reaction.save()
