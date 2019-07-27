@@ -74,6 +74,7 @@ $(".comment_btn").click(function() {
 <script>
     $(document).ready(function(){
       $(".like_button").click(function(){
+            var _this = $(this);
             var pk = $(this).data('pid')
             $.ajax({
                 type: "GET",
@@ -84,6 +85,8 @@ $(".comment_btn").click(function() {
                   if (response.authenticated=='true')
                   {
                     $("#like_count_"+ pk).html(response.likes )
+                    _this.find('span').removeClass('like_span fa fa-thumbs-o-up fa-2x');
+                    _this.find('span').addClass('like_span fa fa-thumbs-up fa-2x');
                   }
                   else if (response.authenticated=='false')
                   {
@@ -176,8 +179,14 @@ $(document).ready(function(){
     {% endif %}
     </p>
     <p class="h5 text-muted">  Status: {{paper.get_status_display}} </p>
+
     <a href="#" class="like_button" data-pid="{{ paper.pk }}" style="text-decoration: none;">
-      <span class="like_span fa fa-thumbs-o-up fa-2x " ></span>
+
+      {% if paper_liked %}
+      <span class="like_span fa fa-thumbs-up fa-2x" ></span>
+      {% else %}
+      <span class="like_span fa fa-thumbs-o-up fa-2x" ></span>
+      {% endif %}
         <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong>
     </a>
 
@@ -309,6 +318,8 @@ $(document).ready(function(){
                       <a href="#" class="like_event" data-pid="{{event.pk}}" style="text-decoration: none;" >
                             <i class="fa fa-thumbs-o-up" aria-hidden="true"  > </i> Like 
                           </a>
+
+                          <!-- if request.user. -->
                       <a href="#" class="frown_event" data-pid="{{ event.pk }}" style="text-decoration: none;">
                             <i class="fa fa-frown-o" aria-hidden="true"></i> Frown 
                       </a>

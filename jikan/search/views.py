@@ -67,8 +67,11 @@ def paper_detail(request, pk):
         if EventReaction.objects.filter(paperevent__in=paper.events.all(), user=request.user):
             for reaction in EventReaction.objects.filter(paperevent__in=paper.events.all(), user=request.user):
                 return_list.append((reaction.paperevent, reaction.likes, reaction.frowns))
+    
+    print('event_reaction', return_list)
 
-    context = {'paper': paper, 'can_edit': can_edit, 'events': events, 'event_reaction': return_list}
+    context = {'paper': paper, 'can_edit': can_edit, 'events': events, 
+               'paper_liked': paper_liked, 'event_reaction': return_list}
     return render(request, 'paper_detail.html', context)
 
 @login_required
