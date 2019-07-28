@@ -65,13 +65,22 @@ def paper_detail(request, pk):
             paper_liked=True
         #if there has been reactions for the event, return them in a list
         if EventReaction.objects.filter(paperevent__in=paper.events.all(), user=request.user):
-            for reaction in EventReaction.objects.filter(paperevent__in=paper.events.all(), user=request.user):
-                return_list.append((reaction.paperevent, reaction.likes, reaction.frowns))
-    
-    print('event_reaction', return_list)
+            for event in events:
+                event.userliked=False
+                event.userfrowned=False
+                event.save()
+                for reaction in EventReaction.objects.filter(paperevent=event, user=request.user):
+                    if (reaction.likes>0):
+                        event.userliked=True
+                        event.save()
+                    if (reaction.frowns>0):
+                        event.userfrowned=True
+                        event.save()
+            print(event, event.userliked)
+                    
 
     context = {'paper': paper, 'can_edit': can_edit, 'events': events, 
-               'paper_liked': paper_liked, 'event_reaction': return_list}
+               'paper_liked': paper_liked}
     return render(request, 'paper_detail.html', context)
 
 @login_required

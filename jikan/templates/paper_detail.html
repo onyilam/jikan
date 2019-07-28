@@ -297,12 +297,13 @@ $(document).ready(function(){
                         </a>
                       {% endif %}
 
-
                       <div class="comment_btn" data-pid="{{event.pk}}" style="display: inline-block">
                          <p class="text-secondary">{{ event.event_comments.count }} comment(s) <br> </p>
                       </div>
 
                       <div style="display: inline-block"> 
+                      
+                      
                         <strong id="event_like_count_{{event.pk}}"> {{ event.likes }} </strong> <span class="text-secondary">like(s)  </span><br> 
                        </div>
                         
@@ -316,12 +317,21 @@ $(document).ready(function(){
                       </div>
                       
                       <a href="#" class="like_event" data-pid="{{event.pk}}" style="text-decoration: none;" >
-                            <i class="fa fa-thumbs-o-up" aria-hidden="true"  > </i> Like 
+                          {% if event.userliked %}
+                          <i class="fa fa-thumbs-up" aria-hidden="true"  > </i> 
+                          {% else %}
+                          <i class="fa fa-thumbs-o-up" aria-hidden="true"  > </i> 
+                            {% endif %}
+                            Like 
                           </a>
 
-                          <!-- if request.user. -->
                       <a href="#" class="frown_event" data-pid="{{ event.pk }}" style="text-decoration: none;">
-                            <i class="fa fa-frown-o" aria-hidden="true"></i> Frown 
+                          {% if event.userfrowned %}
+                            <i class="fa fa-frown" aria-hidden="true"></i> 
+                          {% else %}
+                            <i class="fa fa-frown-o" aria-hidden="true"></i> 
+                            {% endif %}
+                          Frown 
                       </a>
                           
                      
