@@ -57,6 +57,9 @@ class Author(models.Model):
 
 
 class Preference(models.Model):
+    """
+    information about the users' preference for paper
+    """
     user = ForeignKey(settings.AUTH_USER_MODEL, related_name="preference", on_delete=CASCADE, null=True)
     paper = ForeignKey(Paper, on_delete=CASCADE, null=True)
     value = IntegerField(null=True, validators=[
@@ -106,12 +109,8 @@ class EventReaction(models.Model):
     """
     user = ForeignKey(settings.AUTH_USER_MODEL, related_name="event_reaction", on_delete=CASCADE, null=True)
     paperevent = ForeignKey(PaperEvent, on_delete=CASCADE, null=True, related_name="reaction")
-    likes = IntegerField(null=True, validators=[
-            MaxValueValidator(1)
-        ])
-    frowns = IntegerField(null=True, validators=[
-            MaxValueValidator(1)
-        ])
+    likes = IntegerField(default=0)
+    frowns = IntegerField(default=0)
     date = DateTimeField(auto_now=True)
 
 

@@ -55,8 +55,8 @@ $(".comment_btn").click(function() {
                   if (response.authenticated=='true')
                   {
                     $("#event_frown_count_"+ event_pk).html(response.event_frown_count)
-                    _this.find('i').removeClass('fa fa-frown-o');
-                    _this.find('i').addClass('fa fa-frown');
+                    _this.find('i').removeClass('fa fa-thumbs-o-down');
+                    _this.find('i').addClass('fa fa-thumbs-down');
                   }
                   else if (response.authenticated=='false')
                   {
@@ -315,26 +315,25 @@ $(document).ready(function(){
                       <div class="comment_btn" data-pid="{{event.pk}}" style="display: inline-block"> 
                         <i class="fa fa-commenting-o" aria-hidden="true"></i> Comment  
                       </div>
-                      
-                      <a href="#" class="like_event" data-pid="{{event.pk}}" style="text-decoration: none;" >
+                    
                           {% if event.userliked %}
                           <i class="fa fa-thumbs-up" aria-hidden="true"  > </i> 
                           {% else %}
+                          <a href="#" class="like_event" data-pid="{{event.pk}}" style="text-decoration: none;" >
                           <i class="fa fa-thumbs-o-up" aria-hidden="true"  > </i> 
                             {% endif %}
                             Like 
                           </a>
-
-                      <a href="#" class="frown_event" data-pid="{{ event.pk }}" style="text-decoration: none;">
+                      
                           {% if event.userfrowned %}
-                            <i class="fa fa-frown" aria-hidden="true"></i> 
+                            <i class="fa fa-thumbs-down" aria-hidden="true"></i> 
                           {% else %}
-                            <i class="fa fa-frown-o" aria-hidden="true"></i> 
+                          <a href="#" class="frown_event" data-pid="{{ event.pk }}" style="text-decoration: none;">
+                            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 
                             {% endif %}
                           Frown 
-                      </a>
-                          
-                     
+                          </a>  
+                        
 
                       <div id="comment_field_{{event.pk}}" style="display:none;" >
                         <p style="line-height: 50%;"> <br></p>
