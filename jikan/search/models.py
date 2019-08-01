@@ -27,7 +27,7 @@ class Paper(models.Model):
     recommend = ManyToManyField('self', null=True)
     likes = IntegerField(default=0)
     dislikes = IntegerField(default=0)
-    document = FileField(upload_to='documents/', null=True)
+    document = FileField(null=True)
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     modified_date = models.DateTimeField(auto_now=True, null= True)
     created_by = ForeignKey(settings.AUTH_USER_MODEL,
