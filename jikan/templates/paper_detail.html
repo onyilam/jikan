@@ -189,6 +189,12 @@ $(document).ready(function(){
       {% endif %}
         <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong>
     </a>
+    <br>
+    {% if paper.document %}
+    <a href="{{ paper.document.url }}"> 
+        <span class="fa fa-file-o fa-2x" ></span> Read Paper
+    </a>
+    {% endif %}
 
     <br>
     <p class="h5 text-muted">    Abstract: </p>
