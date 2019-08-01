@@ -12,22 +12,25 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from unipath import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+#base dir path /Users/onyi.lam/Documents/jikan/jikan
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'k+97=&hs4949pu@tc&s+)9!glb2vmt7ld!1@rdj(pcq6lhksjy'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['www.jicount.com',
                  'jicount-env.r6yjmefmvf.us-east-1.elasticbeanstalk.com',
+                 'jicount.r6yjmefmvf.us-east-1.elasticbeanstalk.com',
                  '127.0.0.1']
 
 # Application definition
@@ -52,9 +55,16 @@ INSTALLED_APPS = [
     'pages',
     'users',
     'search',
+    'storages'
     #'users.apps.UsersConfig',
-
 ]
+
+AWS_STORAGE_BUCKET_NAME = 'jicount-media'
+AWS_ACCESS_KEY_ID =  os.getenv("AKIAUC54KPEQGEMJCKIX")
+AWS_SECRET_ACCESS_KEY =  os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_DEFAULT_ACL = None # Use Bucket defaults
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -155,12 +165,21 @@ USE_TZ = True
 #PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 #STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 PROJECT_DIR = Path(__file__).parent
-STATIC_ROOT = PROJECT_DIR.parent.parent.child('static')
+STATIC_ROOT = os.path.join(BASE_DIR,"www", "static")
+#STATIC_ROOT = PROJECT_DIR.parent.parent.child('static') 
+# this is the Static Root that works locally: /Users/onyi.lam/Documents/jikan/static
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
+# STATICFILES_DIRS = (
+#     PROJECT_DIR.child('static'),
+#     os.path.join(BASE_DIR, "static"),
+#     'static',
+# )
+# this is the StaticFILES_DIRS that works locally: /Users/onyi.lam/Documents/jikan/static
+
+STATICFILES_DIRS =(
     PROJECT_DIR.child('static'),
     os.path.join(BASE_DIR, "static"),
-    'static',
+    'static'
 )
 
 TEMPLATE_DIRS = (
