@@ -4,6 +4,7 @@
 {% block javascript%}
 <script src="http://malsup.github.com/jquery.form.js"></script>
 
+
 <script>
 $(".comment_btn").click(function() {
   var event_pk = $(this).data('pid')
@@ -297,10 +298,14 @@ $(document).ready(function(){
                         {{event.comment}}
                         <br>
                         <br>
-                      {% if event.document %}
-                      <a href={{event.document.url}} target="_blank">
-                        <i class="fa fa-file" aria-hidden="true" style="color:black"></i>
-                        </a>
+                      {% if event.attachments %}
+
+                        {% for attachment in event.attachments.all %}
+                          <a href="{{attachment.file.url}}" target="_blank">
+                            <i class="fa fa-file" aria-hidden="true" style="color:black"></i>
+                          </a>
+                        {% endfor %}
+                      
                       {% endif %}
 
                       <div class="comment_btn" data-pid="{{event.pk}}" style="display: inline-block">

@@ -79,10 +79,15 @@ class PaperEvent(models.Model):
     date = DateTimeField(null=True, help_text="format (mm/dd/yyyy)")
     event = CharField(max_length=50, null=True, choices=EVENT_OPTIONS)
     comment = TextField()
-    document = FileField(upload_to='documents/', null=True)
     likes = IntegerField(default=0)
     frowns = IntegerField(default=0)
 
+class Attachment(models.Model):
+    """
+    Stores the attachment associated with each paper activity. for example, user can upload multiple referee reports to a single event
+    """
+    event = ForeignKey(PaperEvent, on_delete=models.CASCADE, related_name="attachments")
+    file = FileField(upload_to='documents/', null=True)
 
 class ViewerComment(models.Model):
     """

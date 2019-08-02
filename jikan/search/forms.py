@@ -1,13 +1,8 @@
-from .models import Paper, ViewerComment, Author, PaperEvent
+from .models import Paper, ViewerComment, Author, PaperEvent, Attachment
 from django.forms import ModelForm, ModelChoiceField, MultipleChoiceField
 from django import forms
 from dal.autocomplete import ModelSelect2
-#from floppyforms.widgets import input
-
-# class CommentForm(ModelForm):
-#     class Meta:
-#         model = Comment
-#         fields = ('venue', 'text',)
+from multiupload.fields import MultiFileField
 
 
 class PaperForm(ModelForm):
@@ -46,8 +41,16 @@ class EventForm(ModelForm):
         help_texts = {
             'date': 'MM/DD/YYYY',
         }
+    
+    files = MultiFileField(min_num=1, max_num=5)
 
     def __init__(self, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
         self.fields['comment'].required = False
-        self.fields['document'].required = False
+        self.fields['files'].required = False
+
+    def save(self, commit=True):
+        instance = super(EventForm, self).save(commit)
+        for each in self.cleaned_data['files']:
+            Attachment.objects.create(file=each, event=instance)
+        return instance
