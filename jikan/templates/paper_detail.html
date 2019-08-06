@@ -4,7 +4,16 @@
 {% block javascript%}
 <script src="http://malsup.github.com/jquery.form.js"></script>
 
-
+<script>
+    $(".paper_like_count").click(function() {
+      alert('hi');
+      $.ajax({
+        success: function(response){
+          alert('hi');
+        }
+      })
+    });
+</script>
 <script>
 $(".comment_btn").click(function() {
   var event_pk = $(this).data('pid')
@@ -188,8 +197,9 @@ $(document).ready(function(){
       {% else %}
       <span class="like_span fa fa-thumbs-o-up fa-2x" ></span>
       {% endif %}
-        <strong id="like_count_{{ paper.pk }}"> {{paper.likes}} </strong>
     </a>
+        <strong class="paper_like_count"  data-pid="{{ paper.pk }}" id="like_count_{{ paper.pk }}" > {{paper.likes}} </strong>
+    
     <br>
     {% if paper.document %}
     <a href="{{ paper.document.url }}"> 

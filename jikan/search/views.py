@@ -314,20 +314,11 @@ def react_event(request):
         data = {'authenticated': 'false'}
     return JsonResponse(data)
 
+def show_paper_likes(request):
+    if request.user.is_authenticated:
+        paper_id = request.GET['pk']
+        liked_users = Preference.objects.filter(paper=paper_id).values('user').distinct()
+        context = {'liked_users': liked_users}
+        return render(request, 'show_likes_modal.html', context)
+        
 
-
-
-
-#
-# class JournalAutocomplete(autocomplete.Select2QuerySetView):
-#     def get_queryset(self):
-#         # Don't forget to filter out results depending on the visitor !
-#         #if not self.request.user.is_authenticated():
-#         #    return Paper.objects.none()
-#
-#         qs = Journal.objects.all()
-#
-#         if self.q:
-#             qs = qs.filter(name__icontains=self.q).distinct().order_by('name')
-#
-#         return qs
