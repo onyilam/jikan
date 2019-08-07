@@ -14,8 +14,7 @@
   {% get_providers as socialaccount_providers %}
 
   {% if socialaccount_providers %}
-  <p class="lead">Please sign in with
-  your <a href="{% provider_login_url 'google' %}">Google</a> account. Or, <a href="{{ signup_url }}">sign up</a>
+  <p class="lead">Please sign in below. Or, <a href="{% url 'signup' %}">sign up</a>
   for a Jicount account and sign in below:</p>
 
 
@@ -36,8 +35,7 @@
 {% include "socialaccount/snippets/login_extra.html" %}
 
 {% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+
 {% endif %}
 
 <form class="login" method="POST" action="{% url 'account_login' %}">
