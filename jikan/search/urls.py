@@ -6,6 +6,7 @@ urlpatterns = [
      url(r'recommendation/$', views.get_recommendation, name='get_recommendation'),
      url(r'^$', views.searchpaper, name='search_paper'),
      url(r'event/(?P<event_pk>\d+)/comment', views.add_comment_to_event, name='add_comment_to_event'),
+     url(r'show_like/$', views.show_paper_likes, name='show_paper_likes'),
      url(r'like/$', views.like_paper, name='like_paper'),
      url(r'event/react', views.react_event, name='react_event'),
      path('paper/<int:pk>/', views.paper_detail, name='paper_detail'),

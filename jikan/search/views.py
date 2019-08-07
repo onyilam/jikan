@@ -318,7 +318,10 @@ def show_paper_likes(request):
     if request.user.is_authenticated:
         paper_id = request.GET['pk']
         liked_users = Preference.objects.filter(paper=paper_id).values('user').distinct()
-        context = {'liked_users': liked_users}
+        total_likes = Paper.objects.get(pk=paper_id).likes
+        
+        context = {'liked_users': liked_users, 'total_likes': total_likes}
+        print('liked_users', liked_users)
         return render(request, 'show_likes_modal.html', context)
         
 

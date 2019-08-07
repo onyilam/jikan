@@ -5,18 +5,52 @@
 <script src="http://malsup.github.com/jquery.form.js"></script>
 
 <script>
+   $(document).ready(function(){
     $(".paper_like_count").click(function() {
-      alert('hi');
-      $.ajax({
-        success: function(response){
-          alert('hi');
-        }
-      })
+      var pk = $(this).data('pid');
+      $("#paper_like_display_modal").modal("show");
+    });
+    $("#paper_like_display_modal").on('show.bs.modal', function(event){
+        var modal = $(this)
+        var pk = $(this).data('pid')
+        $.ajax({
+            data: {'pk': pk},
+            url: "{% url 'search:show_paper_likes' %}",
+            context: document.body,
+            error: function(response, error) {
+                alert(error);
+            }
+        }).done(function(response) {
+            modal.html(response);
+        });
+      });
     });
 </script>
 <script>
+    $(document).ready(function(){
+      $("#myBtn").click(function(){
+        var pk = $(this).data('pid')
+        $("#myModal").modal("show");
+      });
+      $("#myModal").on('show.bs.modal', function(event){
+        var modal = $(this)
+        var pk = $(this).data('pid')
+        $.ajax({
+            data: {'pk': pk},
+            url: "{% url 'search:load_paper' %}",
+            context: document.body,
+            error: function(response, error) {
+                alert(error);
+            }
+        }).done(function(response) {
+            modal.html(response);
+        });
+      });
+    });
+    </script>
+  
+<script>
 $(".comment_btn").click(function() {
-  var event_pk = $(this).data('pid')
   $("#comment_field_"+event_pk).show();
 
 });
@@ -110,28 +144,7 @@ $(".comment_btn").click(function() {
         });
       });
 </script>
-<script>
-$(document).ready(function(){
-  $("#myBtn").click(function(){
-    var pk = $(this).data('pid')
-    $("#myModal").modal("show");
-  });
-  $("#myModal").on('show.bs.modal', function(event){
-    var modal = $(this)
-    var pk = $(this).data('pid')
-    $.ajax({
-        data: {'pk': pk},
-        url: "{% url 'search:load_paper' %}",
-        context: document.body,
-        error: function(response, error) {
-            alert(error);
-        }
-    }).done(function(response) {
-        modal.html(response);
-    });
-  });
-});
-</script>
+
 <script>
 $(document).ready(function(){
   $("#add_event").click(function(){
@@ -198,7 +211,15 @@ $(document).ready(function(){
       <span class="like_span fa fa-thumbs-o-up fa-2x" ></span>
       {% endif %}
     </a>
-        <strong class="paper_like_count"  data-pid="{{ paper.pk }}" id="like_count_{{ paper.pk }}" > {{paper.likes}} </strong>
+        <a href="#" strong class="paper_like_count"  data-pid="{{ paper.pk }}" id="like_count_{{ paper.pk }}"> 
+          {{paper.likes}} 
+        </strong>
+        </a>
+
+        <div class="modal fade" id="paper_like_display_modal" role="dialog" data-pid={{paper.pk}}> {% csrf_token %}
+            <div class="modal-dialog">
+            </div>
+          </div>
     
     <br>
     {% if paper.document %}
