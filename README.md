@@ -1,8 +1,7 @@
 # Jikan
 
-A web platform that allows user to upload their papers to seek comments and allow them to track paper progress. Also built in features such as similar papers recommendation, and other user engagement features. Django + Ajax + Bootstrap.
+A platform that allows user to upload their papers to seek comments and allow them to track paper progress.  www.jicount.com
 
-www.jicount.com
 
 ## Paper Recommendation
 
