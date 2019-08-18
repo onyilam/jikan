@@ -1,4 +1,4 @@
-# Jikan
+# Jicount
 
 A platform that allows user to upload their papers to seek comments and allow them to track paper progress.  www.jicount.com
 
